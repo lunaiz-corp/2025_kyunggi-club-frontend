@@ -1,5 +1,5 @@
 {
-  "name": "@packages/tailwindcss-config",
+  "name": "@packages/happytalk",
   "private": "true",
   "dependencies": {
     "@packages/eslint-config": "workspace:^"

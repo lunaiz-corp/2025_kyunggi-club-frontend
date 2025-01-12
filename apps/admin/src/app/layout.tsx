@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import { Toaster } from "react-hot-toast"
 
 import ProgressBarProvider from "@packages/ui/components/ProgressBar"
+import Happytalk from "@packages/happytalk/component"
+
 import "@/styles/globals.css"
 
 export const metadata: Metadata = {
@@ -21,12 +23,14 @@ export default function RootLayout({
       <head>
         <link
           rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+          href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css"
         />
       </head>
       <body className="antialiased">
         <ProgressBarProvider>{children}</ProgressBarProvider>
         <Toaster />
+
+        <Happytalk />
       </body>
     </html>
   )

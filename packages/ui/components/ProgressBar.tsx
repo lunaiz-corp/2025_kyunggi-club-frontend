@@ -13,7 +13,7 @@ export default function ProgressBarProvider({
 
       <ProgressBar
         height="2px"
-        color="#2452db"
+        color="#65a3f5"
         options={{ showSpinner: false }}
       />
     </>

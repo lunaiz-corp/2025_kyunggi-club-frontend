@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 :root {
+  --cerulean-blue-50: #eff6ff;
+  --cerulean-blue-100: #dceafd;
+  --cerulean-blue-200: #c1dafc;
+  --cerulean-blue-300: #96c4fa;
+  --cerulean-blue-400: #65a3f5;
+  --cerulean-blue-500: #4181f0;
+  --cerulean-blue-600: #2b63e5;
+  --cerulean-blue-700: #2452db;
+  --cerulean-blue-800: #2241ab;
+  --cerulean-blue-900: #213b87;
+  --cerulean-blue-950: #192552;
 }
 
 body {
