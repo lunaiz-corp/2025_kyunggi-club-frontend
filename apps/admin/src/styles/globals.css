@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+}
+
+body {
+  @apply bg-zinc-50 text-zinc-900;
+  font-family: "Wanted Sans Variable", "Wanted Sans", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    @apply bg-zinc-900 text-zinc-50;
+  }
+}
