@@ -3,7 +3,7 @@ import Link from "next/link"
 
 import { usePathname } from "next/navigation"
 
-import UnionLogo from "@packages/assets/images/union-logo.png"
+import UnionLogo from "@packages/assets/images/union-logo.svg"
 
 // ---
 import HomeIcon from "@/assets/icons/home.svg"
@@ -95,11 +95,9 @@ export default function Navbar() {
   return (
     <div className="h-dvh overflow-y-auto w-80 bg-gradient-to-b from-[#1c3c9d] to-ceruleanBlue-700 py-14 pl-8 pr-6">
       <Link href="/dashboard" className="flex gap-3 pl-3">
-        <Image
-          src={UnionLogo}
-          width={29}
-          height={41}
-          alt="경기고등학교 이공계동아리연합 로고"
+        <UnionLogo
+          className="h-[42px]"
+          title="경기고등학교 이공계동아리연합 로고"
         />
 
         <div className="inline-flex flex-col gap-0.5 text-left">

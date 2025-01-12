@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useRouter } from "next-nprogress-bar"
 
-import UnionLogo from "@packages/assets/images/union-logo.png"
+import UnionLogo from "@packages/assets/images/union-logo.svg"
 
 export default function Signin() {
   const router = useRouter()
@@ -20,11 +20,9 @@ export default function Signin() {
     >
       <div className="flex w-full flex-col gap-5">
         <div className="flex gap-[14px]">
-          <Image
-            src={UnionLogo}
-            width={30}
-            height={48}
-            alt="경기고등학교 이공계동아리연합 로고"
+          <UnionLogo
+            className="h-12"
+            title="경기고등학교 이공계동아리연합 로고"
           />
 
           <div className="inline-flex flex-col gap-0.5 text-left">
