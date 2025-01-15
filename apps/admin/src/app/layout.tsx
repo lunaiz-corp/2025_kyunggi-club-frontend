@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Toaster } from "react-hot-toast"
 
 import ProgressBarProvider from "@packages/ui/components/ProgressBar"
-import Happytalk from "@packages/happytalk/component"
+import Happytalk from "@packages/channelio/component"
 
 import "@/styles/globals.css"
 

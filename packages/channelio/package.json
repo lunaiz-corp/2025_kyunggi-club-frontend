@@ -1,7 +1,8 @@
 {
-  "name": "@packages/happytalk",
+  "name": "@packages/channelio",
   "private": "true",
   "dependencies": {
+    "@channel.io/channel-web-sdk-loader": "^2.0.0",
     "@packages/eslint-config": "workspace:^"
   }
 }

@@ -10,7 +10,7 @@
   "dependencies": {
     "@packages/assets": "workspace:^",
     "@packages/eslint-config": "workspace:^",
-    "@packages/happytalk": "workspace:^",
+    "@packages/channelio": "workspace:^",
     "@packages/tailwindcss-config": "workspace:^",
     "@packages/ui": "workspace:^"
   }

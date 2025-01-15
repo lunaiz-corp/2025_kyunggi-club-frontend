@@ -136,18 +136,14 @@ export default function Navbar() {
         ))}
       </div>
 
-      <div className="mt-12 p-4 rounded-md border border-[#eff6ff]/75 flex-col justify-center items-start gap-2 inline-flex">
+      <div className="mt-12 w-full p-4 rounded-md border border-[#eff6ff]/75 flex-col justify-center items-start gap-2 inline-flex">
         <span className="text-ceruleanBlue-50 text-sm font-bold">
           로그 실시간 기록 중
         </span>
 
         <span className="text-ceruleanBlue-50 text-xs">
-          해당 화면에서 진행하는 모든 활동은
-          <br />
-          내 계정 (minsu.kim@lunaiz.com)과
-          <br />
-          현재 접속한 IP (255.255.255.255)가
-          <br />
+          해당 화면에서 진행하는 모든 활동은 내 계정
+          (minsu.kim@lunaiz.com)과 현재 접속한 IP (255.255.255.255)가
           함께 기록되고 있습니다.
         </span>
       </div>
