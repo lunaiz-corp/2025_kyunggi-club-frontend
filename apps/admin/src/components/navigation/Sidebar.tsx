@@ -1,4 +1,3 @@
-import Image from "next/image"
 import Link from "next/link"
 
 import { usePathname } from "next/navigation"
@@ -21,7 +20,7 @@ import PencilIcon from "@/assets/icons/pencil.svg"
 import ChatIcon from "@/assets/icons/chat.svg"
 // ---
 
-export default function Navbar() {
+export default function Sidebar() {
   const pathname = usePathname()
 
   const ROUTES: {
@@ -93,7 +92,7 @@ export default function Navbar() {
   }
 
   return (
-    <div className="h-dvh overflow-y-auto w-80 bg-gradient-to-b from-[#1c3c9d] to-ceruleanBlue-700 py-14 pl-8 pr-6">
+    <div className="h-dvh w-80 shrink-0 overflow-y-auto bg-gradient-to-b from-[#1c3c9d] to-ceruleanBlue-700 py-14 pl-8 pr-6">
       <Link href="/dashboard" className="flex gap-3 pl-3">
         <UnionLogo
           className="h-[42px]"
@@ -113,19 +112,18 @@ export default function Navbar() {
       <div className="mt-12 flex flex-col gap-7">
         {Object.entries(ROUTES).map(([key, value]) => (
           <div key={key} className="flex flex-col gap-3">
-            <span className="text-ceruleanBlue-50 text-sm font-bold">
+            <span className="text-sm font-bold text-ceruleanBlue-50">
               {key}
             </span>
 
             {value.map(route => (
               <Link key={route.href} href={route.href}>
                 <div
-                  className={
-                    "inline-flex h-11 w-full items-center gap-3 rounded-md px-4 py-3 " +
-                    (pathname.startsWith(route.href)
-                      ? "bg-ceruleanBlue-50 text-ceruleanBlue-700 fill-ceruleanBlue-700"
-                      : "bg-transparent text-ceruleanBlue-50 fill-ceruleanBlue-50 hover:bg-[#eff6ff]/[.05]")
-                  }
+                  className={`inline-flex h-11 w-full items-center gap-3 rounded-md px-4 py-3 ${
+                    pathname.startsWith(route.href)
+                      ? "bg-ceruleanBlue-50 fill-ceruleanBlue-700 text-ceruleanBlue-700"
+                      : "bg-transparent fill-ceruleanBlue-50 text-ceruleanBlue-50 hover:bg-[#eff6ff]/[.05]"
+                  }`}
                 >
                   <route.icon className="size-5" />
                   <span className="font-bold">{route.name}</span>
@@ -136,12 +134,12 @@ export default function Navbar() {
         ))}
       </div>
 
-      <div className="mt-12 w-full p-4 rounded-md border border-[#eff6ff]/75 flex-col justify-center items-start gap-2 inline-flex">
-        <span className="text-ceruleanBlue-50 text-sm font-bold">
+      <div className="mt-12 inline-flex w-full flex-col items-start justify-center gap-2 rounded-md border border-[#eff6ff]/75 p-4">
+        <span className="text-sm font-bold text-ceruleanBlue-50">
           로그 실시간 기록 중
         </span>
 
-        <span className="text-ceruleanBlue-50 text-xs">
+        <span className="text-xs text-ceruleanBlue-50">
           해당 화면에서 진행하는 모든 활동은 내 계정
           (minsu.kim@lunaiz.com)과 현재 접속한 IP (255.255.255.255)가
           함께 기록되고 있습니다.

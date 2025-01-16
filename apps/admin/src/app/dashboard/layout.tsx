@@ -3,7 +3,8 @@
 import { useEffect } from "react"
 // import { useRouter } from "next-nprogress-bar"
 
-import Navbar from "@/components/Navbar"
+import Sidebar from "@/components/navigation/Sidebar"
+import Topbar from "@/components/navigation/Topbar"
 
 export default function DashboardLayout({
   // Layouts must accept a children prop.
@@ -23,8 +24,12 @@ export default function DashboardLayout({
 
   return (
     <main className="flex">
-      <Navbar />
-      {children}
+      <Sidebar />
+
+      <div className="max-h-dvh w-full overflow-y-auto px-10 pt-8">
+        <Topbar />
+        {children}
+      </div>
     </main>
   )
 }
