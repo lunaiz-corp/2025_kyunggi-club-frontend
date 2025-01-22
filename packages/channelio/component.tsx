@@ -4,7 +4,7 @@ import { useEffect } from "react"
 
 import * as ChannelService from "@channel.io/channel-web-sdk-loader"
 
-export default function Happytalk() {
+export default function ChannelIO() {
   useEffect(() => {
     ChannelService.loadScript()
     ChannelService.boot({

@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Toaster } from "react-hot-toast"
 
 import ProgressBarProvider from "@packages/ui/components/ProgressBar"
-import Happytalk from "@packages/channelio/component"
+import ChannelIO from "@packages/channelio/component"
 
 import "@/styles/globals.css"
 
@@ -15,9 +15,9 @@ export default function RootLayout({
   // Layouts must accept a children prop.
   // This will be populated with nested layouts or pages
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
     <html lang="ko">
       <head>
@@ -30,7 +30,7 @@ export default function RootLayout({
         <ProgressBarProvider>{children}</ProgressBarProvider>
         <Toaster />
 
-        <Happytalk />
+        <ChannelIO />
       </body>
     </html>
   )

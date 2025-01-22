@@ -18,7 +18,7 @@ export default function Signin() {
       }}
     >
       <div className="flex w-full flex-col gap-5">
-        <div className="flex gap-[14px]">
+        <div className="flex items-center gap-[14px]">
           <UnionLogo
             className="h-12"
             title="경기고등학교 이공계동아리연합 로고"

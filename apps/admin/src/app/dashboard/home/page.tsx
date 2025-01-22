@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import SchedulesCalendar from "@packages/ui/components/schedules/Calendar"
 
 export const metadata: Metadata = {
   title: "홈 - 경기고등학교 이공계동아리연합",
@@ -90,7 +91,9 @@ export default function Home() {
             </span>
           </div>
 
-          <div className="h-80 w-[360px] rounded-xl border border-[#eff6ff]/10" />
+          <div className="w-[360px] rounded-xl border border-[#eff6ff]/10 p-5">
+            <SchedulesCalendar />
+          </div>
         </div>
       </div>
     </div>
