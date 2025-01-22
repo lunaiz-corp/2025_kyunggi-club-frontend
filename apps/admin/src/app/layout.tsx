@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Toaster } from "react-hot-toast"
 
 import ProgressBarProvider from "@packages/ui/components/ProgressBar"
-import ChannelIO from "@packages/channelio/component"
+import ChannelIO from "@packages/channelio"
 
 import "@/styles/globals.css"
 

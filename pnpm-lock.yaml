@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@airtake/browser':
+        specifier: ^0.4.1
+        version: 0.4.1
       '@heroicons/react':
         specifier: ^2.2.0
         version: 2.2.0(react@19.0.0)
@@ -108,6 +111,9 @@ importers:
 
   apps/admin:
     dependencies:
+      '@packages/airtake':
+        specifier: workspace:^
+        version: link:../../packages/airtake
       '@packages/assets':
         specifier: workspace:^
         version: link:../../packages/assets
@@ -126,6 +132,9 @@ importers:
 
   apps/www:
     dependencies:
+      '@packages/airtake':
+        specifier: workspace:^
+        version: link:../../packages/airtake
       '@packages/assets':
         specifier: workspace:^
         version: link:../../packages/assets
@@ -141,6 +150,12 @@ importers:
       '@packages/ui':
         specifier: workspace:^
         version: link:../../packages/ui
+
+  packages/airtake:
+    dependencies:
+      '@packages/eslint-config':
+        specifier: workspace:^
+        version: link:../eslint-config
 
   packages/assets: {}
 
@@ -178,6 +193,9 @@ importers:
         version: link:../tailwindcss-config
 
 packages:
+
+  '@airtake/browser@0.4.1':
+    resolution: {integrity: sha512-B1iA0e46+BNgNzy+PZhF6Y/XrdTGmwiFW5veWdVh6Pq8A9YnKHdp/IhJ61ZWx3eNlIoIITygicLfOvG21b94GQ==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -2273,6 +2291,11 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  nanoid@5.0.9:
+    resolution: {integrity: sha512-Aooyr6MXU6HpvvWXKoVoXwKMs/KyVakWwg7xQfv5/S/RIgJMy0Ifa45H9qqYy7pTCszrHzP21Uk4PZq2HpEM8Q==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
@@ -2916,6 +2939,10 @@ packages:
     engines: {node: '>=10'}
 
 snapshots:
+
+  '@airtake/browser@0.4.1':
+    dependencies:
+      nanoid: 5.0.9
 
   '@alloc/quick-lru@5.2.0': {}
 
@@ -5309,6 +5336,8 @@ snapshots:
       thenify-all: 1.6.0
 
   nanoid@3.3.8: {}
+
+  nanoid@5.0.9: {}
 
   natural-compare@1.4.0: {}
 

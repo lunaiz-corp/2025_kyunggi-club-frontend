@@ -1,0 +1,8 @@
+{
+    "name": "@packages/airtake",
+    "private": "true",
+    "dependencies": {
+      "@packages/eslint-config": "workspace:^"
+    }
+  }
+  

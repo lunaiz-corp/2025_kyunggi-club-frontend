@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@packages/airtake": "workspace:^",
     "@packages/assets": "workspace:^",
     "@packages/channelio": "workspace:^",
     "@packages/eslint-config": "workspace:^",
