@@ -1,137 +1,101 @@
 "use client"
 
-import Link from "next/link"
+import {
+  ArrowTopRightOnSquareIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/20/solid"
+
+import { ALink } from "@packages/ui/components/krds/Link"
 
 import UnionLogo from "@packages/assets/images/union-logo.svg"
 
-function openFtc(e: React.MouseEvent<HTMLAnchorElement>) {
-  e.preventDefault()
-
-  if (
-    !window.open(
-      e.currentTarget.href,
-      "communicationViewPopup",
-      "width=750, height=700;",
-    )
-  ) {
-    // eslint-disable-next-line no-alert
-    alert("팝업 차단을 해제해주세요.")
-  }
-}
-
 export default function Footer() {
   return (
-    <footer className="mx-auto mt-12 flex w-full max-w-[1200px] gap-11 py-12">
-      <div>
-        <Link href="/" className="flex items-center gap-[12px]">
-          <UnionLogo
-            className="h-[32px]"
-            title="경기고등학교 이공계동아리연합 로고"
-          />
+    <footer className="flex flex-col gap-16 max-w-[1248px] mx-auto pt-20 pb-12">
+      <div className="flex items-center gap-[12px]">
+        <UnionLogo
+          className="h-[48px]"
+          title="경기고등학교 이공계동아리연합 로고"
+        />
 
-          <div className="inline-flex flex-col gap-0.5 text-left">
-            <span className="text-[10px] font-bold leading-[normal] text-gray-100">
-              경기고등학교
-            </span>
-            <span className="text-[16px] font-bold leading-[normal] text-gray-100">
-              이공계동아리연합
-            </span>
-          </div>
-        </Link>
+        <div className="inline-flex flex-col gap-0.5 text-left">
+          <span className="text-[13px] font-bold leading-[normal] text-gray-100">
+            경기고등학교
+          </span>
+          <span className="text-2xl font-bold leading-[normal] text-gray-100">
+            이공계동아리연합
+          </span>
+        </div>
       </div>
 
-      <div className="flex flex-col gap-8">
-        <div className="inline-flex gap-8 text-sm text-gray-100">
-          <a
-            href="https://cs-kg.schooler.kr"
-            className="font-medium"
-            target="_blank"
-            rel="noopener"
-          >
-            고객센터
-          </a>
+      <div className="flex justify-between gap-10">
+        <ul className="flex flex-col gap-1">
+          <li className="flex gap-2 items-center">
+            <strong>대표전화</strong>
+            <ALink href="tel:+827000000000" className="font-bold">
+              070-0000-0000
+            </ALink>
+          </li>
 
-          <a
-            href="https://cs-kg.schooler.kr/legal/tos"
-            className="font-medium"
-            target="_blank"
-            rel="noopener"
-          >
-            서비스 이용약관
-          </a>
+          <li className="flex gap-2 items-center">
+            <strong>문의 이메일</strong>
+            <ALink href="mailto:support@kyunggi.club">
+              support@kyunggi.club
+            </ALink>
+          </li>
+        </ul>
 
-          <a
-            href="https://cs-kg.schooler.kr/legal/privacy"
-            className="font-extrabold"
-            target="_blank"
-            rel="noopener"
-          >
-            개인정보 처리방침
-          </a>
+        <div className="flex flex-col gap-16">
+          <div className="flex flex-col gap-2 h-full mr-2">
+            <ALink
+              href="https://cs-kg.schooler.kr"
+              className="font-medium !gap-3"
+              target="_blank"
+              rel="noopener"
+            >
+              고객센터{" "}
+              <ArrowTopRightOnSquareIcon className="size-6" />
+            </ALink>
 
-          <a
-            href="https://cs-kg.schooler.kr/legal/stop-spam"
-            className="font-medium"
-            target="_blank"
-            rel="noopener"
-          >
-            이메일 주소 무단 수집거부
-          </a>
+            <ALink
+              href="https://cs-kg.schooler.kr/legal/tos"
+              className="font-medium"
+              target="_blank"
+              rel="noopener"
+            >
+              서비스 이용약관 <ChevronRightIcon className="size-6" />
+            </ALink>
+
+            <ALink
+              href="https://cs-kg.schooler.kr/legal/privacy"
+              className="font-medium"
+              target="_blank"
+              rel="noopener"
+            >
+              개인정보 처리방침{" "}
+              <ChevronRightIcon className="size-6" />
+            </ALink>
+          </div>
         </div>
+      </div>
 
-        <div className="inline-flex flex-col gap-2.5">
-          <span className="text-xs font-extralight text-ceruleanBlue-100">
-            <span className="inline-flex items-center gap-1.5 leading-normal">
-              <span>상호명 : 루나이즈</span>
-              <span>|</span>
+      <div className="flex flex-col pt-6 gap-3 border-t border-gray-200">
+        <p className="text-sm text-gray-300 inline-flex items-center gap-1.5 leading-normal">
+          <span>상호명 : 루나이즈</span>
+          <span>|</span>
 
-              <span>대표자 : 손지민</span>
-              <span>|</span>
+          <span>사업자등록번호 : 123-45-56789</span>
+          <span>|</span>
 
-              <span>
-                사업자등록번호 :{" "}
-                <a
-                  href="http://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=1234567889"
-                  className="hover:underline"
-                  title="통신판매업 신고 확인 페이지로 이동"
-                  data-disable-nprogress
-                  onClick={openFtc}
-                >
-                  123-45-56789
-                </a>
-              </span>
-              <span>|</span>
+          <span>대표자 : 손지민</span>
+          <span>|</span>
 
-              <span>
-                통신판매업 신고번호 :{" "}
-                <a
-                  href="http://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=1234567889"
-                  className="hover:underline"
-                  title="통신판매업 신고 확인 페이지로 이동"
-                  data-disable-nprogress
-                  onClick={openFtc}
-                >
-                  제 2025-서울서초-0000
-                </a>
-              </span>
-              <span>|</span>
+          <span>주소 : 서울특별시 서초구 나루터로 46</span>
+        </p>
 
-              <span>
-                고객센터 :{" "}
-                <a
-                  className="font-extrabold hover:underline"
-                  href="tel:+827000000000"
-                >
-                  070-0000-0000
-                </a>
-              </span>
-            </span>
-          </span>
-
-          <span className="text-xs font-extralight text-ceruleanBlue-100">
-            Copyright &copy; 2025 LUNAIZ Corp. All rights reserved.
-          </span>
-        </div>
+        <p className="text-sm text-gray-300">
+          © 2025 LUNAIZ Corp. All rights reserved.
+        </p>
       </div>
     </footer>
   )

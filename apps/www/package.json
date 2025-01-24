@@ -12,7 +12,6 @@
     "@packages/assets": "workspace:^",
     "@packages/channelio": "workspace:^",
     "@packages/eslint-config": "workspace:^",
-    "@packages/tailwindcss-config": "workspace:^",
     "@packages/ui": "workspace:^"
   }
 }

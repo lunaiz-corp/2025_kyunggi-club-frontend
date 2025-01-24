@@ -1,6 +1,6 @@
 import { Metadata } from "next"
-import Link from "next/link"
 
+import { NextLink } from "@packages/ui/components/krds/Link"
 import SchedulesCalendar from "@packages/ui/components/schedules/Calendar"
 
 export const metadata: Metadata = {
@@ -18,11 +18,9 @@ export default function Main() {
               선발 일정
             </h2>
 
-            <Link href="/schedule">
-              <span className="text-sm text-gray-100">
-                더보기
-              </span>
-            </Link>
+            <NextLink href="/schedule">
+              <span className="text-sm text-gray-100">더보기</span>
+            </NextLink>
           </div>
 
           <div className="flex w-full gap-8 rounded-xl border border-[#eff6ff]/10 px-6 py-4">
@@ -86,15 +84,16 @@ export default function Main() {
               공지사항
             </h2>
 
-            <Link href="/notice">
-              <span className="text-sm text-gray-100">
-                더보기
-              </span>
-            </Link>
+            <NextLink href="/notice">
+              <span className="text-sm text-gray-100">더보기</span>
+            </NextLink>
           </div>
 
           <div className="flex flex-col gap-4">
-            <Link href="/notice/1" className="flex justify-between">
+            <NextLink
+              href="/notice/1"
+              className="flex justify-between"
+            >
               <div className="inline-flex items-center gap-2.5">
                 <div className="size-1.5 rounded-full bg-ceruleanBlue-700" />
                 <span className="w-56 truncate text-lg font-semibold text-gray-100">
@@ -105,7 +104,7 @@ export default function Main() {
               <span className="text-right text-sm font-medium text-gray-100">
                 2025. 01. 01
               </span>
-            </Link>
+            </NextLink>
           </div>
         </div>
       </div>

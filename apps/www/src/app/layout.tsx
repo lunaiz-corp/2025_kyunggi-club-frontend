@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Toaster } from "react-hot-toast"
 
 import ProgressBarProvider from "@packages/ui/components/ProgressBar"
+import A11ySkipLink from "@packages/ui/components/krds/A11ySkipLink"
 
 import ChannelIO from "@packages/channelio"
 
@@ -32,11 +33,13 @@ export default function RootLayout({
       </head>
       <body className="bg-gray-950 text-gray-100 antialiased">
         <ProgressBarProvider>
+          <A11ySkipLink />
+
           <Navbar />
           {children}
           <Footer />
         </ProgressBarProvider>
-        
+
         <Toaster />
         <ChannelIO />
       </body>

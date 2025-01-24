@@ -1,3 +1,3 @@
-import postcssConfig from "@packages/tailwindcss-config/postcss.config.mjs"
+import postcssConfig from "@packages/ui/postcss.config.mjs"
 
 export default postcssConfig

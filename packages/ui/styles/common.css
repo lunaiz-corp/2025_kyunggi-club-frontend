@@ -1,0 +1,9 @@
+/* KRDS - Typography */
+body {
+  @apply text-base font-sans;
+}
+
+/* KRDS - Transition */
+* {
+  @apply transition ease-in-out duration-200;
+}

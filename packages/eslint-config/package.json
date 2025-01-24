@@ -1,7 +1,4 @@
 {
   "name": "@packages/eslint-config",
-  "private": "true",
-  "dependencies": {
-    "@packages/tailwindcss-config": "workspace:^"
-  }
+  "private": "true"
 }

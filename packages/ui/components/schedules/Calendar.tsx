@@ -102,6 +102,7 @@ export default function SchedulesCalendar() {
           return html
         }}
         // 버튼 숨기기
+        tileDisabled={() => true}
         showNavigation={false}
         // 이전 달 다음 달 보이지 않기
         showNeighboringMonth={false}
