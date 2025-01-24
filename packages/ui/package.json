@@ -6,7 +6,6 @@
   },
   "dependencies": {
     "@packages/assets": "workspace:^",
-    "@packages/eslint-config": "workspace:^",
-    "tailwind-merge": "^2.6.0"
+    "@packages/eslint-config": "workspace:^"
   }
 }

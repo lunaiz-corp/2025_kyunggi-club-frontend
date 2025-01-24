@@ -67,7 +67,7 @@ export default function Main() {
             </h2>
           </div>
 
-          <div className="h-80 rounded-xl bg-[#eff6ff]/10" />
+          <div className="h-80 rounded-xl bg-gray-100/10" />
         </div>
       </div>
 

@@ -6,7 +6,8 @@ import type {
 import type { UrlObject } from "url"
 
 import Link from "next/link"
-import { twMerge } from "tailwind-merge"
+
+import clsx from "clsx"
 
 const baseClass = [
   "inline-flex",
@@ -42,7 +43,7 @@ export function ALink({
     <a
       {...props}
       href={href}
-      className={twMerge(...baseClass, className)}
+      className={clsx(...baseClass, className)}
     >
       {children}
     </a>
@@ -64,7 +65,7 @@ export function NextLink({
     <Link
       {...props}
       href={href}
-      className={twMerge(...baseClass, className)}
+      className={clsx(...baseClass, className)}
     >
       {children}
     </Link>

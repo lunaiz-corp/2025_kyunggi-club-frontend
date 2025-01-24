@@ -50,7 +50,7 @@ export default function Topbar() {
             <UserIcon className="size-5" />
           </div>
 
-          <span className="font-semibold leading-tight">User</span>
+          <span className="leading-tight font-semibold">User</span>
         </div>
 
         <button

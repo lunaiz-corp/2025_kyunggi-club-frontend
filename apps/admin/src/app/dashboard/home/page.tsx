@@ -19,7 +19,7 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <div className="flex rounded-xl bg-[#eff6ff]/10">
+          <div className="flex rounded-xl bg-gray-100/10">
             <div className="inline-flex w-36 items-center justify-center gap-2.5 overflow-hidden rounded-l-xl bg-ceruleanBlue-700 py-7">
               <div className="text-lg font-bold text-blue-50">
                 이름
@@ -35,7 +35,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex rounded-xl bg-[#eff6ff]/10">
+          <div className="flex rounded-xl bg-gray-100/10">
             <div className="inline-flex w-36 items-center justify-center gap-2.5 overflow-hidden rounded-l-xl bg-ceruleanBlue-700 py-7">
               <div className="text-lg font-bold text-blue-50">
                 이름
@@ -51,7 +51,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex rounded-xl bg-[#eff6ff]/10">
+          <div className="flex rounded-xl bg-gray-100/10">
             <div className="inline-flex w-36 items-center justify-center gap-2.5 overflow-hidden rounded-l-xl bg-ceruleanBlue-700 py-7">
               <div className="text-lg font-bold text-blue-50">
                 이름
@@ -77,7 +77,7 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="h-80 rounded-xl bg-[#eff6ff]/10" />
+          <div className="h-80 rounded-xl bg-gray-100/10" />
         </div>
 
         <div className="flex flex-col gap-5">
@@ -86,9 +86,7 @@ export default function Home() {
               선발 일정
             </h2>
 
-            <span className="text-sm text-gray-100">
-              더보기
-            </span>
+            <span className="text-sm text-gray-100">더보기</span>
           </div>
 
           <div className="w-[360px] rounded-xl border border-[#eff6ff]/10 p-5">

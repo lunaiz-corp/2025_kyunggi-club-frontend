@@ -92,7 +92,7 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="h-dvh w-80 shrink-0 overflow-y-auto bg-gradient-to-b from-[#1c3c9d] to-ceruleanBlue-700 py-14 pl-8 pr-6">
+    <div className="h-dvh w-80 shrink-0 overflow-y-auto bg-gradient-to-b from-[#1c3c9d] to-ceruleanBlue-700 py-14 pr-6 pl-8">
       <Link href="/dashboard" className="flex gap-3 pl-3">
         <UnionLogo
           className="h-[42px]"
@@ -100,10 +100,10 @@ export default function Sidebar() {
         />
 
         <div className="inline-flex flex-col gap-0.5 text-left">
-          <span className="text-xs font-bold leading-[normal] text-gray-100">
+          <span className="text-xs leading-[normal] font-bold text-gray-100">
             경기고등학교
           </span>
-          <span className="text-xl font-bold leading-[normal] text-gray-100">
+          <span className="text-xl leading-[normal] font-bold text-gray-100">
             이공계동아리연합
           </span>
         </div>
@@ -122,7 +122,7 @@ export default function Sidebar() {
                   className={`inline-flex h-11 w-full items-center gap-3 rounded-md px-4 py-3 ${
                     pathname.startsWith(route.href)
                       ? "bg-ceruleanBlue-50 fill-ceruleanBlue-700 text-ceruleanBlue-700"
-                      : "bg-transparent fill-ceruleanBlue-50 text-gray-100 hover:bg-[#eff6ff]/[.05]"
+                      : "bg-transparent fill-ceruleanBlue-50 text-gray-100 hover:bg-gray-100/[.05]"
                   }`}
                 >
                   <route.icon className="size-5" />

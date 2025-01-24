@@ -11,18 +11,18 @@ import UnionLogo from "@packages/assets/images/union-logo.svg"
 
 export default function Footer() {
   return (
-    <footer className="flex flex-col gap-16 max-w-[1248px] mx-auto pt-20 pb-12">
-      <div className="flex items-center gap-[12px]">
+    <footer className="mx-auto flex max-w-[1248px] flex-col gap-16 pt-20 pb-12">
+      <div className="flex items-center gap-[14px]">
         <UnionLogo
-          className="h-[48px]"
+          className="h-[42px]"
           title="경기고등학교 이공계동아리연합 로고"
         />
 
         <div className="inline-flex flex-col gap-0.5 text-left">
-          <span className="text-[13px] font-bold leading-[normal] text-gray-100">
+          <span className="text-xs leading-[normal] font-bold text-gray-100">
             경기고등학교
           </span>
-          <span className="text-2xl font-bold leading-[normal] text-gray-100">
+          <span className="text-xl leading-[normal] font-bold text-gray-100">
             이공계동아리연합
           </span>
         </div>
@@ -30,14 +30,14 @@ export default function Footer() {
 
       <div className="flex justify-between gap-10">
         <ul className="flex flex-col gap-1">
-          <li className="flex gap-2 items-center">
+          <li className="flex items-center gap-2">
             <strong>대표전화</strong>
             <ALink href="tel:+827000000000" className="font-bold">
               070-0000-0000
             </ALink>
           </li>
 
-          <li className="flex gap-2 items-center">
+          <li className="flex items-center gap-2">
             <strong>문의 이메일</strong>
             <ALink href="mailto:support@kyunggi.club">
               support@kyunggi.club
@@ -46,10 +46,10 @@ export default function Footer() {
         </ul>
 
         <div className="flex flex-col gap-16">
-          <div className="flex flex-col gap-2 h-full mr-2">
+          <div className="mr-2 flex h-full flex-col gap-2">
             <ALink
               href="https://cs-kg.schooler.kr"
-              className="font-medium !gap-3"
+              className="!gap-3 font-medium"
               target="_blank"
               rel="noopener"
             >
@@ -79,8 +79,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex flex-col pt-6 gap-3 border-t border-gray-200">
-        <p className="text-sm text-gray-300 inline-flex items-center gap-1.5 leading-normal">
+      <div className="flex flex-col gap-3 border-t border-gray-200 pt-6">
+        <p className="inline-flex items-center gap-1.5 text-sm leading-normal text-gray-300">
           <span>상호명 : 루나이즈</span>
           <span>|</span>
 

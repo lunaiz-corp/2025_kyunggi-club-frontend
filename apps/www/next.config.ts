@@ -21,6 +21,10 @@ const nextConfig: NextConfig = {
     },
   },
 
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   transpilePackages: ["@packages/ui"],
   reactStrictMode: true,
 }

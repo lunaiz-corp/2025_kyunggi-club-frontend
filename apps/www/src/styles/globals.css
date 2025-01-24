@@ -1,6 +1,5 @@
 @import "@packages/ui/styles/tailwind.css";
+@import "@packages/ui/styles/common.css";
 
-@source "../app/*.{ts,tsx}";
-@source "../app/**/*.{ts,tsx}";
-@source "../../../../packages/ui/*.{ts,tsx}";
-@source "../../../../packages/ui/**/*.{ts,tsx}";
+@source "../app";
+@source "../../../../packages/ui/components";

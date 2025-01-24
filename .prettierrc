@@ -1,11 +1,19 @@
 {
   "printWidth": 70,
   "tabWidth": 2,
+
   "useTabs": false,
   "semi": false,
+
   "trailingComma": "all",
   "bracketSpacing": true,
+
   "arrowParens": "avoid",
   "proseWrap": "never",
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+
+  "plugins": ["prettier-plugin-tailwindcss"],
+  
+  "tailwindFunctions": ["clsx"],
+  "tailwindStylesheet": "./packages/ui/styles/tailwind.css"
 }

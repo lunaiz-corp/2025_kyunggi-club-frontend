@@ -27,8 +27,7 @@ const eslintConfig = [
     "next/core-web-vitals",
     "next/typescript",
     "plugin:prettier/recommended",
-    "prettier",
-    "plugin:tailwindcss/recommended",
+    "prettier"
   ),
   {
     plugins: {
@@ -45,13 +44,7 @@ const eslintConfig = [
         { extensions: [".js", ".ts", ".jsx", ".tsx"] },
       ],
       "import/extensions": "off",
-      "import/no-extraneous-dependencies": "off",
-      "tailwindcss/classnames-order": [
-        "warn",
-        {
-          officialSorting: true,
-        },
-      ],
+      "import/no-extraneous-dependencies": "off"
     },
 
     settings: {
