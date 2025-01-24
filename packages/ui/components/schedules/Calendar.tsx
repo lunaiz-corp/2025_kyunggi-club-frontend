@@ -46,7 +46,7 @@ function formatDate(
 export default function SchedulesCalendar() {
   return (
     <div className="flex w-full flex-col items-center gap-4">
-      <span className="font-bold text-ceruleanBlue-50">
+      <span className="font-bold text-gray-100">
         {formatDate("monthyear", new Date(), "ko-KR")}
       </span>
 

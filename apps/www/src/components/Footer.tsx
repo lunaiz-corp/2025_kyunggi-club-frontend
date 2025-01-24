@@ -30,10 +30,10 @@ export default function Footer() {
           />
 
           <div className="inline-flex flex-col gap-0.5 text-left">
-            <span className="text-[10px] font-bold leading-[normal] text-ceruleanBlue-50">
+            <span className="text-[10px] font-bold leading-[normal] text-gray-100">
               경기고등학교
             </span>
-            <span className="text-[16px] font-bold leading-[normal] text-ceruleanBlue-50">
+            <span className="text-[16px] font-bold leading-[normal] text-gray-100">
               이공계동아리연합
             </span>
           </div>
@@ -41,7 +41,7 @@ export default function Footer() {
       </div>
 
       <div className="flex flex-col gap-8">
-        <div className="inline-flex gap-8 text-sm text-ceruleanBlue-50">
+        <div className="inline-flex gap-8 text-sm text-gray-100">
           <a
             href="https://cs-kg.schooler.kr"
             className="font-medium"

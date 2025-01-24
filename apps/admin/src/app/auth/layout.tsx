@@ -18,7 +18,7 @@ export default function AuthLayout({
     <div className="relative min-h-dvh bg-gradient-to-b from-[#0072ff] to-ceruleanBlue-700">
       <LoginBackground className="h-dvh max-w-full object-contain" />
 
-      <div className="absolute right-0 top-0 size-full min-h-dvh bg-zinc-900/55 shadow-md backdrop-blur-2xl lg:w-[840px] lg:rounded-l-2xl">
+      <div className="absolute right-0 top-0 size-full min-h-dvh bg-gray-900/55 shadow-md backdrop-blur-2xl lg:w-[840px] lg:rounded-l-2xl">
         {children}
       </div>
     </div>

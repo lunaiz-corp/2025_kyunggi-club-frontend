@@ -12,10 +12,10 @@ export default function Navbar() {
         />
 
         <div className="inline-flex flex-col gap-0.5 text-left">
-          <span className="text-xs font-bold leading-[normal] text-ceruleanBlue-50">
+          <span className="text-xs font-bold leading-[normal] text-gray-100">
             경기고등학교
           </span>
-          <span className="text-xl font-bold leading-[normal] text-ceruleanBlue-50">
+          <span className="text-xl font-bold leading-[normal] text-gray-100">
             이공계동아리연합
           </span>
         </div>

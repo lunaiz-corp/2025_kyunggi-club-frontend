@@ -13,7 +13,7 @@ export default function Home() {
 
       <div className="flex flex-col gap-5">
         <div className="inline-flex items-center justify-between">
-          <h2 className="text-lg font-bold text-ceruleanBlue-50">
+          <h2 className="text-lg font-bold text-gray-100">
             지금 일어나고 있는 일들
           </h2>
         </div>
@@ -26,10 +26,10 @@ export default function Home() {
               </div>
             </div>
             <div className="inline-flex w-full items-center justify-between rounded-r-xl px-10">
-              <span className="font-semibold text-ceruleanBlue-50">
+              <span className="font-semibold text-gray-100">
                 제목
               </span>
-              <span className="text-right text-sm text-ceruleanBlue-50">
+              <span className="text-right text-sm text-gray-100">
                 일정 : 6월 12일 오후 11:59
               </span>
             </div>
@@ -42,10 +42,10 @@ export default function Home() {
               </div>
             </div>
             <div className="inline-flex w-full items-center justify-between rounded-r-xl px-10">
-              <span className="font-semibold text-ceruleanBlue-50">
+              <span className="font-semibold text-gray-100">
                 제목
               </span>
-              <span className="text-right text-sm text-ceruleanBlue-50">
+              <span className="text-right text-sm text-gray-100">
                 일정 : 6월 12일 오후 11:59
               </span>
             </div>
@@ -58,10 +58,10 @@ export default function Home() {
               </div>
             </div>
             <div className="inline-flex w-full items-center justify-between rounded-r-xl px-10">
-              <span className="font-semibold text-ceruleanBlue-50">
+              <span className="font-semibold text-gray-100">
                 제목
               </span>
-              <span className="text-right text-sm text-ceruleanBlue-50">
+              <span className="text-right text-sm text-gray-100">
                 일정 : 6월 12일 오후 11:59
               </span>
             </div>
@@ -72,7 +72,7 @@ export default function Home() {
       <div className="flex items-center justify-between gap-7">
         <div className="flex w-full flex-col gap-5">
           <div className="inline-flex items-center justify-between">
-            <h2 className="text-lg font-bold text-ceruleanBlue-50">
+            <h2 className="text-lg font-bold text-gray-100">
               경쟁률 리더보드
             </h2>
           </div>
@@ -82,11 +82,11 @@ export default function Home() {
 
         <div className="flex flex-col gap-5">
           <div className="inline-flex items-center justify-between">
-            <h2 className="text-lg font-bold text-ceruleanBlue-50">
+            <h2 className="text-lg font-bold text-gray-100">
               선발 일정
             </h2>
 
-            <span className="text-sm text-ceruleanBlue-50">
+            <span className="text-sm text-gray-100">
               더보기
             </span>
           </div>

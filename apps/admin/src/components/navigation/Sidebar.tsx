@@ -100,10 +100,10 @@ export default function Sidebar() {
         />
 
         <div className="inline-flex flex-col gap-0.5 text-left">
-          <span className="text-xs font-bold leading-[normal] text-ceruleanBlue-50">
+          <span className="text-xs font-bold leading-[normal] text-gray-100">
             경기고등학교
           </span>
-          <span className="text-xl font-bold leading-[normal] text-ceruleanBlue-50">
+          <span className="text-xl font-bold leading-[normal] text-gray-100">
             이공계동아리연합
           </span>
         </div>
@@ -112,7 +112,7 @@ export default function Sidebar() {
       <div className="mt-12 flex flex-col gap-7">
         {Object.entries(ROUTES).map(([key, value]) => (
           <div key={key} className="flex flex-col gap-3">
-            <span className="text-sm font-bold text-ceruleanBlue-50">
+            <span className="text-sm font-bold text-gray-100">
               {key}
             </span>
 
@@ -122,7 +122,7 @@ export default function Sidebar() {
                   className={`inline-flex h-11 w-full items-center gap-3 rounded-md px-4 py-3 ${
                     pathname.startsWith(route.href)
                       ? "bg-ceruleanBlue-50 fill-ceruleanBlue-700 text-ceruleanBlue-700"
-                      : "bg-transparent fill-ceruleanBlue-50 text-ceruleanBlue-50 hover:bg-[#eff6ff]/[.05]"
+                      : "bg-transparent fill-ceruleanBlue-50 text-gray-100 hover:bg-[#eff6ff]/[.05]"
                   }`}
                 >
                   <route.icon className="size-5" />
@@ -135,11 +135,11 @@ export default function Sidebar() {
       </div>
 
       <div className="mt-12 inline-flex w-full flex-col items-start justify-center gap-2 rounded-md border border-[#eff6ff]/75 p-4">
-        <span className="text-sm font-bold text-ceruleanBlue-50">
+        <span className="text-sm font-bold text-gray-100">
           로그 실시간 기록 중
         </span>
 
-        <span className="text-xs text-ceruleanBlue-50">
+        <span className="text-xs text-gray-100">
           해당 화면에서 진행하는 모든 활동은 내 계정
           (minsu.kim@lunaiz.com)과 현재 접속한 IP (255.255.255.255)가
           함께 기록되고 있습니다.

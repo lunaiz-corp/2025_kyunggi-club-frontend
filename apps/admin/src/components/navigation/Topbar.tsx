@@ -16,14 +16,14 @@ export default function Topbar() {
 
   return (
     <div className="mb-5 flex w-full gap-9">
-      <div className="inline-flex w-full items-center gap-3 rounded-lg bg-zinc-600 px-4 py-[10px]">
+      <div className="inline-flex w-full items-center gap-3 rounded-lg bg-gray-600 px-4 py-[10px]">
         <MegaphoneIcon className="size-4 fill-ceruleanBlue-50" />
-        <span className="text-sm font-semibold text-ceruleanBlue-50">
+        <span className="text-sm font-semibold text-gray-100">
           전체 공지사항입니다
         </span>
       </div>
 
-      <div className="flex items-center gap-6 text-zinc-500">
+      <div className="flex items-center gap-6 text-gray-500">
         <button
           type="button"
           className="cursor-pointer"
@@ -43,10 +43,10 @@ export default function Topbar() {
         </button>
       </div>
 
-      <div className="flex items-center gap-6 text-zinc-500">
-        <div className="inline-flex items-center gap-[10px] text-ceruleanBlue-50">
+      <div className="flex items-center gap-6 text-gray-500">
+        <div className="inline-flex items-center gap-[10px] text-gray-100">
           {/* TODO: 이거 임시임 */}
-          <div className="flex items-center justify-center rounded bg-zinc-600 p-1.5">
+          <div className="flex items-center justify-center rounded bg-gray-600 p-1.5">
             <UserIcon className="size-5" />
           </div>
 

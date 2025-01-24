@@ -27,17 +27,17 @@ export default function RootLayout({
       <head>
         <link
           rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-gov-dynamic-subset.min.css"
         />
       </head>
-      <body className="bg-zinc-900 text-ceruleanBlue-50 antialiased">
+      <body className="bg-gray-950 text-gray-100 antialiased">
         <ProgressBarProvider>
           <Navbar />
           {children}
           <Footer />
         </ProgressBarProvider>
+        
         <Toaster />
-
         <ChannelIO />
       </body>
     </html>
