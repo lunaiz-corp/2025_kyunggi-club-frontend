@@ -3,6 +3,8 @@ import { Metadata } from "next"
 import { NextLink } from "@packages/ui/components/krds/Link"
 import SchedulesCalendar from "@packages/ui/components/schedules/Calendar"
 
+import Advertisements from "@/components/Adverisements"
+
 export const metadata: Metadata = {
   title: "홈 - 경기고등학교 이공계동아리연합",
   description: "Welcome to Next.js",
@@ -72,11 +74,7 @@ export default function Main() {
       </div>
 
       <div className="flex w-full gap-8">
-        <div className="inline-flex h-[352px] w-[570px] items-center justify-center rounded-xl bg-gradient-to-r from-[#132b75] to-ceruleanBlue-700">
-          <span className="text-[27px] font-bold text-gray-100">
-            광고
-          </span>
-        </div>
+        <Advertisements />
 
         <div className="flex w-full flex-1 flex-col gap-5">
           <div className="inline-flex items-center justify-between">

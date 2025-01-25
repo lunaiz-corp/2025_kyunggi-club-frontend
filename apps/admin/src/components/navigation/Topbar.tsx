@@ -17,7 +17,7 @@ export default function Topbar() {
   return (
     <div className="mb-5 flex w-full gap-9">
       <div className="inline-flex w-full items-center gap-3 rounded-lg bg-gray-600 px-4 py-[10px]">
-        <MegaphoneIcon className="size-4 fill-ceruleanBlue-50" />
+        <MegaphoneIcon className="size-4 fill-gray-100" />
         <span className="text-sm font-semibold text-gray-100">
           전체 공지사항입니다
         </span>

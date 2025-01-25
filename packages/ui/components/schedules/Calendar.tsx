@@ -1,5 +1,7 @@
 "use client"
 
+import { useEffect, useState } from "react"
+
 import { isHoliday } from "@hyunbinseo/holidays-kr"
 
 import Calendar from "react-calendar"
@@ -44,10 +46,20 @@ function formatDate(
 }
 
 export default function SchedulesCalendar() {
+  const [currentDate, setCurrentDate] = useState<Date | null>(null)
+
+  useEffect(() => {
+    // 클라이언트에서 현재 날짜 설정
+    setCurrentDate(new Date())
+  }, [])
+
+   // 초기 로딩 상태 처리
+  if (!currentDate) return null
+
   return (
     <div className="flex w-full flex-col items-center gap-4">
       <span className="font-bold text-gray-100">
-        {formatDate("monthyear", new Date(), "ko-KR")}
+        {formatDate("monthyear", currentDate, "ko-KR")}
       </span>
 
       <Calendar
@@ -55,6 +67,8 @@ export default function SchedulesCalendar() {
         calendarType="gregory"
         defaultView="month"
         locale="ko-KR"
+        // 지금 날짜
+        value={currentDate}
         // 달력 포맷팅 (Intl 이용)
         formatDay={(locale, date) => formatDate("day", date, locale)}
         formatYear={(locale, date) =>
@@ -64,12 +78,12 @@ export default function SchedulesCalendar() {
           formatDate("monthyear", date, locale)
         }
         minDate={
-          new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+          new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
         }
         maxDate={
           new Date(
-            new Date().getFullYear(),
-            new Date().getMonth(),
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
             31,
           )
         }

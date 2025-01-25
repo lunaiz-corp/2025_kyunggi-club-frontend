@@ -12,6 +12,7 @@
     "@packages/assets": "workspace:^",
     "@packages/channelio": "workspace:^",
     "@packages/eslint-config": "workspace:^",
-    "@packages/ui": "workspace:^"
+    "@packages/ui": "workspace:^",
+    "swiper": "^11.2.1"
   }
 }

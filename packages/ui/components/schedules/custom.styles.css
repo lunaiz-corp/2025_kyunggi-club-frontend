@@ -2,7 +2,7 @@
   width: 100%;
   border: none;
 
-  font-family: "Wanted Sans Variable", "Wanted Sans", sans-serif !important;
+  font-family: var(--font-sans) !important;
   background: var(--color-gray-950);
 }
 
@@ -28,7 +28,7 @@
 
 /* 전체 폰트 컬러 */
 .react-calendar__month-view abbr {
-  color: var(--color-ceruleanBlue-50);
+  color: var(--color-gray-100);
 }
 
 /* 요일 밑줄 제거 */
@@ -48,15 +48,16 @@
   abbr[title="일요일"],
 .react-calendar__month-view__days__day.sunday abbr,
 .react-calendar__month-view__days__day.holiday abbr {
-  color: #fd5959;
+  color: var(--color-point-500);
 }
 
 /* 오늘 날짜 / 선택한 날짜 폰트 컬러 */
 .react-calendar__tile:disabled,
-.react-calendar__tile--now {
+.react-calendar__tile--active {
   background: none;
 }
 
-.react-calendar__tile--now abbr {
+.react-calendar__tile--active abbr {
+  color: var(--color-gray-100) !important;
   background-color: var(--color-ceruleanBlue-700);
 }

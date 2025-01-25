@@ -29,9 +29,6 @@ importers:
       react:
         specifier: ^19.0.0
         version: 19.0.0
-      react-calendar:
-        specifier: ^5.1.0
-        version: 5.1.0(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
@@ -147,6 +144,9 @@ importers:
       '@packages/ui':
         specifier: workspace:^
         version: link:../../packages/ui
+      swiper:
+        specifier: ^11.2.1
+        version: 11.2.1
 
   packages/airtake:
     dependencies:
@@ -175,6 +175,12 @@ importers:
       '@packages/eslint-config':
         specifier: workspace:^
         version: link:../eslint-config
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      react-calendar:
+        specifier: ^5.1.0
+        version: 5.1.0(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
 packages:
 
@@ -2760,6 +2766,10 @@ packages:
     resolution: {integrity: sha512-OoohrmuUlBs8B8o6MB2Aevn+pRIH9zDALSR+6hhqVfa6fRwG/Qw9VUMSMW9VNg2CFc/MTIfabtdOVl9ODIJjpw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
+
+  swiper@11.2.1:
+    resolution: {integrity: sha512-62G69+iQRIfUqTmJkWpZDcX891Ra8O9050ckt1/JI2H+0483g+gq0m7gINecDqMtDh2zt5dK+uzBRxGhGOOvQA==}
+    engines: {node: '>= 4.7.0'}
 
   synckit@0.9.2:
     resolution: {integrity: sha512-vrozgXDQwYO72vHjUb/HnFbQx1exDjoKzqx23aXEg2a9VIg2TSFZ8FmeZpTjUCFMYw7mpX4BE2SFu8wI7asYsw==}
@@ -5778,6 +5788,8 @@ snapshots:
       css-what: 6.1.0
       csso: 5.0.5
       picocolors: 1.1.1
+
+  swiper@11.2.1: {}
 
   synckit@0.9.2:
     dependencies:

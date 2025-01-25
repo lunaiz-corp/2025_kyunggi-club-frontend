@@ -121,8 +121,8 @@ export default function Sidebar() {
                 <div
                   className={`inline-flex h-11 w-full items-center gap-3 rounded-md px-4 py-3 ${
                     pathname.startsWith(route.href)
-                      ? "bg-ceruleanBlue-50 fill-ceruleanBlue-700 text-ceruleanBlue-700"
-                      : "bg-transparent fill-ceruleanBlue-50 text-gray-100 hover:bg-gray-100/[.05]"
+                      ? "bg-gray-100 fill-ceruleanBlue-700 text-ceruleanBlue-700"
+                      : "bg-transparent fill-gray-100 text-gray-100 hover:bg-gray-100/[.05]"
                   }`}
                 >
                   <route.icon className="size-5" />
