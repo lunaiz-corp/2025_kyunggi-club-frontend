@@ -7,7 +7,7 @@ import { isHoliday } from "@hyunbinseo/holidays-kr"
 import Calendar from "react-calendar"
 import "react-calendar/dist/Calendar.css"
 
-import "./custom.styles.css"
+import "./_styles/calendar.css"
 
 function getLocaleForIntl(
   type: "year" | "monthyear" | "day",
