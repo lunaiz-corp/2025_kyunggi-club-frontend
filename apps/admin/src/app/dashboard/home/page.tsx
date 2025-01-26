@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
+
 import SchedulesCalendar from "@packages/ui/components/schedules/Calendar"
+import SelectChances from "@packages/ui/components/select-chances"
 
 export const metadata: Metadata = {
   title: "홈 - 경기고등학교 이공계동아리연합",
@@ -77,7 +79,9 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="h-80 rounded-xl bg-gray-100/10" />
+          <div className="rounded-xl border border-[#eff6ff]/10 p-5">
+            <SelectChances />
+          </div>
         </div>
 
         <div className="flex flex-col gap-5">

@@ -13,14 +13,11 @@ export default function Advertisements() {
     <Swiper
       modules={[Autoplay]}
       className="h-[352px] w-[570px] rounded-xl"
-
       slidesPerView={1}
       spaceBetween={16}
-
       loop
       speed={400}
       allowTouchMove={false}
-
       autoplay={{
         delay: 5000,
         disableOnInteraction: false,

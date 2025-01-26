@@ -1,8 +1,7 @@
 {
-    "name": "@packages/airtake",
-    "private": "true",
-    "dependencies": {
-      "@packages/eslint-config": "workspace:^"
-    }
+  "name": "@packages/airtake",
+  "private": "true",
+  "dependencies": {
+    "@packages/eslint-config": "workspace:^"
   }
-  
+}

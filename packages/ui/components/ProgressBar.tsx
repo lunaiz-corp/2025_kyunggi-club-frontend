@@ -4,9 +4,9 @@ import { AppProgressBar as ProgressBar } from "next-nprogress-bar"
 
 export default function ProgressBarProvider({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
     <>
       {children}

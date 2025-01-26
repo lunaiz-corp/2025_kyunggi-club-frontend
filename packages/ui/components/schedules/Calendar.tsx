@@ -53,7 +53,7 @@ export default function SchedulesCalendar() {
     setCurrentDate(new Date())
   }, [])
 
-   // 초기 로딩 상태 처리
+  // 초기 로딩 상태 처리
   if (!currentDate) return null
 
   return (
@@ -78,7 +78,11 @@ export default function SchedulesCalendar() {
           formatDate("monthyear", date, locale)
         }
         minDate={
-          new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
+          new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            1,
+          )
         }
         maxDate={
           new Date(

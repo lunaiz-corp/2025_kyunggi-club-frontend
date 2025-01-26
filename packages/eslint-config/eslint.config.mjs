@@ -27,7 +27,7 @@ const eslintConfig = [
     "next/core-web-vitals",
     "next/typescript",
     "plugin:prettier/recommended",
-    "prettier"
+    "prettier",
   ),
   {
     plugins: {
@@ -44,7 +44,7 @@ const eslintConfig = [
         { extensions: [".js", ".ts", ".jsx", ".tsx"] },
       ],
       "import/extensions": "off",
-      "import/no-extraneous-dependencies": "off"
+      "import/no-extraneous-dependencies": "off",
     },
 
     settings: {

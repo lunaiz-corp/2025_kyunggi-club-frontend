@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
     return config
   },
 
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.lunaiz.com",
+      },
+    ],
+  },
+
   experimental: {
     turbo: {
       rules: {

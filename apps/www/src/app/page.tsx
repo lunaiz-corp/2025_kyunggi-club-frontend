@@ -1,9 +1,12 @@
 import { Metadata } from "next"
 
 import { NextLink } from "@packages/ui/components/krds/Link"
-import SchedulesCalendar from "@packages/ui/components/schedules/Calendar"
+import SelectChances from "@packages/ui/components/select-chances"
 
 import Advertisements from "@/components/Adverisements"
+
+import Schedules from "./_components/schedules"
+import NoticesSummary from "./_components/notices/summary"
 
 export const metadata: Metadata = {
   title: "홈 - 경기고등학교 이공계동아리연합",
@@ -14,7 +17,7 @@ export default function Main() {
   return (
     <main className="mx-auto mt-16 flex max-w-[1200px] flex-col gap-8">
       <div className="flex w-full gap-8">
-        <div className="flex w-full flex-col gap-5">
+        <div className="flex w-full flex-1 flex-col gap-5">
           <div className="inline-flex items-center justify-between">
             <h2 className="text-lg font-bold text-gray-100">
               선발 일정
@@ -26,39 +29,7 @@ export default function Main() {
           </div>
 
           <div className="flex w-full gap-8 rounded-xl border border-[#eff6ff]/10 px-6 py-4">
-            <div className="w-1/2">
-              <SchedulesCalendar />
-            </div>
-
-            <div className="flex w-1/2 flex-col gap-5 py-4">
-              <div className="inline-flex flex-col gap-1.5">
-                <span className="text-sm font-semibold text-gray-200">
-                  3월 11일
-                </span>
-
-                <div className="inline-flex items-center gap-2">
-                  <div className="size-1.5 rounded-full bg-ceruleanBlue-700" />
-                  <span className="text-xl font-bold text-gray-200">
-                    Event Name
-                  </span>
-                </div>
-              </div>
-
-              <div className="h-0.5 bg-gray-800" />
-
-              <div className="inline-flex flex-col gap-1.5">
-                <span className="text-sm font-semibold text-gray-200">
-                  3월 12일
-                </span>
-
-                <div className="inline-flex items-center gap-2">
-                  <div className="size-1.5 rounded-full bg-ceruleanBlue-700" />
-                  <span className="text-xl font-bold text-gray-200">
-                    Event Name
-                  </span>
-                </div>
-              </div>
-            </div>
+            <Schedules />
           </div>
         </div>
 
@@ -69,7 +40,9 @@ export default function Main() {
             </h2>
           </div>
 
-          <div className="h-80 rounded-xl bg-gray-100/10" />
+          <div className="flex size-full gap-8 rounded-xl border border-[#eff6ff]/10 px-6 py-4">
+            <SelectChances />
+          </div>
         </div>
       </div>
 
@@ -88,21 +61,27 @@ export default function Main() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <NextLink
-              href="/notice/1"
-              className="flex justify-between"
-            >
-              <div className="inline-flex items-center gap-2.5">
-                <div className="size-1.5 rounded-full bg-ceruleanBlue-700" />
-                <span className="w-56 truncate text-lg font-semibold text-gray-100">
-                  어쩌고 저쩌고 어쩌고 저쩌고 어쩌고 저쩌고
-                </span>
-              </div>
-
-              <span className="text-right text-sm font-medium text-gray-100">
-                2025. 01. 01
-              </span>
-            </NextLink>
+            {[
+              {
+                id: 1,
+                title: "어쩌고 저쩌고 어쩌고 저쩌고 어쩌고 저쩌고",
+                date: new Date("2025-01-01"),
+              },
+              {
+                id: 2,
+                title: "어쩌고 저쩌고 어쩌고 저쩌고 어쩌고 저쩌고",
+                date: new Date("2025-01-13"),
+              },
+              {
+                id: 3,
+                title: "어쩌고 저쩌고 어쩌고 저쩌고 어쩌고 저쩌고",
+                date: new Date("2025-01-26"),
+              },
+            ]
+              .sort((a, b) => b.id - a.id)
+              .map(x => {
+                return <NoticesSummary key={x.id} {...x} />
+              })}
           </div>
         </div>
       </div>
