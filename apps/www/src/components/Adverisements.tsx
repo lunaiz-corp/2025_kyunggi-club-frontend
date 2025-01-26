@@ -12,7 +12,7 @@ export default function Advertisements() {
   return (
     <Swiper
       modules={[Autoplay]}
-      className="h-[352px] w-[570px] rounded-xl"
+      className="h-[236px] w-full rounded-xl md:h-[352px] md:w-[570px]"
       slidesPerView={1}
       spaceBetween={16}
       loop

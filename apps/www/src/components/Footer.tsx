@@ -11,7 +11,7 @@ import UnionLogo from "@packages/assets/images/union-logo.svg"
 
 export default function Footer() {
   return (
-    <footer className="mx-auto flex max-w-[1248px] flex-col gap-16 pt-20 pb-12">
+    <footer className="mx-auto mt-8 flex max-w-[1248px] flex-col gap-8 bg-gray-900 px-6 py-12 md:gap-16 md:bg-transparent md:px-0">
       <div className="flex items-center gap-[14px]">
         <UnionLogo
           className="h-[42px]"
@@ -28,7 +28,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex justify-between gap-10">
+      <div className="flex flex-col justify-between gap-10 md:flex-row">
         <ul className="flex flex-col gap-1">
           <li className="flex items-center gap-2">
             <strong>대표전화</strong>
@@ -46,7 +46,7 @@ export default function Footer() {
         </ul>
 
         <div className="flex flex-col gap-16">
-          <div className="mr-2 flex h-full flex-col gap-2">
+          <div className="mr-2 -ml-[7px] flex h-full flex-col gap-0.5 md:gap-2">
             <ALink
               href="https://cs-kg.schooler.kr"
               className="!gap-3 font-medium"
@@ -79,18 +79,23 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 border-t border-gray-200 pt-6">
-        <p className="inline-flex items-center gap-1.5 text-sm leading-normal text-gray-300">
-          <span>상호명 : 루나이즈</span>
-          <span>|</span>
+      <div className="flex flex-col gap-5 border-t border-gray-200 pt-6 md:gap-3">
+        <p className="inline-flex flex-col gap-1.5 text-sm leading-normal text-gray-300 md:flex-row md:items-center">
+          <div className="inline-flex gap-1.5">
+            <span>상호명 : 루나이즈</span>
+            <span>|</span>
 
-          <span>사업자등록번호 : 123-45-56789</span>
-          <span>|</span>
+            <span>사업자등록번호 : 123-45-56789</span>
+          </div>
 
-          <span>대표자 : 손지민</span>
-          <span>|</span>
+          <span className="hidden md:inline">|</span>
 
-          <span>주소 : 서울특별시 서초구 나루터로 46</span>
+          <div className="inline-flex gap-1.5">
+            <span>대표자 : 손지민</span>
+            <span>|</span>
+
+            <span>주소 : 서울특별시 서초구 나루터로 46</span>
+          </div>
         </p>
 
         <p className="text-sm text-gray-300">
