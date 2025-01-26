@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast"
 import ProgressBarProvider from "@packages/ui/components/ProgressBar"
 import ChannelIO from "@packages/channelio"
 
+import "react-loading-skeleton/dist/skeleton.css"
 import "@/styles/globals.css"
 
 export const metadata: Metadata = {

@@ -1,4 +1,7 @@
+import { Suspense } from "react"
 import { Metadata } from "next"
+
+import Skeleton from "react-loading-skeleton"
 
 import { NextLink } from "@packages/ui/components/krds/Link"
 import SelectChances from "@packages/ui/components/select-chances"
@@ -28,8 +31,18 @@ export default function Main() {
             </NextLink>
           </div>
 
-          <div className="flex w-full gap-8 rounded-xl border border-[#eff6ff]/10 px-6 py-4">
-            <Schedules />
+          <div className="flex min-h-[407px] w-full gap-8 rounded-xl border border-[#eff6ff]/10 px-6 py-4">
+            <Suspense
+              fallback={
+                <Skeleton
+                  height={407}
+                  baseColor="var(--color-gray-900)"
+                  highlightColor="var(--color-gray-800)"
+                />
+              }
+            >
+              <Schedules />
+            </Suspense>
           </div>
         </div>
 
@@ -40,7 +53,7 @@ export default function Main() {
             </h2>
           </div>
 
-          <div className="flex size-full gap-8 rounded-xl border border-[#eff6ff]/10 px-6 py-4">
+          <div className="flex size-full min-h-[407px] gap-8 rounded-xl border border-[#eff6ff]/10 px-6 py-4">
             <SelectChances />
           </div>
         </div>
@@ -61,27 +74,37 @@ export default function Main() {
           </div>
 
           <div className="flex flex-col gap-4">
-            {[
-              {
-                id: 1,
-                title: "어쩌고 저쩌고 어쩌고 저쩌고 어쩌고 저쩌고",
-                date: new Date("2025-01-01"),
-              },
-              {
-                id: 2,
-                title: "어쩌고 저쩌고 어쩌고 저쩌고 어쩌고 저쩌고",
-                date: new Date("2025-01-13"),
-              },
-              {
-                id: 3,
-                title: "어쩌고 저쩌고 어쩌고 저쩌고 어쩌고 저쩌고",
-                date: new Date("2025-01-26"),
-              },
-            ]
-              .sort((a, b) => b.id - a.id)
-              .map(x => {
-                return <NoticesSummary key={x.id} {...x} />
-              })}
+            <Suspense
+              fallback={
+                <Skeleton
+                  height={352}
+                  baseColor="var(--color-gray-900)"
+                  highlightColor="var(--color-gray-800)"
+                />
+              }
+            >
+              {[
+                {
+                  id: 1,
+                  title: "어쩌고 저쩌고 어쩌고 저쩌고 어쩌고 저쩌고",
+                  date: new Date("2025-01-01"),
+                },
+                {
+                  id: 2,
+                  title: "어쩌고 저쩌고 어쩌고 저쩌고 어쩌고 저쩌고",
+                  date: new Date("2025-01-13"),
+                },
+                {
+                  id: 3,
+                  title: "어쩌고 저쩌고 어쩌고 저쩌고 어쩌고 저쩌고",
+                  date: new Date("2025-01-26"),
+                },
+              ]
+                .sort((a, b) => b.id - a.id)
+                .map(x => {
+                  return <NoticesSummary key={x.id} {...x} />
+                })}
+            </Suspense>
           </div>
         </div>
       </div>

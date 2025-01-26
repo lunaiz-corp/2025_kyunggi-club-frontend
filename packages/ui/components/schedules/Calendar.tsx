@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Skeleton from "react-loading-skeleton"
 
 import { isHoliday } from "@hyunbinseo/holidays-kr"
 
@@ -53,10 +54,13 @@ export default function SchedulesCalendar() {
     setCurrentDate(new Date())
   }, [])
 
-  // 초기 로딩 상태 처리
-  if (!currentDate) return null
-
-  return (
+  return !currentDate ? (
+    <Skeleton
+      height={373}
+      baseColor="var(--color-gray-900)"
+      highlightColor="var(--color-gray-800)"
+    />
+  ) : (
     <div className="flex w-full flex-col items-center gap-4">
       <span className="font-bold text-gray-100">
         {formatDate("monthyear", currentDate, "ko-KR")}

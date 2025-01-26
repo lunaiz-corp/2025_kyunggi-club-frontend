@@ -3,7 +3,7 @@
   border: none;
 
   font-family: var(--font-sans) !important;
-  background: var(--color-gray-950);
+  background: transparent;
 }
 
 .react-calendar__viewContainer {

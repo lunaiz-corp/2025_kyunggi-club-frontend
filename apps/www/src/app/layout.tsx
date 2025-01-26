@@ -6,6 +6,7 @@ import A11ySkipLink from "@packages/ui/components/krds/A11ySkipLink"
 
 import ChannelIO from "@packages/channelio"
 
+import "react-loading-skeleton/dist/skeleton.css"
 import "@/styles/globals.css"
 
 import Navbar from "@/components/Navbar"

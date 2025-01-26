@@ -1,3 +1,6 @@
+import { Suspense } from "react"
+import Skeleton from "react-loading-skeleton"
+
 import PercentageBar from "./PercentageBar"
 
 export default function SelectChances() {
@@ -51,14 +54,27 @@ export default function SelectChances() {
 
   return (
     <div className="flex w-full flex-col justify-between">
-      {DUMMY_DATA.map((data, i) => (
-        <PercentageBar
-          key={data.clubId}
-          tabIndex={i + 1}
-          maxChance={Math.max(...DUMMY_DATA.map(d => d.selectChance))}
-          {...data}
-        />
-      ))}
+      <Suspense
+        fallback={Array.from({ length: 9 }).map((_, i) => (
+          <Skeleton
+            key={`skeleton-${i.toString()}`}
+            height={25.5}
+            baseColor="var(--color-gray-900)"
+            highlightColor="var(--color-gray-800)"
+          />
+        ))}
+      >
+        {DUMMY_DATA.map((data, i) => (
+          <PercentageBar
+            key={data.clubId}
+            tabIndex={i + 1}
+            maxChance={Math.max(
+              ...DUMMY_DATA.map(d => d.selectChance),
+            )}
+            {...data}
+          />
+        ))}
+      </Suspense>
     </div>
   )
 }
