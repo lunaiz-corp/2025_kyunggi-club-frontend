@@ -32,7 +32,7 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-gov-dynamic-subset.min.css"
         />
       </head>
-      <body className="bg-gray-950 text-gray-100 antialiased">
+      <body className="relative top-[85px] bg-gray-950 text-gray-100 antialiased md:static md:top-0">
         <ProgressBarProvider>
           <A11ySkipLink />
 

@@ -80,23 +80,23 @@ export default function Footer() {
       </div>
 
       <div className="flex flex-col gap-5 border-t border-gray-200 pt-6 md:gap-3">
-        <p className="inline-flex flex-col gap-1.5 text-sm leading-normal text-gray-300 md:flex-row md:items-center">
-          <div className="inline-flex gap-1.5">
+        <div className="inline-flex flex-col gap-1.5 text-sm leading-normal text-gray-300 md:flex-row md:items-center">
+          <p className="inline-flex gap-1.5">
             <span>상호명 : 루나이즈</span>
             <span>|</span>
 
             <span>사업자등록번호 : 123-45-56789</span>
-          </div>
+          </p>
 
           <span className="hidden md:inline">|</span>
 
-          <div className="inline-flex gap-1.5">
+          <p className="inline-flex gap-1.5">
             <span>대표자 : 손지민</span>
             <span>|</span>
 
             <span>주소 : 서울특별시 서초구 나루터로 46</span>
-          </div>
-        </p>
+          </p>
+        </div>
 
         <p className="text-sm text-gray-300">
           © 2025 LUNAIZ Corp. All rights reserved.
