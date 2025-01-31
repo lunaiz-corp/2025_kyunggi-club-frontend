@@ -1,3 +1,5 @@
+"use client"
+
 import type {
   AnchorHTMLAttributes,
   DetailedHTMLProps,
@@ -21,6 +23,7 @@ const baseClass = [
 
   "active:bg-ceruleanBlue-950",
   "focus:bg-ceruleanBlue-950",
+  "hover:bg-ceruleanBlue-950",
 
   "focus:outline",
   "focus:outline-offset-2",
@@ -54,6 +57,7 @@ export function NextLink({
   children,
   className,
   href,
+  onClick,
   ...props
 }: Readonly<
   DetailedHTMLProps<
@@ -66,6 +70,10 @@ export function NextLink({
       {...props}
       href={href}
       className={clsx(...baseClass, className)}
+      onClick={e => {
+        e.currentTarget.blur()
+        onClick?.(e)
+      }}
     >
       {children}
     </Link>

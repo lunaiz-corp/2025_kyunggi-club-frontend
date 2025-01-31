@@ -49,7 +49,7 @@ export default function Footer() {
           <div className="mr-2 -ml-[7px] flex h-full flex-col gap-0.5 md:gap-2">
             <ALink
               href="https://cs-kg.schooler.kr"
-              className="!gap-3 font-medium"
+              className="!gap-3"
               target="_blank"
               rel="noopener"
             >
@@ -59,7 +59,6 @@ export default function Footer() {
 
             <ALink
               href="https://cs-kg.schooler.kr/legal/tos"
-              className="font-medium"
               target="_blank"
               rel="noopener"
             >
@@ -68,7 +67,7 @@ export default function Footer() {
 
             <ALink
               href="https://cs-kg.schooler.kr/legal/privacy"
-              className="font-medium"
+              className="font-bold"
               target="_blank"
               rel="noopener"
             >
@@ -99,7 +98,16 @@ export default function Footer() {
         </div>
 
         <p className="text-sm text-gray-300">
-          © 2025 LUNAIZ Corp. All rights reserved.
+          © 2025{" "}
+          <a
+            href="https://lunaiz.com"
+            className="text-gray-50 hover:underline"
+            target="_blank"
+            rel="noopener"
+          >
+            LUNAIZ Corp.
+          </a>{" "}
+          All rights reserved.
         </p>
       </div>
     </footer>

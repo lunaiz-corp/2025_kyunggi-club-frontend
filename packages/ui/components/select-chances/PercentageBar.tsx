@@ -45,7 +45,7 @@ export default function PercentageBar({
       </div>
 
       <div>
-        <span className="text-right text-sm font-semibold text-gray-100">
+        <span className="text-right text-sm text-gray-100">
           {selectChance}:1
         </span>
       </div>

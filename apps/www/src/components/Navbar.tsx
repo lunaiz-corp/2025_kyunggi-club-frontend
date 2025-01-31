@@ -1,6 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { usePathname } from "next/navigation"
+
 import clsx from "clsx"
 
 import {
@@ -15,6 +17,7 @@ import { NextLink } from "@packages/ui/components/krds/Link"
 import UnionLogo from "@packages/assets/images/union-logo.svg"
 
 export default function Navbar() {
+  const pathname = usePathname()
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
 
   return (
@@ -58,7 +61,10 @@ export default function Navbar() {
           <nav className="hidden gap-3 md:inline-flex">
             <NextLink
               href="/apply/new"
-              className="inline-flex items-center justify-between gap-2 px-4 font-bold"
+              className={clsx(
+                "inline-flex items-center justify-between gap-2 px-4 font-bold",
+                pathname === "/apply/new" && "bg-ceruleanBlue-700",
+              )}
             >
               <InboxIcon className="size-5" />
               지원하기
@@ -66,7 +72,10 @@ export default function Navbar() {
 
             <NextLink
               href="/club"
-              className="inline-flex items-center justify-between gap-2 px-4 font-bold"
+              className={clsx(
+                "inline-flex items-center justify-between gap-2 px-4 font-bold",
+                pathname.startsWith("/club") && "bg-ceruleanBlue-700",
+              )}
             >
               <AcademicCapIcon className="size-5" />
               동아리 소개
@@ -74,7 +83,10 @@ export default function Navbar() {
 
             <NextLink
               href="/apply/status"
-              className="inline-flex items-center justify-between gap-2 px-4 font-bold"
+              className={clsx(
+                "inline-flex items-center justify-between gap-2 px-4 font-bold",
+                pathname === "/apply/status" && "bg-ceruleanBlue-700",
+              )}
             >
               <UserIcon className="size-5" />
               결과 확인

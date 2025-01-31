@@ -1,5 +1,5 @@
 import { Suspense } from "react"
-import { Metadata } from "next"
+import type { Metadata } from "next"
 
 import Skeleton from "react-loading-skeleton"
 
@@ -13,7 +13,12 @@ import NoticesSummary from "./_components/notices/summary"
 
 export const metadata: Metadata = {
   title: "홈 - 경기고등학교 이공계동아리연합",
-  description: "Welcome to Next.js",
+  openGraph: {
+    title: "홈 - 경기고등학교 이공계동아리연합",
+  },
+  twitter: {
+    title: "홈 - 경기고등학교 이공계동아리연합",
+  },
 }
 
 export default function Main() {
@@ -25,10 +30,6 @@ export default function Main() {
             <h2 className="text-lg font-bold text-gray-100">
               선발 일정
             </h2>
-
-            <NextLink href="/schedule">
-              <span className="text-sm text-gray-100">더보기</span>
-            </NextLink>
           </div>
 
           <div className="flex min-h-[407px] w-full flex-col gap-8 rounded-xl border border-[#eff6ff]/10 px-6 py-4 md:flex-row">

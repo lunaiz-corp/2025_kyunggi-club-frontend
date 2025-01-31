@@ -1,8 +1,13 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "결과 확인 - 경기고등학교 이공계동아리연합",
-  description: "Welcome to Next.js",
+  title: "결과 확인",
+  openGraph: {
+    title: "결과 확인",
+  },
+  twitter: {
+    title: "결과 확인",
+  },
 }
 
 export default function ApplyStatus() {

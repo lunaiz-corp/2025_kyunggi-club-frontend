@@ -29,12 +29,12 @@ export default function NoticesSummary({
           <div className="size-1.5 rounded-full bg-ceruleanBlue-700" />
         ) : null}
 
-        <span className="w-56 truncate text-lg font-semibold text-gray-100">
+        <span className="w-56 truncate text-lg text-gray-100">
           {title}
         </span>
       </div>
 
-      <span className="text-right text-sm font-medium text-gray-100">
+      <span className="text-right text-sm text-gray-100">
         {date.toLocaleDateString("ko-KR", {
           year: "numeric",
           month: "2-digit",

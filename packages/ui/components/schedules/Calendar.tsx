@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useEffect } from "react"
 import Skeleton from "react-loading-skeleton"
 
 import { isHoliday } from "@hyunbinseo/holidays-kr"
@@ -46,15 +46,38 @@ function formatDate(
   ).format(date)
 }
 
-export default function SchedulesCalendar() {
-  const [currentDate, setCurrentDate] = useState<Date | null>(null)
+function getDaysInMonth(date: Date) {
+  const month = date.getMonth()
+  const isLeapYear = date.getFullYear() % 4 === 0
+
+  // February
+  if (month === 2) {
+    return isLeapYear ? 29 : 28
+  }
+
+  if ([4, 6, 9, 11].includes(month)) {
+    return 30
+  }
+
+  return 31
+}
+
+export default function SchedulesCalendar({
+  selectedDateState,
+}: {
+  selectedDateState: [
+    Date | null,
+    Dispatch<SetStateAction<Date | null>>,
+  ]
+}) {
+  const [selectedDate, setSelectedDate] = selectedDateState
 
   useEffect(() => {
     // 클라이언트에서 현재 날짜 설정
-    setCurrentDate(new Date())
-  }, [])
+    setSelectedDate(new Date())
+  }, [setSelectedDate])
 
-  return !currentDate ? (
+  return !selectedDate ? (
     <Skeleton
       height={373}
       baseColor="var(--color-gray-900)"
@@ -63,7 +86,7 @@ export default function SchedulesCalendar() {
   ) : (
     <div className="flex w-full flex-col items-center gap-4">
       <span className="font-bold text-gray-100">
-        {formatDate("monthyear", currentDate, "ko-KR")}
+        {formatDate("monthyear", selectedDate, "ko-KR")}
       </span>
 
       <Calendar
@@ -72,7 +95,7 @@ export default function SchedulesCalendar() {
         defaultView="month"
         locale="ko-KR"
         // 지금 날짜
-        value={currentDate}
+        defaultValue={selectedDate}
         // 달력 포맷팅 (Intl 이용)
         formatDay={(locale, date) => formatDate("day", date, locale)}
         formatYear={(locale, date) =>
@@ -83,16 +106,16 @@ export default function SchedulesCalendar() {
         }
         minDate={
           new Date(
-            currentDate.getFullYear(),
-            currentDate.getMonth(),
+            selectedDate.getFullYear(),
+            selectedDate.getMonth(),
             1,
           )
         }
         maxDate={
           new Date(
-            currentDate.getFullYear(),
-            currentDate.getMonth(),
-            31,
+            selectedDate.getFullYear(),
+            selectedDate.getMonth(),
+            getDaysInMonth(selectedDate),
           )
         }
         tileClassName={({ date }) => {
@@ -124,10 +147,14 @@ export default function SchedulesCalendar() {
           return html
         }}
         // 버튼 숨기기
-        tileDisabled={() => true}
         showNavigation={false}
         // 이전 달 다음 달 보이지 않기
         showNeighboringMonth={false}
+        // 현재 선택한 날짜 설정
+        onChange={date => {
+          if (date === null) return
+          setSelectedDate(date as Date)
+        }}
       />
     </div>
   )

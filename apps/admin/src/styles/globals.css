@@ -1,5 +1,4 @@
 @import "@packages/ui/styles/tailwind.css";
-@import "@packages/ui/styles/common.css";
 
 @source "../app";
 @source "../../../../packages/ui/components";
