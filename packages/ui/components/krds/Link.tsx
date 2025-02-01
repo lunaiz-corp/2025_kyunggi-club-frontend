@@ -11,7 +11,7 @@ import Link from "next/link"
 
 import { cn } from "../../utils/tailwindMerge"
 
-const baseClass = [
+export const baseClass = [
   "inline-flex",
   "items-center",
   "gap-2",
@@ -21,13 +21,13 @@ const baseClass = [
 
   "rounded-lg",
 
-  "active:bg-ceruleanBlue-950",
-  "focus:bg-ceruleanBlue-950",
-  "hover:bg-ceruleanBlue-950",
+  "active:bg-gray-900",
+  "focus:bg-gray-900",
+  "hover:bg-gray-900",
 
   "focus:outline",
   "focus:outline-offset-2",
-  "focus:outline-ceruleanBlue-700",
+  "focus:outline-gray-700",
 ]
 
 export function ALink({

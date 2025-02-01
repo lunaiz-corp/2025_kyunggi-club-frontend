@@ -12,7 +12,10 @@ import {
   Bars3Icon,
 } from "@heroicons/react/24/outline"
 
-import { NextLink } from "@packages/ui/components/krds/Link"
+import {
+  NextLink,
+  baseClass as baseLinkClass,
+} from "@packages/ui/components/krds/Link"
 
 import UnionLogo from "@packages/assets/images/union-logo.svg"
 
@@ -38,7 +41,7 @@ export default function Navbar() {
           <h2>
             <NextLink
               href="/"
-              className="flex items-center gap-[14px]"
+              className="justify-between gap-[14px] px-3 py-2 font-bold hover:bg-ceruleanBlue-950 focus:bg-ceruleanBlue-950 focus:outline-ceruleanBlue-700 active:bg-ceruleanBlue-950"
               onClick={() => setIsMobileNavOpen(false)}
             >
               <UnionLogo
@@ -62,7 +65,7 @@ export default function Navbar() {
             <NextLink
               href="/apply/new"
               className={cn(
-                "inline-flex items-center justify-between gap-2 px-4 font-bold",
+                "justify-between px-4 py-2 font-bold hover:bg-ceruleanBlue-950 focus:bg-ceruleanBlue-950 focus:outline-ceruleanBlue-700 active:bg-ceruleanBlue-950",
                 pathname === "/apply/new" && "bg-ceruleanBlue-700",
               )}
             >
@@ -73,7 +76,7 @@ export default function Navbar() {
             <NextLink
               href="/club"
               className={cn(
-                "inline-flex items-center justify-between gap-2 px-4 font-bold",
+                "justify-between px-4 py-2 font-bold hover:bg-ceruleanBlue-950 focus:bg-ceruleanBlue-950 focus:outline-ceruleanBlue-700 active:bg-ceruleanBlue-950",
                 pathname.startsWith("/club") && "bg-ceruleanBlue-700",
               )}
             >
@@ -84,7 +87,7 @@ export default function Navbar() {
             <NextLink
               href="/apply/status"
               className={cn(
-                "inline-flex items-center justify-between gap-2 px-4 font-bold",
+                "justify-between px-4 py-2 font-bold hover:bg-ceruleanBlue-950 focus:bg-ceruleanBlue-950 focus:outline-ceruleanBlue-700 active:bg-ceruleanBlue-950",
                 pathname === "/apply/status" && "bg-ceruleanBlue-700",
               )}
             >
@@ -97,7 +100,7 @@ export default function Navbar() {
             <button
               type="button"
               title="메뉴 열기"
-              className="inline-flex items-center justify-between gap-2 rounded-lg px-2 py-1 font-bold focus:bg-ceruleanBlue-950 focus:outline focus:outline-offset-2 focus:outline-ceruleanBlue-700 active:bg-ceruleanBlue-950"
+              className={baseLinkClass.join(" ")}
               onClick={() => {
                 setIsMobileNavOpen(!isMobileNavOpen)
               }}
@@ -111,13 +114,13 @@ export default function Navbar() {
         <div
           className={cn(
             "overflow-hidden bg-gray-950 !transition-[height] !duration-[0.4s] !ease-in-out md:hidden",
-            isMobileNavOpen ? "h-[181px]" : "h-0",
+            isMobileNavOpen ? "h-[205px]" : "h-0",
           )}
         >
           <nav className="flex flex-col gap-4 px-8 pt-8 pb-4">
             <NextLink
               href="/apply/new"
-              className="inline-flex items-center justify-between gap-2 px-4 font-bold"
+              className="inline-flex items-center justify-between gap-2 px-4 py-2 font-bold"
               onClick={() => setIsMobileNavOpen(false)}
             >
               지원하기
@@ -126,7 +129,7 @@ export default function Navbar() {
 
             <NextLink
               href="/club"
-              className="inline-flex items-center justify-between gap-2 px-4 font-bold"
+              className="inline-flex items-center justify-between gap-2 px-4 py-2 font-bold"
               onClick={() => setIsMobileNavOpen(false)}
             >
               동아리 소개
@@ -135,7 +138,7 @@ export default function Navbar() {
 
             <NextLink
               href="/apply/status"
-              className="inline-flex items-center justify-between gap-2 px-4 font-bold"
+              className="inline-flex items-center justify-between gap-2 px-4 py-2 font-bold"
               onClick={() => setIsMobileNavOpen(false)}
             >
               결과 확인

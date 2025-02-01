@@ -48,9 +48,17 @@
 }
 
 /* 오늘 날짜 / 선택한 날짜 폰트 컬러 */
+.react-calendar__tile:focus abbr {
+  color: var(--color-gray-100) !important;
+  background-color: var(--color-ceruleanBlue-950);
+
+  outline: 2px solid var(--color-ceruleanBlue-700);
+  outline-offset: 2px;
+}
+
 .react-calendar__tile:hover abbr {
   color: var(--color-gray-100) !important;
-  background-color: var(--color-ceruleanBlue-500);
+  background-color: var(--color-ceruleanBlue-900);
 }
 
 .react-calendar__tile--active abbr {
