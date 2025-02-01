@@ -1,10 +1,5 @@
 "use client"
 
-import {
-  ArrowTopRightOnSquareIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/20/solid"
-
 import { ALink } from "@packages/ui/components/krds/Link"
 
 import UnionLogo from "@packages/assets/images/union-logo.svg"

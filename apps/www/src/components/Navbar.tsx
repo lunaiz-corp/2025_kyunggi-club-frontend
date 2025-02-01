@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { usePathname } from "next/navigation"
 
 import { cn } from "@packages/ui/utils/tailwindMerge"
@@ -21,7 +21,36 @@ import UnionLogo from "@packages/assets/images/union-logo.svg"
 
 export default function Navbar() {
   const pathname = usePathname()
+
+  const headerRef = useRef<HTMLDivElement>(null)
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
+
+  useEffect(() => {
+    const header = headerRef.current
+    if (!header) return
+
+    const handleScroll = () => {
+      if (window.scrollY >= 0.1) {
+        header.classList.remove("bg-transparent")
+        header.classList.add("bg-gray-950/30")
+        header.classList.add("backdrop-blur-sm")
+        header.classList.add("shadow-sm")
+      } else {
+        header.classList.add("bg-transparent")
+        header.classList.remove("bg-gray-950/30")
+        header.classList.remove("backdrop-blur-sm")
+        header.classList.remove("shadow-sm")
+      }
+    }
+
+    handleScroll()
+    window.addEventListener("scroll", handleScroll)
+
+    // eslint-disable-next-line consistent-return
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
   return (
     <>
@@ -36,12 +65,15 @@ export default function Navbar() {
         onClick={() => setIsMobileNavOpen(false)}
       />
 
-      <header className="fixed top-0 left-0 z-50 w-full bg-gray-950 py-4 md:sticky md:bg-gray-950/30 md:backdrop-blur-3xl">
+      <header
+        ref={headerRef}
+        className="fixed top-0 left-0 z-50 w-full bg-gray-950/30 py-4 backdrop-blur-sm md:sticky"
+      >
         <div className="mx-auto flex items-center justify-between px-4 md:max-w-[1200px] md:px-0">
           <h2>
             <NextLink
               href="/"
-              className="justify-between gap-[14px] px-3 py-2 font-bold hover:bg-ceruleanBlue-950 focus:bg-ceruleanBlue-950 focus:outline-ceruleanBlue-700 active:bg-ceruleanBlue-950"
+              className="justify-between gap-[14px] px-3 py-2 font-bold"
               onClick={() => setIsMobileNavOpen(false)}
             >
               <UnionLogo
@@ -65,8 +97,9 @@ export default function Navbar() {
             <NextLink
               href="/apply/new"
               className={cn(
-                "justify-between px-4 py-2 font-bold hover:bg-ceruleanBlue-950 focus:bg-ceruleanBlue-950 focus:outline-ceruleanBlue-700 active:bg-ceruleanBlue-950",
-                pathname === "/apply/new" && "bg-ceruleanBlue-700",
+                "justify-between px-4 py-2 font-bold",
+                pathname === "/apply/new" &&
+                  "active:bg-cerulean-600 bg-ceruleanBlue-700 hover:bg-ceruleanBlue-600 focus:bg-ceruleanBlue-600",
               )}
             >
               <InboxIcon className="size-5" />
@@ -76,8 +109,9 @@ export default function Navbar() {
             <NextLink
               href="/club"
               className={cn(
-                "justify-between px-4 py-2 font-bold hover:bg-ceruleanBlue-950 focus:bg-ceruleanBlue-950 focus:outline-ceruleanBlue-700 active:bg-ceruleanBlue-950",
-                pathname.startsWith("/club") && "bg-ceruleanBlue-700",
+                "justify-between px-4 py-2 font-bold",
+                pathname.startsWith("/club") &&
+                  "active:bg-cerulean-600 bg-ceruleanBlue-700 hover:bg-ceruleanBlue-600 focus:bg-ceruleanBlue-600",
               )}
             >
               <AcademicCapIcon className="size-5" />
@@ -87,8 +121,9 @@ export default function Navbar() {
             <NextLink
               href="/apply/status"
               className={cn(
-                "justify-between px-4 py-2 font-bold hover:bg-ceruleanBlue-950 focus:bg-ceruleanBlue-950 focus:outline-ceruleanBlue-700 active:bg-ceruleanBlue-950",
-                pathname === "/apply/status" && "bg-ceruleanBlue-700",
+                "justify-between px-4 py-2 font-bold",
+                pathname === "/apply/status" &&
+                  "active:bg-cerulean-600 bg-ceruleanBlue-700 hover:bg-ceruleanBlue-600 focus:bg-ceruleanBlue-600",
               )}
             >
               <UserIcon className="size-5" />
