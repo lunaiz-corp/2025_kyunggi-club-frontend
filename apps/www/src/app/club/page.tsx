@@ -21,7 +21,7 @@ export default function ClubList() {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
         <NextLink
           href="/club/list"
-          className="justify-between bg-gray-800 !p-5"
+          className="justify-between rounded-xl bg-gray-800 p-5"
         >
           <div className="text-2xl font-bold">과학기술정보통신부</div>
           <Image
@@ -33,7 +33,7 @@ export default function ClubList() {
         </NextLink>
         <NextLink
           href="/club/kec"
-          className="justify-between bg-gray-800 !p-5"
+          className="justify-between rounded-xl bg-gray-800 p-5"
         >
           <div className="text-2xl font-bold">기계공학부</div>
           <Image
@@ -45,7 +45,7 @@ export default function ClubList() {
         </NextLink>
         <NextLink
           href="/club/kphc"
-          className="justify-between bg-gray-800 !p-5"
+          className="justify-between rounded-xl bg-gray-800 p-5"
         >
           <div className="text-2xl font-bold">물리부</div>
           <Image
@@ -58,7 +58,7 @@ export default function ClubList() {
 
         <NextLink
           href="/club/kbrc"
-          className="justify-between bg-gray-800 !p-5"
+          className="justify-between rounded-xl bg-gray-800 p-5"
         >
           <div className="text-2xl font-bold">생물부</div>
           <Image
@@ -70,7 +70,7 @@ export default function ClubList() {
         </NextLink>
         <NextLink
           href="/club/kmoc"
-          className="justify-between bg-gray-800 !p-5"
+          className="justify-between rounded-xl bg-gray-800 p-5"
         >
           <div className="text-2xl font-bold">수학부</div>
           <Image
@@ -82,7 +82,7 @@ export default function ClubList() {
         </NextLink>
         <NextLink
           href="/club/kac"
-          className="justify-between bg-gray-800 !p-5"
+          className="justify-between rounded-xl bg-gray-800 p-5"
         >
           <div className="text-2xl font-bold">천문학부</div>
           <Image
@@ -95,7 +95,7 @@ export default function ClubList() {
 
         <NextLink
           href="/club/css"
-          className="justify-between bg-gray-800 !p-5"
+          className="justify-between rounded-xl bg-gray-800 p-5"
         >
           <div className="text-2xl font-bold">창의융합과학부</div>
           <Image
@@ -107,7 +107,7 @@ export default function ClubList() {
         </NextLink>
         <NextLink
           href="/club/cel"
-          className="justify-between bg-gray-800 !p-5"
+          className="justify-between rounded-xl bg-gray-800 p-5"
         >
           <div className="text-2xl font-bold">컴퓨터부</div>
           <Image
@@ -119,7 +119,7 @@ export default function ClubList() {
         </NextLink>
         <NextLink
           href="/club/kcc"
-          className="justify-between bg-gray-800 !p-5"
+          className="justify-between rounded-xl bg-gray-800 p-5"
         >
           <div className="text-2xl font-bold">화학부</div>
           <Image

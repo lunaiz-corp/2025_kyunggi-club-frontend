@@ -9,7 +9,7 @@ import type { UrlObject } from "url"
 
 import Link from "next/link"
 
-import clsx from "clsx"
+import { cn } from "../../utils/tailwindMerge"
 
 const baseClass = [
   "inline-flex",
@@ -43,11 +43,7 @@ export function ALink({
     PropsWithChildren
 >) {
   return (
-    <a
-      {...props}
-      href={href}
-      className={clsx(...baseClass, className)}
-    >
+    <a {...props} href={href} className={cn(...baseClass, className)}>
       {children}
     </a>
   )
@@ -69,7 +65,7 @@ export function NextLink({
     <Link
       {...props}
       href={href}
-      className={clsx(...baseClass, className)}
+      className={cn(...baseClass, className)}
       onClick={e => {
         e.currentTarget.blur()
         onClick?.(e)

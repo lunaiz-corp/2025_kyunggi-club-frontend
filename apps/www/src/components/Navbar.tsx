@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { usePathname } from "next/navigation"
 
-import clsx from "clsx"
+import { cn } from "@packages/ui/utils/tailwindMerge"
 
 import {
   AcademicCapIcon,
@@ -24,7 +24,7 @@ export default function Navbar() {
     <>
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
       <div
-        className={clsx(
+        className={cn(
           "fixed z-40 size-full transition-colors duration-[0.4s] md:hidden",
           isMobileNavOpen
             ? "pointer-events-auto bg-black/40"
@@ -47,10 +47,10 @@ export default function Navbar() {
               />
 
               <div className="inline-flex flex-col gap-0.5 text-left">
-                <span className="text-xs leading-[normal] font-bold text-gray-100">
+                <span className="text-xs leading-[normal] font-bold">
                   경기고등학교
                 </span>
-                <span className="text-xl leading-[normal] font-bold text-gray-100">
+                <span className="text-xl leading-[normal] font-bold">
                   이공계동아리연합
                 </span>
               </div>
@@ -61,7 +61,7 @@ export default function Navbar() {
           <nav className="hidden gap-3 md:inline-flex">
             <NextLink
               href="/apply/new"
-              className={clsx(
+              className={cn(
                 "inline-flex items-center justify-between gap-2 px-4 font-bold",
                 pathname === "/apply/new" && "bg-ceruleanBlue-700",
               )}
@@ -72,7 +72,7 @@ export default function Navbar() {
 
             <NextLink
               href="/club"
-              className={clsx(
+              className={cn(
                 "inline-flex items-center justify-between gap-2 px-4 font-bold",
                 pathname.startsWith("/club") && "bg-ceruleanBlue-700",
               )}
@@ -83,7 +83,7 @@ export default function Navbar() {
 
             <NextLink
               href="/apply/status"
-              className={clsx(
+              className={cn(
                 "inline-flex items-center justify-between gap-2 px-4 font-bold",
                 pathname === "/apply/status" && "bg-ceruleanBlue-700",
               )}
@@ -109,7 +109,7 @@ export default function Navbar() {
 
         {/* Mobile Navbar Menu */}
         <div
-          className={clsx(
+          className={cn(
             "overflow-hidden bg-gray-950 !transition-[height] !duration-[0.4s] !ease-in-out md:hidden",
             isMobileNavOpen ? "h-[181px]" : "h-0",
           )}

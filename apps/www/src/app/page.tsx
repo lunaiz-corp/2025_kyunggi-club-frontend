@@ -27,9 +27,7 @@ export default function Main() {
       <div className="flex w-full flex-col gap-8 px-6 md:flex-row md:px-0">
         <div className="flex w-full flex-1 flex-col gap-5">
           <div className="inline-flex items-center justify-between">
-            <h2 className="text-lg font-bold text-gray-100">
-              선발 일정
-            </h2>
+            <h2 className="text-lg font-bold">선발 일정</h2>
           </div>
 
           <div className="flex min-h-[407px] w-full flex-col gap-8 rounded-xl border border-[#eff6ff]/10 px-6 py-4 md:flex-row">
@@ -49,9 +47,7 @@ export default function Main() {
 
         <div className="flex flex-col gap-5 md:w-[414px]">
           <div className="inline-flex items-center justify-between">
-            <h2 className="text-lg font-bold text-gray-100">
-              동아리 경쟁률 현황
-            </h2>
+            <h2 className="text-lg font-bold">동아리 경쟁률 현황</h2>
           </div>
 
           <div className="flex size-full min-h-[407px] gap-8 rounded-xl border border-[#eff6ff]/10 px-6 py-4">
@@ -65,12 +61,10 @@ export default function Main() {
 
         <div className="flex w-full flex-1 flex-col gap-5">
           <div className="inline-flex items-center justify-between">
-            <h2 className="text-lg font-bold text-gray-100">
-              공지사항
-            </h2>
+            <h2 className="text-lg font-bold">공지사항</h2>
 
             <NextLink href="/notice">
-              <span className="text-sm text-gray-100">더보기</span>
+              <span className="text-sm">더보기</span>
             </NextLink>
           </div>
 

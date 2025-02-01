@@ -19,10 +19,10 @@ export default function Footer() {
         />
 
         <div className="inline-flex flex-col gap-0.5 text-left">
-          <span className="text-xs leading-[normal] font-bold text-gray-100">
+          <span className="text-xs leading-[normal] font-bold">
             경기고등학교
           </span>
-          <span className="text-xl leading-[normal] font-bold text-gray-100">
+          <span className="text-xl leading-[normal] font-bold">
             이공계동아리연합
           </span>
         </div>

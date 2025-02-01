@@ -26,33 +26,25 @@ export default function Advertisements() {
     >
       <SwiperSlide>
         <div className="inline-flex size-full items-center justify-center rounded-xl bg-gradient-to-r from-[#132b75] to-ceruleanBlue-700">
-          <span className="text-[27px] font-bold text-gray-100">
-            광고
-          </span>
+          <span className="text-[27px] font-bold">광고</span>
         </div>
       </SwiperSlide>
 
       <SwiperSlide>
         <div className="inline-flex size-full items-center justify-center rounded-xl bg-gradient-to-r from-[#132b75] to-ceruleanBlue-700">
-          <span className="text-[27px] font-bold text-gray-100">
-            광고
-          </span>
+          <span className="text-[27px] font-bold">광고</span>
         </div>
       </SwiperSlide>
 
       <SwiperSlide>
         <div className="inline-flex size-full items-center justify-center rounded-xl bg-gradient-to-r from-[#132b75] to-ceruleanBlue-700">
-          <span className="text-[27px] font-bold text-gray-100">
-            광고
-          </span>
+          <span className="text-[27px] font-bold">광고</span>
         </div>
       </SwiperSlide>
 
       <SwiperSlide>
         <div className="inline-flex size-full items-center justify-center rounded-xl bg-gradient-to-r from-[#132b75] to-ceruleanBlue-700">
-          <span className="text-[27px] font-bold text-gray-100">
-            광고
-          </span>
+          <span className="text-[27px] font-bold">광고</span>
         </div>
       </SwiperSlide>
     </Swiper>
