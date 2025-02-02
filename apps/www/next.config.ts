@@ -22,6 +22,8 @@ const nextConfig: NextConfig = {
         hostname: "cdn.discordapp.com",
       },
     ],
+
+    dangerouslyAllowSVG: true,
   },
 
   experimental: {

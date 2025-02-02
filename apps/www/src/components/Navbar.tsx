@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
 
 import { cn } from "@packages/ui/utils/tailwindMerge"
@@ -22,31 +22,16 @@ import UnionLogo from "@packages/assets/images/union-logo.svg"
 export default function Navbar() {
   const pathname = usePathname()
 
-  const headerRef = useRef<HTMLDivElement>(null)
+  const [isHeaderScrolled, setIsHeaderScrolled] = useState(false)
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
 
   useEffect(() => {
-    const header = headerRef.current
-    if (!header) return
-
-    const handleScroll = () => {
-      if (window.scrollY >= 0.1) {
-        header.classList.remove("bg-transparent")
-        header.classList.add("bg-gray-950/30")
-        header.classList.add("backdrop-blur-sm")
-        header.classList.add("shadow-sm")
-      } else {
-        header.classList.add("bg-transparent")
-        header.classList.remove("bg-gray-950/30")
-        header.classList.remove("backdrop-blur-sm")
-        header.classList.remove("shadow-sm")
-      }
-    }
+    const handleScroll = () =>
+      setIsHeaderScrolled(window.scrollY >= 0.1)
 
     handleScroll()
     window.addEventListener("scroll", handleScroll)
 
-    // eslint-disable-next-line consistent-return
     return () => {
       window.removeEventListener("scroll", handleScroll)
     }
@@ -66,8 +51,12 @@ export default function Navbar() {
       />
 
       <header
-        ref={headerRef}
-        className="fixed top-0 left-0 z-50 w-full bg-gray-950/30 py-4 backdrop-blur-sm md:sticky"
+        className={cn(
+          "fixed top-0 left-0 z-50 w-full py-4 md:sticky",
+          isHeaderScrolled || isMobileNavOpen
+            ? "bg-gray-950 md:bg-gray-950/60 md:shadow-sm md:backdrop-blur-sm"
+            : "bg-transparent",
+        )}
       >
         <div className="mx-auto flex items-center justify-between px-4 md:max-w-[1200px] md:px-0">
           <h2>
@@ -148,7 +137,7 @@ export default function Navbar() {
         {/* Mobile Navbar Menu */}
         <div
           className={cn(
-            "overflow-hidden bg-gray-950 !transition-[height] !duration-[0.4s] !ease-in-out md:hidden",
+            "mt-4 overflow-hidden bg-gray-950 !transition-[height] !duration-[0.4s] ease-in-out md:hidden",
             isMobileNavOpen ? "h-[205px]" : "h-0",
           )}
         >
