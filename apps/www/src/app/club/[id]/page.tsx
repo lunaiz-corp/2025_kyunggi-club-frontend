@@ -88,7 +88,7 @@ export default async function ClubDetail({
         />
 
         <div className="inline-flex flex-col items-center justify-between gap-8 md:flex-row">
-          <h1 className="text-5xl font-bold tracking-tight">
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
             {currentClub.name}
           </h1>
 

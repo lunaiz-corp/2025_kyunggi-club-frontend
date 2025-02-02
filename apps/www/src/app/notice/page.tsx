@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function NoticeList() {
   return (
     <main className="mx-auto mt-8 flex max-w-[1200px] flex-col gap-12 px-6 md:mt-16 lg:px-0">
-      <h1 className="text-[42px] font-bold tracking-tight">
+      <h1 className="text-4xl font-bold tracking-tight md:text-[42px]">
         공지사항
       </h1>
 
@@ -29,7 +29,7 @@ export default function NoticeList() {
         >
           <div className="inline-flex items-center gap-2.5">
             <div className="size-2 rounded-full bg-ceruleanBlue-600" />
-            <h2 className="text-3xl font-bold">Title</h2>
+            <h2 className="text-2xl font-bold md:text-3xl">Title</h2>
           </div>
 
           <span className="text-gray-300">
@@ -42,7 +42,7 @@ export default function NoticeList() {
           className="flex-col items-start gap-4 px-4 py-3"
         >
           <div className="inline-flex items-center gap-2.5">
-            <h2 className="text-3xl font-bold">Title</h2>
+            <h2 className="text-2xl font-bold md:text-3xl">Title</h2>
           </div>
 
           <span className="text-gray-300">

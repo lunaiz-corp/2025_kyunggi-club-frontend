@@ -235,7 +235,7 @@ export default function ApplyNewFunnelStep2({
       <div className="h-0.5 bg-gray-900" />
 
       <div className="flex flex-col gap-8">
-        <div className="flex w-full gap-5">
+        <div className="flex w-full flex-col gap-5 md:flex-row">
           <div className="flex w-full flex-col gap-5">
             <label
               htmlFor="parent-name"
@@ -300,7 +300,7 @@ export default function ApplyNewFunnelStep2({
         <div className="flex flex-col gap-5">
           <span className="text-2xl font-bold">학생 지망 동아리</span>
 
-          <div className="flex w-full gap-5">
+          <div className="flex w-full flex-col gap-5 md:flex-row">
             <Select
               className="w-full"
               value={applingClubs[0]}
