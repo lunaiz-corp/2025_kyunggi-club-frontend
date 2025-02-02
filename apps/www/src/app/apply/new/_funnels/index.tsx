@@ -22,6 +22,7 @@ export type ApplyBaseContext = {
   userInfo?: {
     id: number // 학번
     name: string // 이름
+    phone: string // 전화번호
     verifiedRefId: string // 전화번호, CI 등을 서버에서 참조할 수 있는 refId
     isVerifiedPhoneIsParent: boolean // 전화번호가 본인 또는 부모님 전화번호인지 여부 (default: false)
   }

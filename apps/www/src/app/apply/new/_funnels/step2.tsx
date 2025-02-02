@@ -24,6 +24,7 @@ export type DataNeedsToBeFilled = {
   userInfo: {
     id: number // 학번
     name: string // 이름
+    phone: string // 전화번호
     verifiedRefId: string // 전화번호, CI 등을 서버에서 참조할 수 있는 refId
     isVerifiedPhoneIsParent: boolean // 전화번호가 본인 또는 부모님 전화번호인지 여부 (default: false)
   }
@@ -68,7 +69,8 @@ export default function ApplyNewFunnelStep2({
     if (context.userInfo) {
       setStudentId(context.userInfo.id.toString())
       setStudentName(context.userInfo.name)
-      setStudentPhone(context.userInfo.verifiedRefId)
+      setStudentPhone(context.userInfo.phone)
+      setVerifiedRefId(context.userInfo.verifiedRefId)
       setIsVerifiedPhoneIsParent(
         context.userInfo.isVerifiedPhoneIsParent,
       )
@@ -94,6 +96,7 @@ export default function ApplyNewFunnelStep2({
           userInfo: {
             id: parseInt(studentId, 10),
             name: studentName,
+            phone: studentPhone,
             verifiedRefId,
             isVerifiedPhoneIsParent,
           },
@@ -300,7 +303,7 @@ export default function ApplyNewFunnelStep2({
           <div className="flex w-full gap-5">
             <Select
               className="w-full"
-              defaultValue=""
+              value={applingClubs[0]}
               onChange={e => {
                 setApplingClubs(prev => {
                   const newArr = [...prev]
@@ -329,7 +332,7 @@ export default function ApplyNewFunnelStep2({
 
             <Select
               className="w-full"
-              defaultValue=""
+              value={applingClubs[1]}
               onChange={e => {
                 setApplingClubs(prev => {
                   const newArr = [...prev]
@@ -361,7 +364,7 @@ export default function ApplyNewFunnelStep2({
 
             <Select
               className="w-full"
-              defaultValue=""
+              value={applingClubs[2]}
               onChange={e => {
                 setApplingClubs(prev => {
                   const newArr = [...prev]
