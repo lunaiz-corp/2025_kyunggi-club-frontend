@@ -322,7 +322,7 @@ export default function ApplyNewFunnelStep2({
                 )
                 .map(club => (
                   <option value={club.id} key={club.id}>
-                    {club.name}
+                    {club.name.split(" ")[1]}
                   </option>
                 ))}
             </Select>
@@ -354,7 +354,7 @@ export default function ApplyNewFunnelStep2({
                 )
                 .map(club => (
                   <option value={club.id} key={club.id}>
-                    {club.name}
+                    {club.name.split(" ")[1]}
                   </option>
                 ))}
             </Select>
@@ -386,7 +386,7 @@ export default function ApplyNewFunnelStep2({
                 )
                 .map(club => (
                   <option value={club.id} key={club.id}>
-                    {club.name}
+                    {club.name.split(" ")[1]}
                   </option>
                 ))}
             </Select>
