@@ -1,36 +1,60 @@
 import type { Metadata } from "next"
 import Image, { getImageProps } from "next/image"
+import { notFound } from "next/navigation"
 
 import { getBackgroundImage } from "@/utils/image"
-
 import Advertisements from "@/components/Advertisements"
 
-export const metadata: Metadata = {
-  title: "과학기술정보통신부 소개",
-  description:
-    "과학기술정보통신부 - Leader of ICT, Science and Technology",
+import { clubs } from "@/data/clubs.json"
 
-  openGraph: {
-    title: "과학기술정보통신부 소개",
-    description:
-      "과학기술정보통신부 - Leader of ICT, Science and Technology",
-  },
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
+  const { id } = await params
+  const currentClub = clubs.find(club => club.id === id)
 
-  twitter: {
-    title: "과학기술정보통신부 소개",
-    description:
-      "과학기술정보통신부 - Leader of ICT, Science and Technology",
-  },
+  return {
+    title: `${currentClub?.name} 소개`,
+    description: currentClub?.description,
+
+    openGraph: {
+      title: `${currentClub?.name} 소개`,
+      description: currentClub?.description,
+    },
+
+    twitter: {
+      title: `${currentClub?.name} 소개`,
+      description: currentClub?.description,
+    },
+  }
 }
 
-export default function ClubDetail() {
+// TODO: Static Params
+export async function generateStaticParams() {
+  return clubs.map(club => ({ id: club.id }))
+}
+
+export default async function ClubDetail({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  const currentClub = clubs.find(club => club.id === id)
+
+  if (!currentClub) {
+    return notFound()
+  }
+
   const {
     props: { srcSet: background },
   } = getImageProps({
     alt: "",
     width: 1200,
     height: 675,
-    src: "https://cdn.lunaiz.com/kghs/bg_list.png",
+    src: `https://cdn.lunaiz.com/kghs/bg_${id}.png`,
   })
 
   const {
@@ -65,12 +89,12 @@ export default function ClubDetail() {
 
         <div className="inline-flex flex-col items-center justify-between gap-8 md:flex-row">
           <h1 className="text-5xl font-bold tracking-tight">
-            과학기술정보통신부
+            {currentClub.name}
           </h1>
 
           <Image
-            src="https://cdn.lunaiz.com/kghs/badge_list.png"
-            alt="과학기술정보통신부 로고"
+            src={`https://cdn.lunaiz.com/kghs/badge_${id}.png`}
+            alt={`${currentClub.name} 로고`}
             height={72}
             width={128}
           />

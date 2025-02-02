@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import {
   ArrowRightIcon,
@@ -13,7 +13,7 @@ import type { ApplyBaseContext } from "."
 // 1. 아무것도 입력 안됨 - 약관 동의 받아야 함
 export type ApplyStep1 = ApplyBaseContext
 
-type DataNeedsToBeFilled = {
+export type DataNeedsToBeFilled = {
   agreedTerms: number[]
 }
 
@@ -46,10 +46,20 @@ const MOCK_TERMS = [
 
 export default function ApplyNewFunnelStep1({
   onNext,
-}: Readonly<{
-  onNext: (data: DataNeedsToBeFilled) => void
-}>) {
+  ...context
+}: Readonly<
+  {
+    onNext: (data: DataNeedsToBeFilled) => void
+  } & ApplyBaseContext
+>) {
   const [agreedTerms, setAgreedTerms] = useState<number[]>([])
+
+  useEffect(() => {
+    // 만약 이미 데이터가 저장되어 있으면 데이터를 채워준다.
+    if (context.agreedTerms) {
+      setAgreedTerms(context.agreedTerms)
+    }
+  }, [context])
 
   return (
     <form
@@ -70,7 +80,7 @@ export default function ApplyNewFunnelStep1({
             <input
               id={`agree-terms-${term.id}`}
               type="checkbox"
-              className="size-5 cursor-pointer rounded border border-solid border-gray-800 bg-gray-900 checked:bg-ceruleanBlue-700 focus:ring-[0.5px] focus:ring-ceruleanBlue-700 focus:ring-offset-transparent"
+              className="size-5 cursor-pointer rounded border border-solid border-gray-800 bg-gray-900 checked:bg-ceruleanBlue-700 focus:ring focus:ring-ceruleanBlue-700 focus:ring-offset-gray-950"
               checked={
                 // 모든 하위 약관이 체크되어 있는지 확인
                 term.subterms.length <= 0
@@ -138,7 +148,7 @@ export default function ApplyNewFunnelStep1({
               <input
                 id={`agree-terms-${term.id}-${subterm.id}`}
                 type="checkbox"
-                className="size-5 cursor-pointer rounded border border-solid border-gray-800 bg-gray-900 checked:bg-ceruleanBlue-700 focus:ring-[0.5px] focus:ring-ceruleanBlue-700 focus:ring-offset-transparent"
+                className="size-5 cursor-pointer rounded border border-solid border-gray-800 bg-gray-900 checked:bg-ceruleanBlue-700 focus:ring focus:ring-ceruleanBlue-700 focus:ring-offset-gray-950"
                 checked={agreedTerms.includes(
                   Number(`${term.id}.${subterm.id}`),
                 )}
@@ -185,7 +195,7 @@ export default function ApplyNewFunnelStep1({
 
       <div className="h-0.5 bg-gray-900" />
 
-      <Button type="submit" className="font-bold">
+      <Button type="submit" className="w-full font-bold">
         다음 <ArrowRightIcon className="size-5" />
       </Button>
     </form>
