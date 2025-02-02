@@ -147,6 +147,9 @@ importers:
       '@packages/ui':
         specifier: workspace:^
         version: link:../../packages/ui
+      '@use-funnel/browser':
+        specifier: ^0.0.11
+        version: 0.0.11(react@19.0.0)
       swiper:
         specifier: ^11.2.1
         version: 11.2.1
@@ -178,6 +181,9 @@ importers:
       '@packages/eslint-config':
         specifier: workspace:^
         version: link:../eslint-config
+      '@tailwindcss/forms':
+        specifier: ^0.5.10
+        version: 0.5.10(tailwindcss@4.0.0)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -1341,6 +1347,16 @@ packages:
   '@typescript-eslint/visitor-keys@8.21.0':
     resolution: {integrity: sha512-BkLMNpdV6prozk8LlyK/SOoWLmUFi+ZD+pcqti9ILCbVvHGk1ui1g4jJOc2WDLaeExz2qWwojxlPce5PljcT3w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@use-funnel/browser@0.0.11':
+    resolution: {integrity: sha512-n1ghjFCqy8rJKZHRdyv2g5uqgFJaDsAqRO8DwbrS9acDVboL4+U836boH0KJ4RNnhL4kwX60AmHQXefQHQnf3Q==}
+    peerDependencies:
+      react: '>=16.8'
+
+  '@use-funnel/core@0.0.9':
+    resolution: {integrity: sha512-OSjsIV92pKAA1BrIsVZIPZdLw25XwMfeMT8HY3xTbEvkOvJS4MVBDjsVvP74Bbq+COQTsSIfeLpo6++lMt+6Hw==}
+    peerDependencies:
+      react: '>=16.8'
 
   '@wojtekmaj/date-utils@1.5.1':
     resolution: {integrity: sha512-+i7+JmNiE/3c9FKxzWFi2IjRJ+KzZl1QPu6QNrsgaa2MuBgXvUy4gA1TVzf/JMdIIloB76xSKikTWuyYAIVLww==}
@@ -4183,6 +4199,15 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.21.0
       eslint-visitor-keys: 4.2.0
+
+  '@use-funnel/browser@0.0.11(react@19.0.0)':
+    dependencies:
+      '@use-funnel/core': 0.0.9(react@19.0.0)
+      react: 19.0.0
+
+  '@use-funnel/core@0.0.9(react@19.0.0)':
+    dependencies:
+      react: 19.0.0
 
   '@wojtekmaj/date-utils@1.5.1': {}
 

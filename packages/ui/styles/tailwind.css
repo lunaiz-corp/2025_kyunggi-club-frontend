@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@plugin "@tailwindcss/forms";
+
 @theme {
   /* KRDS - Typography */
   --font-sans: "Pretendard GOV Variable", "Pretendard GOV", sans-serif;

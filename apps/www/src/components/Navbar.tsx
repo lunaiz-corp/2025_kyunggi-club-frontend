@@ -84,11 +84,11 @@ export default function Navbar() {
           {/* PC Navbar Menu */}
           <nav className="hidden gap-3 md:inline-flex">
             <NextLink
-              href="/apply/new"
+              href="/apply/new?apply.step=step1"
               className={cn(
                 "justify-between px-4 py-2 font-bold",
                 pathname === "/apply/new" &&
-                  "active:bg-cerulean-600 bg-ceruleanBlue-700 hover:bg-ceruleanBlue-600 focus:bg-ceruleanBlue-600",
+                  "bg-ceruleanBlue-700 hover:bg-ceruleanBlue-600 focus:bg-ceruleanBlue-600 active:bg-ceruleanBlue-600",
               )}
             >
               <InboxIcon className="size-5" />
@@ -100,7 +100,7 @@ export default function Navbar() {
               className={cn(
                 "justify-between px-4 py-2 font-bold",
                 pathname.startsWith("/club") &&
-                  "active:bg-cerulean-600 bg-ceruleanBlue-700 hover:bg-ceruleanBlue-600 focus:bg-ceruleanBlue-600",
+                  "bg-ceruleanBlue-700 hover:bg-ceruleanBlue-600 focus:bg-ceruleanBlue-600 active:bg-ceruleanBlue-600",
               )}
             >
               <AcademicCapIcon className="size-5" />
@@ -112,7 +112,7 @@ export default function Navbar() {
               className={cn(
                 "justify-between px-4 py-2 font-bold",
                 pathname === "/apply/status" &&
-                  "active:bg-cerulean-600 bg-ceruleanBlue-700 hover:bg-ceruleanBlue-600 focus:bg-ceruleanBlue-600",
+                  "bg-ceruleanBlue-700 hover:bg-ceruleanBlue-600 focus:bg-ceruleanBlue-600 active:bg-ceruleanBlue-600",
               )}
             >
               <UserIcon className="size-5" />
@@ -143,7 +143,7 @@ export default function Navbar() {
         >
           <nav className="flex flex-col gap-4 px-8 pt-8 pb-4">
             <NextLink
-              href="/apply/new"
+              href="/apply/new?apply.step=step1"
               className="inline-flex items-center justify-between gap-2 px-4 py-2 font-bold"
               onClick={() => setIsMobileNavOpen(false)}
             >

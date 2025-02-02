@@ -16,8 +16,8 @@ export const baseClass = [
   "items-center",
   "gap-2",
 
-  "py-1",
   "px-2",
+  "py-1",
 
   "rounded-lg",
 
@@ -39,11 +39,10 @@ export function ALink({
   DetailedHTMLProps<
     AnchorHTMLAttributes<HTMLAnchorElement>,
     HTMLAnchorElement
-  > &
-    PropsWithChildren
+  > & { href: string } & PropsWithChildren
 >) {
   return (
-    <a {...props} href={href} className={cn(...baseClass, className)}>
+    <a href={href} className={cn(...baseClass, className)} {...props}>
       {children}
     </a>
   )
@@ -63,13 +62,13 @@ export function NextLink({
 >) {
   return (
     <Link
-      {...props}
       href={href}
       className={cn(...baseClass, className)}
       onClick={e => {
         e.currentTarget.blur()
         onClick?.(e)
       }}
+      {...props}
     >
       {children}
     </Link>

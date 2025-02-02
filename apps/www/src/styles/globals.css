@@ -3,3 +3,7 @@
 
 @source "../app";
 @source "../../../../packages/ui/components";
+
+body {
+    @apply bg-gray-950;
+}

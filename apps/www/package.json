@@ -13,6 +13,7 @@
     "@packages/channelio": "workspace:^",
     "@packages/eslint-config": "workspace:^",
     "@packages/ui": "workspace:^",
+    "@use-funnel/browser": "^0.0.11",
     "swiper": "^11.2.1"
   }
 }

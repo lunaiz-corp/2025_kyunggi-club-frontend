@@ -62,9 +62,9 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "https://cdn.lunaiz.com/kghs/logo_norm.png",
-    shortcut: "https://cdn.lunaiz.com/kghs/logo_norm.png",
-    apple: "https://cdn.lunaiz.com/kghs/logo_norm.png",
+    icon: "https://cdn.lunaiz.com/kghs/logo_margin.png",
+    shortcut: "https://cdn.lunaiz.com/kghs/logo_margin.png",
+    apple: "https://cdn.lunaiz.com/kghs/logo_margin.png",
   },
 
   verification: {
