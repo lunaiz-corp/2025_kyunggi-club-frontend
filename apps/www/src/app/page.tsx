@@ -6,7 +6,7 @@ import Skeleton from "react-loading-skeleton"
 import { NextLink } from "@packages/ui/components/krds/Link"
 import SelectChances from "@packages/ui/components/select-chances"
 
-import Advertisements from "@/components/Adverisements"
+import Advertisements from "@/components/Advertisements"
 
 import Schedules from "./_components/schedules"
 import NoticesSummary from "./_components/notices/summary"
@@ -57,7 +57,7 @@ export default function Main() {
       </div>
 
       <div className="flex w-full flex-col gap-8 px-6 md:flex-row md:px-0">
-        <Advertisements />
+        <Advertisements page="main" />
 
         <div className="flex w-full flex-1 flex-col gap-5">
           <div className="inline-flex items-center justify-between">

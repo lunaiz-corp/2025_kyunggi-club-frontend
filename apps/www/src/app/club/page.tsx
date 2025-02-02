@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 
 import { NextLink } from "@packages/ui/components/krds/Link"
+import Advertisements from "@/components/Advertisements"
 
 export const metadata: Metadata = {
   title: "동아리 소개",
@@ -130,6 +131,8 @@ export default function ClubList() {
           />
         </NextLink>
       </div>
+
+      <Advertisements page="club" />
     </main>
   )
 }

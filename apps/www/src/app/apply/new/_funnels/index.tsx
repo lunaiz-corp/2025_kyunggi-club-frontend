@@ -1,8 +1,10 @@
 "use client"
 
 import dynamic from "next/dynamic"
-
 import { useFunnel } from "@use-funnel/browser"
+
+import Advertisements from "@/components/Advertisements"
+import TitleBar from "../_components/TitleBar"
 
 import type { ApplyStep1 } from "./step1"
 import type { ApplyStep2 } from "./step2"
@@ -29,6 +31,13 @@ export type ApplyBaseContext = {
   applingClubs?: string[] // 학생 지망 동아리
 }
 
+const TITLE_BY_STEP = {
+  step1: "약관에 동의해 주세요.",
+  step2: "인적 사항을 입력해 주세요.",
+  step3: "동아리 지원서를 작성해 주세요.",
+  step4: "제출할 지원서를 다시 확인해 주세요.",
+}
+
 export default function ApplyNewFunnel() {
   const funnel = useFunnel<{
     step1: ApplyStep1
@@ -42,21 +51,27 @@ export default function ApplyNewFunnel() {
   })
 
   return (
-    <funnel.Render
-      step1={({ history }) => (
-        <Step1 onNext={props => history.push("step2", props)} />
-      )}
-      step2={({ context, history }) => {
-        if (context.agreedTerms.length === 0) {
-          history.replace("step1", { agreedTerms: [] })
-        }
+    <>
+      <TitleBar title={TITLE_BY_STEP[funnel.step]} />
 
-        return (
-          // <Step2 onNext={props => history.push("step3", props)} />
-          // eslint-disable-next-line no-console
-          <Step2 onNext={props => console.log(props)} />
-        )
-      }}
-    />
+      <Advertisements page="apply" />
+
+      <funnel.Render
+        step1={({ history }) => (
+          <Step1 onNext={props => history.push("step2", props)} />
+        )}
+        step2={({ context, history }) => {
+          if (context.agreedTerms.length === 0) {
+            history.replace("step1", { agreedTerms: [] })
+          }
+
+          return (
+            // <Step2 onNext={props => history.push("step3", props)} />
+            // eslint-disable-next-line no-console
+            <Step2 onNext={props => console.log(props)} />
+          )
+        }}
+      />
+    </>
   )
 }

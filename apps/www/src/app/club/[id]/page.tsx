@@ -1,6 +1,9 @@
-import { getBackgroundImage } from "@/utils/image"
 import type { Metadata } from "next"
 import Image, { getImageProps } from "next/image"
+
+import { getBackgroundImage } from "@/utils/image"
+
+import Advertisements from "@/components/Advertisements"
 
 export const metadata: Metadata = {
   title: "과학기술정보통신부 소개",
@@ -82,11 +85,7 @@ export default function ClubDetail() {
           </span>
         </div>
 
-        <div className="inline-flex h-[239px] items-center justify-center rounded-4xl bg-ceruleanBlue-950">
-          <span className="text-5xl font-bold text-gray-100">
-            광고
-          </span>
-        </div>
+        <Advertisements page="club" />
 
         <div className="flex flex-col gap-8">
           <h2 className="text-2xl font-bold">임원진</h2>

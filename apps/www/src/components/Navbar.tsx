@@ -84,7 +84,7 @@ export default function Navbar() {
           {/* PC Navbar Menu */}
           <nav className="hidden gap-3 md:inline-flex">
             <NextLink
-              href="/apply/new?apply.step=step1"
+              href="/apply/new"
               className={cn(
                 "justify-between px-4 py-2 font-bold",
                 pathname === "/apply/new" &&
@@ -143,7 +143,7 @@ export default function Navbar() {
         >
           <nav className="flex flex-col gap-4 px-8 pt-8 pb-4">
             <NextLink
-              href="/apply/new?apply.step=step1"
+              href="/apply/new"
               className="inline-flex items-center justify-between gap-2 px-4 py-2 font-bold"
               onClick={() => setIsMobileNavOpen(false)}
             >

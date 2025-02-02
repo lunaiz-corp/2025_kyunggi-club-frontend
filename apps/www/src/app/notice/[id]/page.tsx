@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import { ChevronLeftIcon } from "@heroicons/react/24/solid"
 import { NextLink } from "@packages/ui/components/krds/Link"
 
+import Advertisements from "@/components/Advertisements"
+
 export const metadata: Metadata = {
   title: "공지사항 보기",
   openGraph: {
@@ -17,6 +19,8 @@ export default function NoticeDetail() {
   return (
     <main className="mx-auto mt-8 flex max-w-[1200px] flex-col gap-12 px-6 md:mt-16 lg:px-0">
       <h1 className="text-[42px] font-bold">공지사항</h1>
+
+      <Advertisements page="notice" />
 
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
