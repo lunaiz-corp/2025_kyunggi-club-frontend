@@ -64,7 +64,9 @@ export default function ClubDetail() {
         />
 
         <div className="inline-flex flex-col items-center justify-between gap-8 md:flex-row">
-          <h1 className="text-5xl font-bold">과학기술정보통신부</h1>
+          <h1 className="text-5xl font-bold tracking-tight">
+            과학기술정보통신부
+          </h1>
 
           <Image
             src="https://cdn.lunaiz.com/kghs/badge_list.png"

@@ -17,7 +17,9 @@ export const metadata: Metadata = {
 export default function ClubList() {
   return (
     <main className="mx-auto mt-8 flex max-w-[1200px] flex-col gap-12 px-6 md:mt-16 lg:px-0">
-      <h1 className="text-4xl font-bold">동아리 소개</h1>
+      <h1 className="text-4xl font-bold tracking-tight">
+        동아리 소개
+      </h1>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
         <NextLink
