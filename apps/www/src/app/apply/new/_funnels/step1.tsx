@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import {
   ArrowRightIcon,
@@ -7,6 +7,7 @@ import {
 
 import { ALink } from "@packages/ui/components/krds/Link"
 import Button from "@packages/ui/components/krds/Button"
+import Checkbox from "@packages/ui/components/Checkbox"
 
 import type { ApplyBaseContext } from "."
 
@@ -52,12 +53,18 @@ export default function ApplyNewFunnelStep1({
     onNext: (data: DataNeedsToBeFilled) => void
   } & ApplyBaseContext
 >) {
+  const havePrefilled = useRef<boolean>(false)
+
   const [agreedTerms, setAgreedTerms] = useState<number[]>([])
 
   useEffect(() => {
-    // 만약 이미 데이터가 저장되어 있으면 데이터를 채워준다.
-    if (context.agreedTerms) {
-      setAgreedTerms(context.agreedTerms)
+    if (!havePrefilled.current) {
+      // 만약 이미 데이터가 저장되어 있으면 데이터를 채워준다.
+      if (context.agreedTerms) {
+        setAgreedTerms(context.agreedTerms)
+      }
+
+      havePrefilled.current = true
     }
   }, [context])
 
@@ -77,10 +84,8 @@ export default function ApplyNewFunnelStep1({
           className="inline-flex flex-col gap-2.5"
         >
           <div className="inline-flex items-center gap-3">
-            <input
+            <Checkbox
               id={`agree-terms-${term.id}`}
-              type="checkbox"
-              className="size-5 cursor-pointer rounded border border-solid border-gray-800 bg-gray-900 checked:bg-ceruleanBlue-700 focus:ring focus:ring-ceruleanBlue-700 focus:ring-offset-gray-950"
               checked={
                 // 모든 하위 약관이 체크되어 있는지 확인
                 term.subterms.length <= 0

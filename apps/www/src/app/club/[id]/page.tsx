@@ -2,6 +2,9 @@ import type { Metadata } from "next"
 import Image, { getImageProps } from "next/image"
 import { notFound } from "next/navigation"
 
+import { ChevronLeftIcon } from "@heroicons/react/24/solid"
+import { NextLink } from "@packages/ui/components/krds/Link"
+
 import { getBackgroundImage } from "@/utils/image"
 import Advertisements from "@/components/Advertisements"
 
@@ -88,9 +91,14 @@ export default async function ClubDetail({
         />
 
         <div className="inline-flex flex-col items-center justify-between gap-8 md:flex-row">
-          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-            {currentClub.name}
-          </h1>
+          <div className="flex items-center gap-4">
+            <NextLink href="/club" className="p-1.5">
+              <ChevronLeftIcon className="size-5" />
+            </NextLink>
+            <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
+              {currentClub.name}
+            </h1>
+          </div>
 
           <Image
             src={`https://cdn.lunaiz.com/kghs/badge_${id}.png`}

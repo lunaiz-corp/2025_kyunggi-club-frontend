@@ -26,6 +26,9 @@ export const baseClass = [
   "focus:bg-ceruleanBlue-600",
   "hover:bg-ceruleanBlue-600",
 
+  "disabled:border-ceruleanBlue-950",
+  "disabled:bg-ceruleanBlue-950",
+
   "focus:outline",
   "focus:outline-offset-2",
   "focus:outline-ceruleanBlue-700",

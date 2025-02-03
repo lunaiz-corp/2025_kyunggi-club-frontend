@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline"
 import {
@@ -46,6 +46,8 @@ export default function ApplyNewFunnelStep2({
     onNext: (data: DataNeedsToBeFilled) => void
   } & ApplyBaseContext
 >) {
+  const havePrefilled = useRef<boolean>(false)
+
   const [studentId, setStudentId] = useState<string>("")
   const [studentName, setStudentName] = useState<string>("")
   const [studentPhone, setStudentPhone] = useState<string>("")
@@ -65,25 +67,29 @@ export default function ApplyNewFunnelStep2({
   ])
 
   useEffect(() => {
-    // 만약 이미 데이터가 저장되어 있으면 데이터를 채워준다.
-    if (context.userInfo) {
-      setStudentId(context.userInfo.id.toString())
-      setStudentName(context.userInfo.name)
-      setStudentPhone(context.userInfo.phone)
-      setVerifiedRefId(context.userInfo.verifiedRefId)
-      setIsVerifiedPhoneIsParent(
-        context.userInfo.isVerifiedPhoneIsParent,
-      )
-    }
+    if (!havePrefilled.current) {
+      // 만약 이미 데이터가 저장되어 있으면 데이터를 채워준다.
+      if (context.userInfo) {
+        setStudentId(context.userInfo.id.toString())
+        setStudentName(context.userInfo.name)
+        setStudentPhone(context.userInfo.phone)
+        setVerifiedRefId(context.userInfo.verifiedRefId)
+        setIsVerifiedPhoneIsParent(
+          context.userInfo.isVerifiedPhoneIsParent,
+        )
+      }
 
-    if (context.parentInfo) {
-      setParentName(context.parentInfo.name)
-      setParentRelationship(context.parentInfo.relationship)
-      setParentPhone(context.parentInfo.phone)
-    }
+      if (context.parentInfo) {
+        setParentName(context.parentInfo.name)
+        setParentRelationship(context.parentInfo.relationship)
+        setParentPhone(context.parentInfo.phone)
+      }
 
-    if (context.applingClubs) {
-      setApplingClubs(context.applingClubs)
+      if (context.applingClubs) {
+        setApplingClubs(context.applingClubs)
+      }
+
+      havePrefilled.current = true
     }
   }, [context])
 
@@ -186,11 +192,12 @@ export default function ApplyNewFunnelStep2({
 
                 setStudentName("홍길동")
                 setStudentPhone("01000000000")
-                setVerifiedRefId("")
+                setVerifiedRefId("_")
                 setIsVerifiedPhoneIsParent(false)
               }}
+              disabled={!!verifiedRefId}
             >
-              실명 인증
+              {verifiedRefId ? "인증 완료" : "실명 인증"}
             </Button>
           </div>
         </div>
@@ -298,7 +305,14 @@ export default function ApplyNewFunnelStep2({
 
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-5">
-          <span className="text-2xl font-bold">학생 지망 동아리</span>
+          <div className="inline-flex flex-col gap-3">
+            <span className="text-2xl font-bold">
+              학생 지망 동아리
+            </span>
+            <span className="text-sm text-gray-500">
+              지망하는 동아리를 1개 이상 선택하여 주세요.
+            </span>
+          </div>
 
           <div className="flex w-full flex-col gap-5 md:flex-row">
             <Select
@@ -346,7 +360,7 @@ export default function ApplyNewFunnelStep2({
                   2지망
                 </option>
               ) : (
-                <option value="">선택 해제</option>
+                <option value="">지원 안함</option>
               )}
 
               {clubs
@@ -378,7 +392,7 @@ export default function ApplyNewFunnelStep2({
                   3지망
                 </option>
               ) : (
-                <option value="">선택 해제</option>
+                <option value="">지원 안함</option>
               )}
 
               {clubs
@@ -395,7 +409,39 @@ export default function ApplyNewFunnelStep2({
             </Select>
           </div>
         </div>
+
+        <div className="flex flex-col gap-6 rounded-lg bg-gray-900 px-4 py-5 text-gray-200">
+          <span className="inline-flex items-center gap-3 font-bold">
+            <ExclamationCircleIcon className="size-5" />
+            잠깐! 2지망/3지망을 선택하고 싶지 않으신가요?
+          </span>
+
+          <div className="inline-flex flex-col gap-2">
+            <span className="text-sm font-bold">
+              아직 2지망/3지망을 선택하지 않으셨다면,
+            </span>
+
+            <span className="text-gray-300">
+              2지망/3지망을 선택하지 않고 바로 다음 단계로 넘어갈 수
+              있습니다.
+            </span>
+          </div>
+
+          <div className="h-0.5 bg-gray-700" />
+
+          <div className="inline-flex flex-col gap-2">
+            <span className="text-sm font-bold">
+              이미 2지망/3지망을 선택하셨다면,
+            </span>
+
+            <span className="text-gray-300">
+              다시 2지망/3지망 옵션에서 &apos;지원 안함&apos;를 선택해
+              주세요.
+            </span>
+          </div>
+        </div>
       </div>
+
       <div className="h-0.5 bg-gray-900" />
 
       <div className="flex w-full gap-5">
@@ -404,7 +450,7 @@ export default function ApplyNewFunnelStep2({
           className="w-full border-gray-900 bg-gray-900 font-bold hover:bg-gray-800 focus:bg-gray-800 focus:outline-gray-700 active:bg-gray-800"
           onClick={() => onPrev()}
         >
-          이전 <ArrowLeftIcon className="size-5" />
+          <ArrowLeftIcon className="size-5" /> 이전
         </Button>
 
         <Button type="submit" className="w-full font-bold">

@@ -80,19 +80,21 @@ export default function Footer() {
 
         <div className="inline-flex flex-col gap-1.5 text-sm text-gray-300 md:flex-row md:items-center">
           <p className="inline-flex gap-1.5">
-            <span>상호명 : 루나이즈</span>
+            <span>상호명 : 스테다</span>
             <span>|</span>
 
-            <span>사업자등록번호 : 123-45-56789</span>
+            <span>사업자등록번호 : 673-03-03470</span>
           </p>
 
           <span className="hidden md:inline">|</span>
 
           <p className="inline-flex gap-1.5">
-            <span>대표자 : 손지민</span>
+            <span>대표자 : 하승민</span>
             <span>|</span>
 
-            <span>주소 : 서울특별시 서초구 나루터로 46</span>
+            <span>
+              주소 : 서울특별시 강남구 선릉로111길 38-16, 103호
+            </span>
           </p>
         </div>
 
@@ -104,7 +106,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener"
           >
-            LUNAIZ Corp.
+            Steada Corp.
           </a>{" "}
           All rights reserved.
         </p>

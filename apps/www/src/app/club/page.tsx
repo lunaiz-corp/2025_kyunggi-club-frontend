@@ -30,7 +30,9 @@ export default function ClubList() {
             className="justify-between rounded-xl bg-gray-800 p-5"
             key={club.id}
           >
-            <div className="text-2xl font-bold">{club.name}</div>
+            <div className="text-2xl font-bold">
+              {club.name.split(" ")[1]}
+            </div>
             <Image
               src={`https://cdn.lunaiz.com/kghs/badge_${club.id}.png`}
               alt={`${club.name} 로고`}
