@@ -98,6 +98,12 @@ export default function ApplyNewFunnelStep2({
       className="flex flex-col gap-6"
       onSubmit={e => {
         e.preventDefault()
+
+        window.scrollTo({
+          top: 0,
+          behavior: "instant",
+        })
+
         onNext({
           userInfo: {
             id: parseInt(studentId, 10),

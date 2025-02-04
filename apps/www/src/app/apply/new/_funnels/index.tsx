@@ -5,15 +5,25 @@ import dynamic from "next/dynamic"
 import { useFunnel } from "@use-funnel/browser"
 
 import Advertisements from "@/components/Advertisements"
+import ScreenLoading from "@/components/ScreenLoading"
 import TitleBar from "../_components/TitleBar"
 
 import type { ApplyStep1 } from "./step1"
 import type { ApplyStep2 } from "./step2"
 import type { ApplyStep3 } from "./step3"
 
-const Step1 = dynamic(() => import("./step1"), { ssr: false })
-const Step2 = dynamic(() => import("./step2"), { ssr: false })
-const Step3 = dynamic(() => import("./step3"), { ssr: false })
+const Step1 = dynamic(() => import("./step1"), {
+  ssr: false,
+  loading: () => <ScreenLoading />,
+})
+const Step2 = dynamic(() => import("./step2"), {
+  ssr: false,
+  loading: () => <ScreenLoading />,
+})
+const Step3 = dynamic(() => import("./step3"), {
+  ssr: false,
+  loading: () => <ScreenLoading />,
+})
 
 export type ApplyBaseContext = {
   // Step1
@@ -41,7 +51,7 @@ export type ApplyBaseContext = {
   }[]
 }
 
-const TITLE_BY_STEP = {
+export const TITLE_BY_STEP = {
   step1: "약관에 동의해 주세요.",
   step2: "인적 사항을 입력해 주세요.",
   step3: "동아리 지원서를 작성해 주세요.",

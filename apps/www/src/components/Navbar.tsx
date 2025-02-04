@@ -90,6 +90,13 @@ export default function Navbar() {
                 pathname === "/apply/new" &&
                   "bg-ceruleanBlue-700 hover:bg-ceruleanBlue-600 focus:bg-ceruleanBlue-600 active:bg-ceruleanBlue-600",
               )}
+              onClick={e => {
+                // @use-funnel때문에 query string이 붙기 때문에
+                // 다시 새로고침 되지 않도록 막음
+                if (pathname === "/apply/new") {
+                  e.preventDefault()
+                }
+              }}
             >
               <InboxIcon className="size-5" />
               지원하기

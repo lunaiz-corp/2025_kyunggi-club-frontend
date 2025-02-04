@@ -43,9 +43,9 @@ export async function generateStaticParams() {
 
 export default async function ClubDetail({
   params,
-}: {
+}: Readonly<{
   params: Promise<{ id: string }>
-}) {
+}>) {
   const { id } = await params
   const currentClub = clubs.find(club => club.id === id)
 
