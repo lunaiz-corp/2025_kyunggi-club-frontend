@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function NoticeDetail() {
   return (
-    <main className="mx-auto mt-8 flex max-w-[1200px] flex-col gap-12 px-6 md:mt-16 lg:px-0">
+    <main className="mx-auto mb-12 flex max-w-[1200px] flex-col gap-12 px-6 pt-8 lg:px-0">
       <h1 className="text-4xl font-bold tracking-tight md:text-[42px]">
         공지사항
       </h1>

@@ -23,8 +23,8 @@ export const metadata: Metadata = {
 
 export default function Main() {
   return (
-    <main className="mx-auto mt-8 flex max-w-[1200px] flex-col gap-8 md:mt-16">
-      <div className="flex w-full flex-col gap-8 px-6 md:flex-row md:px-0">
+    <main className="mx-auto mb-12 flex max-w-[1200px] flex-col gap-8 px-6 pt-8 lg:px-0">
+      <div className="flex w-full flex-col gap-8 md:flex-row">
         <div className="flex w-full flex-1 flex-col gap-5">
           <div className="inline-flex items-center justify-between">
             <h2 className="text-lg font-bold">선발 일정</h2>
@@ -56,7 +56,7 @@ export default function Main() {
         </div>
       </div>
 
-      <div className="flex w-full flex-col gap-8 px-6 md:flex-row md:px-0">
+      <div className="flex w-full flex-col gap-8 md:flex-row">
         <Advertisements page="main" />
 
         <div className="flex w-full flex-1 flex-col gap-5">

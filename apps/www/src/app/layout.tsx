@@ -89,6 +89,11 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-gov-dynamic-subset.min.css"
         />
 
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/hack-font@3/build/web/hack-subset.css"
+        />
+
         {process.env.NODE_ENV === "development" && (
           <Script
             crossOrigin="anonymous"
@@ -96,7 +101,7 @@ export default function RootLayout({
           />
         )}
       </head>
-      <body className="relative top-[85px] bg-gray-950 text-gray-100 antialiased md:static md:top-0">
+      <body className="relative top-[90px] bg-gray-950 text-gray-100 antialiased md:static md:top-0">
         <ProgressBarProvider>
           <A11ySkipLink />
 

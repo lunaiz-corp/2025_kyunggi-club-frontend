@@ -6,7 +6,7 @@ import UnionLogo from "@packages/assets/images/union-logo.svg"
 
 export default function Footer() {
   return (
-    <footer className="mx-auto mt-8 flex max-w-[1248px] flex-col gap-8 bg-gray-900 px-6 py-12 md:gap-12 md:bg-transparent md:px-0">
+    <footer className="mx-auto flex max-w-[1248px] flex-col gap-8 bg-gray-900 px-6 py-12 md:gap-12 md:bg-transparent md:px-0">
       <div className="flex items-center gap-[14px]">
         <UnionLogo
           className="h-[42px]"
@@ -42,7 +42,7 @@ export default function Footer() {
       </div>
 
       <div className="flex flex-col gap-5 border-t border-gray-200 pt-6 md:gap-3">
-        <div className="mb-5 inline-flex gap-1.5 md:items-center">
+        <div className="mb-5 inline-flex items-center gap-1.5">
           <span>
             <ALink
               href="https://cs-kg.schooler.kr"
@@ -93,7 +93,9 @@ export default function Footer() {
             <span>|</span>
 
             <span>
-              주소 : 서울특별시 강남구 선릉로111길 38-16, 103호
+              주소 : 서울{/* */}
+              <span className="hidden md:inline">특별</span>시 강남구
+              선릉로111길 38-16, 103호
             </span>
           </p>
         </div>

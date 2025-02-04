@@ -18,6 +18,8 @@ export async function generateMetadata({
   const { id } = await params
   const currentClub = clubs.find(club => club.id === id)
 
+  if (!currentClub) return {}
+
   return {
     title: `${currentClub?.name} 소개`,
     description: currentClub?.description,
@@ -81,10 +83,10 @@ export default async function ClubDetail({
   })
 
   return (
-    <main className="mx-auto flex max-w-[1200px] flex-col gap-24 px-6 py-12 md:py-16 lg:px-0">
+    <main className="mx-auto mb-12 flex max-w-[1200px] flex-col gap-24 px-6 pt-8 pb-12 lg:px-0">
       <div className="mb-12 flex flex-col gap-24">
         <div
-          className="absolute top-[-85px] left-0 -z-50 h-dvh w-full bg-cover bg-center bg-no-repeat md:top-0"
+          className="absolute top-[-90px] left-0 -z-50 h-dvh w-full bg-cover bg-center bg-no-repeat md:top-0"
           style={{
             backgroundImage: `linear-gradient(rgba(19, 19, 19, 0.4) 0%, rgb(19, 19, 19) 100%), ${getBackgroundImage(background)}`,
           }}
@@ -92,11 +94,14 @@ export default async function ClubDetail({
 
         <div className="inline-flex flex-col items-center justify-between gap-8 md:flex-row">
           <div className="flex items-center gap-4">
-            <NextLink href="/club" className="p-1.5">
+            <NextLink href="/club" className="hidden p-1.5 md:inline">
               <ChevronLeftIcon className="size-5" />
             </NextLink>
-            <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-              {currentClub.name}
+            <h1 className="inline-flex gap-3 text-4xl font-bold tracking-tight md:text-5xl">
+              <span className="hidden md:inline">
+                {currentClub.name.split(" ")[0]}
+              </span>
+              <span>{currentClub.name.split(" ")[1]}</span>
             </h1>
           </div>
 

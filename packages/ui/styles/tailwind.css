@@ -4,7 +4,8 @@
 
 @theme {
   /* KRDS - Typography */
-  --font-sans: "Pretendard GOV Variable", "Pretendard GOV", sans-serif;
+  --font-sans: "Pretendard GOV Variable", "Pretendard GOV", "Pretendard", sans-serif;
+  --font-mono: "Hack", monospace;
   --text-base: 1.0625rem; /* 17px */
 
   /* KRDS - gray */

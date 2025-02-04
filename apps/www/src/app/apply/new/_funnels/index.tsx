@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect } from "react"
 import dynamic from "next/dynamic"
 import { useFunnel } from "@use-funnel/browser"
 
@@ -60,6 +61,17 @@ export default function ApplyNewFunnel() {
     },
   })
 
+  useEffect(() => {
+    const preventLeave = (e: BeforeUnloadEvent) => {
+      e.preventDefault()
+    }
+
+    window.addEventListener("beforeunload", preventLeave)
+    return () => {
+      window.removeEventListener("beforeunload", preventLeave)
+    }
+  }, [funnel.context])
+
   return (
     <>
       <TitleBar title={TITLE_BY_STEP[funnel.step]} />
@@ -100,10 +112,12 @@ export default function ApplyNewFunnel() {
             context.applingClubs.length === 0
           ) {
             // step2에서 넘어온 데이터가 없으면 step1 페이지로 이동
+            // step1에서 데이터가 제대로 왔다는 보장이 없으므로 아예 초기화하여 step1으로 보내기로
             history.replace("step1", { agreedTerms: [] })
           }
 
           return (
+            // TODO: step3 -> step4 구현
             <Step3
               onPrev={() => history.push("step2", context)}
               // eslint-disable-next-line no-console

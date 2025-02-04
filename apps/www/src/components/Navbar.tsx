@@ -137,7 +137,7 @@ export default function Navbar() {
         {/* Mobile Navbar Menu */}
         <div
           className={cn(
-            "mt-4 overflow-hidden bg-gray-950 !transition-[height] !duration-[0.4s] ease-in-out md:hidden",
+            "overflow-hidden bg-gray-950 !transition-[height] !duration-[0.4s] ease-in-out md:hidden",
             isMobileNavOpen ? "h-[205px]" : "h-0",
           )}
         >
