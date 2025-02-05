@@ -97,7 +97,7 @@ export default function Navbar() {
                   e.preventDefault()
                 }
               }}
-              data-prevent-nprogress
+              data-prevent-nprogress={pathname === "/apply/new"}
             >
               <InboxIcon className="size-5" />
               지원하기
@@ -162,7 +162,7 @@ export default function Navbar() {
                   e.preventDefault()
                 }
               }}
-              data-prevent-nprogress
+              data-prevent-nprogress={pathname === "/apply/new"}
             >
               지원하기
               <InboxIcon className="size-5" />
