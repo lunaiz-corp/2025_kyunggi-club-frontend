@@ -33,7 +33,7 @@ export type DataNeedsToBeFilled = {
     relationship: string // 학생 간 관계
     phone: string // 부모님 전화번호
   }
-  applingClubs: string[] // 학생 지망 동아리
+  applingClubs: string[] // 학생 지망 동아리 리스트
 }
 
 export default function ApplyNewFunnelStep2({

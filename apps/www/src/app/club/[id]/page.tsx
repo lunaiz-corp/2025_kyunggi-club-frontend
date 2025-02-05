@@ -36,7 +36,6 @@ export async function generateMetadata({
   }
 }
 
-// TODO: Static Params
 export async function generateStaticParams() {
   return clubs.map(club => ({ id: club.id }))
 }

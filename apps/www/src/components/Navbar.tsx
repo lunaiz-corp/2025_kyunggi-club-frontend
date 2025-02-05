@@ -97,6 +97,7 @@ export default function Navbar() {
                   e.preventDefault()
                 }
               }}
+              data-prevent-nprogress
             >
               <InboxIcon className="size-5" />
               지원하기
@@ -152,7 +153,16 @@ export default function Navbar() {
             <NextLink
               href="/apply/new"
               className="inline-flex items-center justify-between gap-2 px-4 py-2 font-bold"
-              onClick={() => setIsMobileNavOpen(false)}
+              onClick={e => {
+                setIsMobileNavOpen(false)
+
+                // @use-funnel때문에 query string이 붙기 때문에
+                // 다시 새로고침 되지 않도록 막음
+                if (pathname === "/apply/new") {
+                  e.preventDefault()
+                }
+              }}
+              data-prevent-nprogress
             >
               지원하기
               <InboxIcon className="size-5" />

@@ -68,7 +68,6 @@ export function NextLink({
         e.currentTarget.blur()
         onClick?.(e)
       }}
-      data-prevent-nprogress
       {...props}
     >
       {children}

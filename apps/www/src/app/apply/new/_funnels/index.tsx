@@ -6,7 +6,8 @@ import { useFunnel } from "@use-funnel/browser"
 
 import Advertisements from "@/components/Advertisements"
 import ScreenLoading from "@/components/ScreenLoading"
-import TitleBar from "../_components/TitleBar"
+
+import TitleBar, { TITLE_BY_STEP } from "../_components/TitleBar"
 
 import type { ApplyStep1 } from "./step1"
 import type { ApplyStep2 } from "./step2"
@@ -42,20 +43,16 @@ export type ApplyBaseContext = {
     relationship: string // 학생 간 관계
     phone: string // 부모님 전화번호
   }
-  applingClubs?: string[] // 학생 지망 동아리
+  applingClubs?: string[] // 학생 지망 동아리 리스트
 
   // Step3
   formAnswers?: {
-    id: number // 질문 번호
-    answer: string // 답변
+    club: string // 학생 지망 동아리
+    answers: {
+      id: number // 질문 번호
+      answer: string // 답변
+    }[]
   }[]
-}
-
-export const TITLE_BY_STEP = {
-  step1: "약관에 동의해 주세요.",
-  step2: "인적 사항을 입력해 주세요.",
-  step3: "동아리 지원서를 작성해 주세요.",
-  step4: "제출할 지원서를 다시 확인해 주세요.",
 }
 
 export default function ApplyNewFunnel() {
