@@ -20,8 +20,16 @@ export const metadata: Metadata = {
     default: "경기고등학교 이공계동아리연합",
   },
 
-  description: "",
-  keywords: [],
+  description:
+    "경기고등학교 이공계동아리연합 - 동아리 모집/선발 시스템",
+  keywords: [
+    "경기고등학교",
+    "경기고",
+    "이공계",
+    "동아리",
+    "STEM",
+    "STEAM",
+  ],
 
   metadataBase: new URL("https://kyunggi.club"),
   alternates: {

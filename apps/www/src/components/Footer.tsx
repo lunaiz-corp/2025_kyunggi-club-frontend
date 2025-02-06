@@ -101,16 +101,7 @@ export default function Footer() {
         </div>
 
         <p className="text-sm text-gray-300">
-          © 2025{" "}
-          <a
-            href="https://lunaiz.com"
-            className="text-gray-50 hover:underline"
-            target="_blank"
-            rel="noopener"
-          >
-            Steada Corp.
-          </a>{" "}
-          All rights reserved.
+          © 2025 Kyunggi LIST & Steada Corp. All rights reserved.
         </p>
       </div>
     </footer>

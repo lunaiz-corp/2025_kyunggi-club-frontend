@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Checkbox from "@packages/ui/components/Checkbox"
 import type { QuestionCommonProps } from "./types"
 
@@ -14,14 +14,20 @@ export default function MultipleChoice({
   const [formAnswers, setFormAnswers] = formAnswersState
   const [currentAnswer, setCurrentAnswer] = useState<string[]>([])
 
+  const havePrefilled = useRef<boolean>(false)
+
   useEffect(() => {
-    if (formAnswers.find(formAnswer => formAnswer.id === id)) {
-      setCurrentAnswer(
-        (
-          formAnswers.find(formAnswer => formAnswer.id === id)!
-            .answer as string
-        ).split(","),
-      )
+    if (!havePrefilled.current) {
+      if (formAnswers.find(formAnswer => formAnswer.id === id)) {
+        setCurrentAnswer(
+          (
+            formAnswers.find(formAnswer => formAnswer.id === id)!
+              .answer as string
+          ).split(","),
+        )
+      }
+
+      havePrefilled.current = true
     }
   }, [formAnswers, id])
 

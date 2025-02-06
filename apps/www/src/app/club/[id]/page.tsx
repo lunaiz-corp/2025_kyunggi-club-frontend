@@ -68,7 +68,7 @@ export default async function ClubDetail({
     width: 1200,
     height: 857,
     sizes: "100vw",
-    src: "https://cdn.discordapp.com/attachments/1335292116712034304/1335486997048983552/history_list.svg?ex=67a058b0&is=679f0730&hm=79bc690aaf5c63ff91c5aa9057372e9b2281dc5a82f79c6b1aa7bd49480779a5&",
+    src: "https://cdn.discordapp.com/attachments/1335292116712034304/1335486997048983552/history_list.svg?ex=67a64770&is=67a4f5f0&hm=cdd16bc00d003a50a347f55513ed8ecaa6c001e4d8345a9c8b32e2636058b130&",
   })
 
   const {
@@ -78,7 +78,7 @@ export default async function ClubDetail({
     width: 339,
     height: 1174,
     sizes: "100vw",
-    src: "https://cdn.discordapp.com/attachments/1335292116712034304/1335486997397114900/history_list_m.svg?ex=67a058b0&is=679f0730&hm=c8cf07cc195069f51d660b60eb89c95447e830fffbb3a1205eaa3bed9b7c0179&",
+    src: "https://cdn.discordapp.com/attachments/1335292116712034304/1335486997397114900/history_list_m.svg?ex=67a64770&is=67a4f5f0&hm=cdfdef3e60f4bfaa65b95e0d5f1d4993d42e403ad914a3a2d613afdf3e7baf90&",
   })
 
   return (

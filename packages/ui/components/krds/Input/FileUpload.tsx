@@ -9,6 +9,7 @@ import type {
   SetStateAction,
 } from "react"
 import { useRef, useState } from "react"
+
 import {
   ArrowUpTrayIcon,
   ChevronRightIcon,
@@ -97,20 +98,16 @@ function UploadSection({
       ...Array.from(filteredDataTransfer.files),
     ])
 
-    if (onFileSelect) {
-      onFileSelect()
-    }
+    if (onFileSelect) onFileSelect()
   }
 
   function onFileSelectByInput(
     e: React.ChangeEvent<HTMLInputElement>,
   ) {
     setFileList([...fileList, ...Array.from(e.target.files ?? [])])
-    e.target.value = ""
+    if (onFileSelect) onFileSelect()
 
-    if (onFileSelect) {
-      onFileSelect()
-    }
+    e.target.value = ""
   }
 
   return (
@@ -198,6 +195,7 @@ function FileList({
               setFileList([])
             }
           }}
+          disabled={fileList.length === 0}
         >
           전체 파일 삭제
           <ChevronRightIcon className="size-5" />

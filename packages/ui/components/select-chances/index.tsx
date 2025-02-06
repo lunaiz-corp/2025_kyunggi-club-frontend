@@ -64,10 +64,10 @@ export default function SelectChances() {
           />
         ))}
       >
-        {DUMMY_DATA.map((data, i) => (
+        {DUMMY_DATA.map(data => (
           <PercentageBar
             key={data.clubId}
-            tabIndex={i + 1}
+            tabIndex={0}
             maxChance={Math.max(
               ...DUMMY_DATA.map(d => d.selectChance),
             )}

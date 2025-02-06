@@ -17,14 +17,13 @@ export default function Dropdown({
   const havePrefilled = useRef<boolean>(false)
 
   useEffect(() => {
-    if (
-      !havePrefilled.current &&
-      formAnswers.find(formAnswer => formAnswer.id === id)
-    ) {
-      setCurrentAnswer(
-        formAnswers.find(formAnswer => formAnswer.id === id)!
-          .answer as string,
-      )
+    if (!havePrefilled.current) {
+      if (formAnswers.find(formAnswer => formAnswer.id === id)) {
+        setCurrentAnswer(
+          formAnswers.find(formAnswer => formAnswer.id === id)!
+            .answer as string,
+        )
+      }
 
       havePrefilled.current = true
     }

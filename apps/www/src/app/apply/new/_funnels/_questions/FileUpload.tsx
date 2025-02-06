@@ -17,14 +17,13 @@ export default function FileUpload({
   const havePrefilled = useRef<boolean>(false)
 
   useEffect(() => {
-    if (
-      !havePrefilled.current &&
-      formAnswers.find(formAnswer => formAnswer.id === id)
-    ) {
-      setCurrentAnswer(
-        formAnswers.find(formAnswer => formAnswer.id === id)!
-          .answer as File[],
-      )
+    if (!havePrefilled.current) {
+      if (formAnswers.find(formAnswer => formAnswer.id === id)) {
+        setCurrentAnswer(
+          formAnswers.find(formAnswer => formAnswer.id === id)!
+            .answer as File[],
+        )
+      }
 
       havePrefilled.current = true
     }
