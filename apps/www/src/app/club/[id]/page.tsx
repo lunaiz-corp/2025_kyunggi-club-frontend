@@ -93,7 +93,12 @@ export default async function ClubDetail({
 
         <div className="inline-flex flex-col items-center justify-between gap-8 md:flex-row">
           <div className="flex items-center gap-4">
-            <NextLink href="/club" className="hidden p-1.5 md:inline">
+            <NextLink
+              href="/club"
+              className="hidden p-1.5 md:inline"
+              title="뒤로 가기"
+            >
+              <span className="sr-only">뒤로 가기</span>
               <ChevronLeftIcon className="size-5" />
             </NextLink>
             <h1 className="inline-flex gap-3 text-4xl font-bold tracking-tight md:text-5xl">
