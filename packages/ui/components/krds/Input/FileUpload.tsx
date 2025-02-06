@@ -19,7 +19,7 @@ import Button from "../Action/Button"
 import { cn } from "../../../utils/tailwindMerge"
 
 type CommonPropsForState = {
-  maxFiles?: number
+  maxFiles: number
   fileListState: [File[], Dispatch<SetStateAction<File[]>>]
 }
 
@@ -28,7 +28,7 @@ type SectionProps = Omit<
     InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   >,
-  "type" | "hidden" | "onChange"
+  "type" | "hidden" | "multiple" | "onChange"
 > &
   CommonPropsForState & {
     id: string
@@ -39,7 +39,7 @@ type SectionProps = Omit<
 function UploadSection({
   id,
   name,
-  maxFiles,
+  maxFiles = 1,
   fileListState,
   onFileSelect,
   ...props
@@ -135,6 +135,7 @@ function UploadSection({
           id={id}
           name={name}
           className="size-[1px] opacity-0"
+          multiple={maxFiles > 1}
           onChange={onFileSelectByInput}
           {...props}
         />
@@ -146,7 +147,7 @@ function UploadSection({
             onClick={() => {
               fileInputRef.current!.click()
             }}
-            disabled={fileList.length >= (maxFiles || Infinity)}
+            disabled={fileList.length >= maxFiles}
           >
             <ArrowUpTrayIcon className="size-5" />
             파일 선택
@@ -157,17 +158,28 @@ function UploadSection({
   )
 }
 
-function FileList({ maxFiles, fileListState }: CommonPropsForState) {
+function FileList({
+  maxFiles = 1,
+  fileListState,
+}: CommonPropsForState) {
   const [fileList, setFileList] = fileListState
 
   return (
     <div className="flex w-full flex-col gap-6">
       <div className="flex items-center justify-between">
         <div className="font-bold">
-          <span className="text-ceruleanBlue-400">
-            {fileList.length}개
-          </span>{" "}
-          / {maxFiles || "∞"}개
+          {maxFiles > 1 && (
+            <>
+              <span className="text-ceruleanBlue-400">
+                {fileList.length.toLocaleString("ko-KR")}개
+              </span>{" "}
+              /{" "}
+              {maxFiles === Infinity
+                ? "∞"
+                : maxFiles.toLocaleString("ko-KR")}
+              개
+            </>
+          )}
         </div>
 
         <Button
@@ -224,13 +236,13 @@ function FileList({ maxFiles, fileListState }: CommonPropsForState) {
 }
 
 export default function FileUpload(props: SectionProps) {
-  const { fileListState } = props
+  const { maxFiles, fileListState } = props
 
   return (
     <div className="flex flex-col gap-6">
       <UploadSection {...props} />
 
-      <FileList fileListState={fileListState} />
+      <FileList maxFiles={maxFiles} fileListState={fileListState} />
     </div>
   )
 }

@@ -10,7 +10,7 @@ export default function Dropdown({
   options,
   required,
   formAnswersState,
-}: Readonly<QuestionCommonProps>) {
+}: Readonly<QuestionCommonProps & { options: string[] }>) {
   const [formAnswers, setFormAnswers] = formAnswersState
   const [currentAnswer, setCurrentAnswer] = useState<string>("")
 
@@ -64,7 +64,7 @@ export default function Dropdown({
         <option value="" disabled hidden>
           응답을 선택하세요.
         </option>
-        {options!.map((option, index) => (
+        {options.map((option, index) => (
           <option key={`q-${id}-${index.toString()}`} value={option}>
             {option}
           </option>

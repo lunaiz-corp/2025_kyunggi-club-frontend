@@ -70,6 +70,7 @@ const MOCK_QUESTIONS = [
         id: 5,
         question: "무임승차를 하실건가요?5",
         type: "FILE_UPLOAD",
+        maxFiles: 10,
         required: false,
       },
     ],
@@ -106,6 +107,7 @@ const MOCK_QUESTIONS = [
         id: 5,
         question: "무임승차를 하실건가요?10",
         type: "FILE_UPLOAD",
+        maxFiles: 10,
         required: false,
       },
     ],
@@ -142,6 +144,7 @@ const MOCK_QUESTIONS = [
         id: 5,
         question: "무임승차를 하실건가요?15",
         type: "FILE_UPLOAD",
+        maxFiles: 10,
         required: false,
       },
     ],
@@ -192,7 +195,17 @@ function Questions({
             key={`${club}-${question.id}`}
             id={question.id}
             question={question.question}
-            options={question.options}
+            options={
+              question.type === QuestionType.MULTIPLE_CHOICE ||
+              question.type === QuestionType.DROPDOWN
+                ? (question.options ?? [])
+                : []
+            }
+            maxFiles={
+              question.type === QuestionType.FILE_UPLOAD
+                ? (question.maxFiles ?? 1)
+                : -1
+            }
             required={question.required ?? false}
             formAnswersState={formAnswersState}
           />

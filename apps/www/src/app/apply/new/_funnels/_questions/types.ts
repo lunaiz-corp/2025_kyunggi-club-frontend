@@ -16,7 +16,6 @@ export enum QuestionType {
 export type QuestionCommonProps = {
   id: number
   question: string
-  options?: string[]
 
   required: boolean
 

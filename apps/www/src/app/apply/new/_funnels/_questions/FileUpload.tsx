@@ -7,9 +7,10 @@ import type { QuestionCommonProps } from "./types"
 export default function FileUpload({
   id,
   question,
+  maxFiles,
   required,
   formAnswersState,
-}: Readonly<QuestionCommonProps>) {
+}: Readonly<QuestionCommonProps & { maxFiles: number }>) {
   const [formAnswers, setFormAnswers] = formAnswersState
   const [currentAnswer, setCurrentAnswer] = useState<File[]>([])
 
@@ -55,9 +56,10 @@ export default function FileUpload({
       <FileUploadInput
         id={`q-${id}`}
         name={`q-${id}`}
-        fileListState={[currentAnswer, setCurrentAnswer]}
-        onFileSelect={() => setAndSyncAnswer()}
+        maxFiles={maxFiles === -1 ? Infinity : maxFiles}
         required={required}
+        onFileSelect={() => setAndSyncAnswer()}
+        fileListState={[currentAnswer, setCurrentAnswer]}
       />
     </div>
   )

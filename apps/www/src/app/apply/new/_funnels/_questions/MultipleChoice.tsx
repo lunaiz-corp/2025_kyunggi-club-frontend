@@ -10,7 +10,7 @@ export default function MultipleChoice({
   question,
   options,
   formAnswersState,
-}: Readonly<QuestionCommonProps>) {
+}: Readonly<QuestionCommonProps & { options: string[] }>) {
   const [formAnswers, setFormAnswers] = formAnswersState
   const [currentAnswer, setCurrentAnswer] = useState<string[]>([])
 
@@ -50,7 +50,7 @@ export default function MultipleChoice({
         Q. {question}
       </label>
 
-      {options!.map((option, index) => (
+      {options.map((option, index) => (
         <div
           key={`q-${id}-${index.toString()}`}
           className="inline-flex items-center gap-3"
