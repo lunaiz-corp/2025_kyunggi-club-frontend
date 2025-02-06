@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 
-import { NextLink } from "@packages/ui/components/krds/Link"
+import { NextLink } from "@packages/ui/components/krds/Action/Link"
 import Advertisements from "@/components/Advertisements"
 
 import { clubs } from "@/data/clubs.json"

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation"
 import { useRouter } from "next-nprogress-bar"
 
 import { ArrowLeftIcon } from "@heroicons/react/20/solid"
-import Button from "@packages/ui/components/krds/Button"
+import Button from "@packages/ui/components/krds/Action/Button"
 
 export default function NotFound() {
   const pathname = usePathname()

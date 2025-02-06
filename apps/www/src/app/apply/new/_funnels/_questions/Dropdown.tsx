@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useRef, useState } from "react"
+import Select from "@packages/ui/components/krds/Select"
 
 import type { QuestionCommonProps } from "./types"
 
@@ -7,6 +7,7 @@ import type { QuestionCommonProps } from "./types"
 export default function Dropdown({
   id,
   question,
+  options,
   required,
   formAnswersState,
 }: Readonly<QuestionCommonProps>) {
@@ -21,7 +22,8 @@ export default function Dropdown({
       formAnswers.find(formAnswer => formAnswer.id === id)
     ) {
       setCurrentAnswer(
-        formAnswers.find(formAnswer => formAnswer.id === id)!.answer,
+        formAnswers.find(formAnswer => formAnswer.id === id)!
+          .answer as string,
       )
 
       havePrefilled.current = true
@@ -52,6 +54,22 @@ export default function Dropdown({
       >
         Q. {question}
       </label>
+
+      <Select
+        id={`q-${id}`}
+        required={required}
+        value={currentAnswer}
+        onChange={e => setAndSyncAnswer(e.target.value)}
+      >
+        <option value="" disabled hidden>
+          응답을 선택하세요.
+        </option>
+        {options!.map((option, index) => (
+          <option key={`q-${id}-${index.toString()}`} value={option}>
+            {option}
+          </option>
+        ))}
+      </Select>
     </div>
   )
 }

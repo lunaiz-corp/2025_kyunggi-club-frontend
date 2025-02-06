@@ -9,12 +9,14 @@ import type { UrlObject } from "url"
 
 import Link from "next/link"
 
-import { cn } from "../../utils/tailwindMerge"
+import { cn } from "../../../utils/tailwindMerge"
 
 export const baseClass = [
   "inline-flex",
   "items-center",
   "gap-2",
+
+  "outline-transparent",
 
   "px-2",
   "py-1",

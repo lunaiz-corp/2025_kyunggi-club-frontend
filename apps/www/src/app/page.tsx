@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 
 import Skeleton from "react-loading-skeleton"
 
-import { NextLink } from "@packages/ui/components/krds/Link"
+import { NextLink } from "@packages/ui/components/krds/Action/Link"
 import SelectChances from "@packages/ui/components/select-chances"
 
 import Advertisements from "@/components/Advertisements"

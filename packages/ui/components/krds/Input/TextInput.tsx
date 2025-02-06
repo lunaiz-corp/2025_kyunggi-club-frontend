@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from "react"
 
-import { cn } from "../../utils/tailwindMerge"
+import { cn } from "../../../utils/tailwindMerge"
 
 export const baseClass = [
   "border",
@@ -19,7 +19,7 @@ export const baseClass = [
   "placeholder:text-gray-500",
 ]
 
-export default function Input({
+export default function TextInput({
   type = "text",
   className,
   ...props

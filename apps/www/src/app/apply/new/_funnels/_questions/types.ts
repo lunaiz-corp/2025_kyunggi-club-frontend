@@ -2,7 +2,7 @@ import type { Dispatch, SetStateAction } from "react"
 
 export type FormAnswers = {
   id: number // 질문 번호
-  answer: string // 답변
+  answer: string | File[] // 답변
 }
 
 export enum QuestionType {

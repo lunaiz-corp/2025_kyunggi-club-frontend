@@ -4,7 +4,7 @@ import type {
   PropsWithChildren,
 } from "react"
 
-import { cn } from "../../utils/tailwindMerge"
+import { cn } from "../../../utils/tailwindMerge"
 
 export const baseClass = [
   "inline-flex",
@@ -14,6 +14,8 @@ export const baseClass = [
 
   "border",
   "border-ceruleanBlue-700",
+  "outline-transparent",
+
   "bg-ceruleanBlue-700",
 
   "px-3",
@@ -46,6 +48,7 @@ export default function Button({
     HTMLButtonElement
   > & {
     type?: "button" | "submit" | "reset"
+    className?: string
   } & PropsWithChildren
 >) {
   return (

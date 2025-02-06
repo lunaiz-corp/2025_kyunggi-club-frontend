@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import Textarea from "@packages/ui/components/krds/Textarea"
+import Textarea from "@packages/ui/components/krds/Input/Textarea"
 
 import type { QuestionCommonProps } from "./types"
 
@@ -21,7 +21,8 @@ export default function LongInput({
       formAnswers.find(formAnswer => formAnswer.id === id)
     ) {
       setCurrentAnswer(
-        formAnswers.find(formAnswer => formAnswer.id === id)!.answer,
+        formAnswers.find(formAnswer => formAnswer.id === id)!
+          .answer as string,
       )
 
       havePrefilled.current = true

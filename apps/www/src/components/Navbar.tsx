@@ -15,7 +15,7 @@ import {
 import {
   NextLink,
   baseClass as baseLinkClass,
-} from "@packages/ui/components/krds/Link"
+} from "@packages/ui/components/krds/Action/Link"
 
 import UnionLogo from "@packages/assets/images/union-logo.svg"
 

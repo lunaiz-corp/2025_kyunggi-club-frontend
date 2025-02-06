@@ -4,7 +4,7 @@ import {
   TextareaHTMLAttributes,
 } from "react"
 
-import { cn } from "../../utils/tailwindMerge"
+import { cn } from "../../../utils/tailwindMerge"
 
 export const baseClass = [
   "border",

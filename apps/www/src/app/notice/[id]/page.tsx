@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 import { ChevronLeftIcon } from "@heroicons/react/24/solid"
-import { NextLink } from "@packages/ui/components/krds/Link"
+import { NextLink } from "@packages/ui/components/krds/Action/Link"
 
 import Advertisements from "@/components/Advertisements"
 

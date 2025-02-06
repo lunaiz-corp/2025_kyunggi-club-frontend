@@ -3,7 +3,7 @@
 import { useEffect } from "react"
 
 import { ArrowPathIcon } from "@heroicons/react/20/solid"
-import Button from "@packages/ui/components/krds/Button"
+import Button from "@packages/ui/components/krds/Action/Button"
 
 export default function ErrorPage({
   error,
@@ -15,8 +15,7 @@ export default function ErrorPage({
   useEffect(() => {
     // TODO: Log the error to an error reporting service
     // eslint-disable-next-line no-console
-    console.error(error)
-    console.log(error.digest)
+    console.error(error, error.digest)
   }, [error])
 
   return (

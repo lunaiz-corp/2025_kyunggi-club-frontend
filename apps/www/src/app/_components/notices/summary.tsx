@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 
-import { NextLink } from "@packages/ui/components/krds/Link"
+import { NextLink } from "@packages/ui/components/krds/Action/Link"
 
 export type NoticesSummaryProps = {
   id: number

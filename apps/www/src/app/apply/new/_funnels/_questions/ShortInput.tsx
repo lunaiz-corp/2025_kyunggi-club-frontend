@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import Input from "@packages/ui/components/krds/Input"
+import TextInput from "@packages/ui/components/krds/Input/TextInput"
 
 import type { QuestionCommonProps } from "./types"
 
@@ -21,7 +21,8 @@ export default function ShortInput({
       formAnswers.find(formAnswer => formAnswer.id === id)
     ) {
       setCurrentAnswer(
-        formAnswers.find(formAnswer => formAnswer.id === id)!.answer,
+        formAnswers.find(formAnswer => formAnswer.id === id)!
+          .answer as string,
       )
 
       havePrefilled.current = true
@@ -53,7 +54,7 @@ export default function ShortInput({
         Q. {question}
       </label>
 
-      <Input
+      <TextInput
         id={`q-${id}`}
         type="text"
         placeholder="응답을 입력하세요."

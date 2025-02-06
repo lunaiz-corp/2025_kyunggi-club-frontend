@@ -11,7 +11,7 @@ import {
   ArrowRightIcon,
 } from "@heroicons/react/20/solid"
 
-import Button from "@packages/ui/components/krds/Button"
+import Button from "@packages/ui/components/krds/Action/Button"
 import { clubs } from "@/data/clubs.json"
 
 import type { ApplyBaseContext } from "."

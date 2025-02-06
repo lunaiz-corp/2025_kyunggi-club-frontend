@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-import { NextLink } from "@packages/ui/components/krds/Link"
+import { NextLink } from "@packages/ui/components/krds/Action/Link"
 import Advertisements from "@/components/Advertisements"
 
 export const metadata: Metadata = {

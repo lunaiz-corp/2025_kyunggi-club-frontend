@@ -17,9 +17,10 @@ export default function MultipleChoice({
   useEffect(() => {
     if (formAnswers.find(formAnswer => formAnswer.id === id)) {
       setCurrentAnswer(
-        formAnswers
-          .find(formAnswer => formAnswer.id === id)!
-          .answer.split(","),
+        (
+          formAnswers.find(formAnswer => formAnswer.id === id)!
+            .answer as string
+        ).split(","),
       )
     }
   }, [formAnswers, id])

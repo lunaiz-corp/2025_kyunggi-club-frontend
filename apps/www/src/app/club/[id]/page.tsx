@@ -3,7 +3,7 @@ import Image, { getImageProps } from "next/image"
 import { notFound } from "next/navigation"
 
 import { ChevronLeftIcon } from "@heroicons/react/24/solid"
-import { NextLink } from "@packages/ui/components/krds/Link"
+import { NextLink } from "@packages/ui/components/krds/Action/Link"
 
 import { getBackgroundImage } from "@/utils/image"
 import Advertisements from "@/components/Advertisements"

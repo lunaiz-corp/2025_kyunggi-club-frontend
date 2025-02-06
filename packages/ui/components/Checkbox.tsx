@@ -31,9 +31,12 @@ export default function Checkbox({
   onChange,
   ...props
 }: Readonly<
-  DetailedHTMLProps<
-    InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
+  Omit<
+    DetailedHTMLProps<
+      InputHTMLAttributes<HTMLInputElement>,
+      HTMLInputElement
+    >,
+    "type"
   > & {
     id: string
     checked?: boolean

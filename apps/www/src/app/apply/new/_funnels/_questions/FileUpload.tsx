@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useRef, useState } from "react"
+import FileUploadInput from "@packages/ui/components/krds/Input/FileUpload"
 
 import type { QuestionCommonProps } from "./types"
 
@@ -11,7 +11,7 @@ export default function FileUpload({
   formAnswersState,
 }: Readonly<QuestionCommonProps>) {
   const [formAnswers, setFormAnswers] = formAnswersState
-  const [currentAnswer, setCurrentAnswer] = useState<string>("")
+  const [currentAnswer, setCurrentAnswer] = useState<File[]>([])
 
   const havePrefilled = useRef<boolean>(false)
 
@@ -21,26 +21,25 @@ export default function FileUpload({
       formAnswers.find(formAnswer => formAnswer.id === id)
     ) {
       setCurrentAnswer(
-        formAnswers.find(formAnswer => formAnswer.id === id)!.answer,
+        formAnswers.find(formAnswer => formAnswer.id === id)!
+          .answer as File[],
       )
 
       havePrefilled.current = true
     }
   }, [formAnswers, id])
 
-  const setAndSyncAnswer = (input: string) => {
-    setCurrentAnswer(input)
-
+  const setAndSyncAnswer = () => {
     if (formAnswers.find(formAnswer => formAnswer.id === id)) {
       setFormAnswers(prev =>
         prev.map(formAnswer =>
           formAnswer.id === id
-            ? { ...formAnswer, answer: input }
+            ? { ...formAnswer, answer: currentAnswer }
             : formAnswer,
         ),
       )
     } else {
-      setFormAnswers(prev => [...prev, { id, answer: input }])
+      setFormAnswers(prev => [...prev, { id, answer: currentAnswer }])
     }
   }
 
@@ -52,6 +51,14 @@ export default function FileUpload({
       >
         Q. {question}
       </label>
+
+      <FileUploadInput
+        id={`q-${id}`}
+        name={`q-${id}`}
+        fileListState={[currentAnswer, setCurrentAnswer]}
+        onFileSelect={() => setAndSyncAnswer()}
+        required={required}
+      />
     </div>
   )
 }

@@ -5,8 +5,8 @@ import {
   ChevronRightIcon,
 } from "@heroicons/react/20/solid"
 
-import { ALink } from "@packages/ui/components/krds/Link"
-import Button from "@packages/ui/components/krds/Button"
+import { ALink } from "@packages/ui/components/krds/Action/Link"
+import Button from "@packages/ui/components/krds/Action/Button"
 import Checkbox from "@packages/ui/components/Checkbox"
 
 import type { ApplyBaseContext } from "."

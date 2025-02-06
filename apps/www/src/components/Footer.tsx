@@ -1,6 +1,6 @@
 "use client"
 
-import { ALink } from "@packages/ui/components/krds/Link"
+import { ALink } from "@packages/ui/components/krds/Action/Link"
 
 import UnionLogo from "@packages/assets/images/union-logo.svg"
 

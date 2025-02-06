@@ -4,7 +4,7 @@ import Script from "next/script"
 import { Toaster } from "react-hot-toast"
 
 import ProgressBarProvider from "@packages/ui/components/ProgressBar"
-import A11ySkipLink from "@packages/ui/components/krds/A11ySkipLink"
+import A11ySkipLink from "@packages/ui/components/krds/Explore/A11ySkipLink"
 
 import ChannelIO from "@packages/channelio"
 

@@ -7,9 +7,9 @@ import {
   ArrowRightIcon,
 } from "@heroicons/react/20/solid"
 
-import Input from "@packages/ui/components/krds/Input"
+import TextInput from "@packages/ui/components/krds/Input/TextInput"
 import Select from "@packages/ui/components/krds/Select"
-import Button from "@packages/ui/components/krds/Button"
+import Button from "@packages/ui/components/krds/Action/Button"
 
 import { clubs } from "@/data/clubs.json"
 import type { ApplyBaseContext } from "."
@@ -131,7 +131,7 @@ export default function ApplyNewFunnelStep2({
           >
             학번
           </label>
-          <Input
+          <TextInput
             id="student-id"
             type="text"
             placeholder="예) 12345"
@@ -150,7 +150,7 @@ export default function ApplyNewFunnelStep2({
           >
             학생 이름
           </label>
-          <Input
+          <TextInput
             id="student-name"
             type="text"
             placeholder={
@@ -173,7 +173,7 @@ export default function ApplyNewFunnelStep2({
             학생 전화번호
           </label>
           <div className="flex w-full items-center gap-4">
-            <Input
+            <TextInput
               id="student-phone"
               type="tel"
               className="flex-1"
@@ -194,7 +194,7 @@ export default function ApplyNewFunnelStep2({
               type="button"
               className="w-fit px-6 py-4"
               onClick={() => {
-                // TODO: KMC 연동
+                // TODO: KCP 연동
 
                 setStudentName("홍길동")
                 setStudentPhone("01000000000")
@@ -256,7 +256,7 @@ export default function ApplyNewFunnelStep2({
             >
               학부모 이름
             </label>
-            <Input
+            <TextInput
               id="parent-name"
               type="text"
               placeholder="예) 홍길동"
@@ -274,7 +274,7 @@ export default function ApplyNewFunnelStep2({
             >
               학생 간 관계
             </label>
-            <Input
+            <TextInput
               id="parent-relationship"
               type="text"
               placeholder="예) 모"
@@ -292,7 +292,7 @@ export default function ApplyNewFunnelStep2({
           >
             학부모 전화번호
           </label>
-          <Input
+          <TextInput
             id="parent-phone"
             type="tel"
             className="flex-1"
