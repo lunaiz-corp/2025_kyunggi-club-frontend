@@ -30,6 +30,7 @@ export const baseClass = [
 
   "disabled:border-ceruleanBlue-950",
   "disabled:bg-ceruleanBlue-950",
+  "disabled:cursor-not-allowed",
 
   "focus:outline",
   "focus:outline-offset-2",

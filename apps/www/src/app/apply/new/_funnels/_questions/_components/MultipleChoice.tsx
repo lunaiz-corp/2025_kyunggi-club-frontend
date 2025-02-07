@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Checkbox from "@packages/ui/components/Checkbox"
-import type { QuestionCommonProps } from "./types"
+import type { QuestionCommonProps } from "../types"
 
 /* 객관식 */
 export default function MultipleChoice({

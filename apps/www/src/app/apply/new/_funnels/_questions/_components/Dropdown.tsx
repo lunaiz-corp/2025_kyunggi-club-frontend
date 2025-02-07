@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from "react"
-import Textarea from "@packages/ui/components/krds/Input/Textarea"
+import Select from "@packages/ui/components/krds/Select"
 
-import type { QuestionCommonProps } from "./types"
+import type { QuestionCommonProps } from "../types"
 
-/* 장문형 */
-export default function LongInput({
+/* 드롭다운형 */
+export default function Dropdown({
   id,
   question,
+  options,
   required,
   formAnswersState,
-}: Readonly<QuestionCommonProps>) {
+}: Readonly<QuestionCommonProps & { options: string[] }>) {
   const [formAnswers, setFormAnswers] = formAnswersState
   const [currentAnswer, setCurrentAnswer] = useState<string>("")
 
@@ -53,14 +54,21 @@ export default function LongInput({
         Q. {question}
       </label>
 
-      <Textarea
+      <Select
         id={`q-${id}`}
-        placeholder="응답을 입력하세요."
-        className="h-40"
         required={required}
         value={currentAnswer}
         onChange={e => setAndSyncAnswer(e.target.value)}
-      />
+      >
+        <option value="" disabled hidden>
+          응답을 선택하세요.
+        </option>
+        {options.map((option, index) => (
+          <option key={`q-${id}-${index.toString()}`} value={option}>
+            {option}
+          </option>
+        ))}
+      </Select>
     </div>
   )
 }

@@ -1,10 +1,5 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
+import type { Dispatch, SetStateAction } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import {
   ArrowLeftIcon,
@@ -15,16 +10,19 @@ import Button from "@packages/ui/components/krds/Action/Button"
 import { clubs } from "@/data/clubs.json"
 
 import type { ApplyBaseContext } from "."
-import { QuestionType, type FormAnswers } from "./_questions/types"
 
 import type { DataNeedsToBeFilled as DataNeedsToBeFilledStep1 } from "./step1"
 import type { DataNeedsToBeFilled as DataNeedsToBeFilledStep2 } from "./step2"
 
-import ShortInput from "./_questions/ShortInput"
-import LongInput from "./_questions/LongInput"
-import MultipleChoice from "./_questions/MultipleChoice"
-import Dropdown from "./_questions/Dropdown"
-import FileUpload from "./_questions/FileUpload"
+import {
+  ShortInput,
+  LongInput,
+  MultipleChoice,
+  Dropdown,
+  FileUpload,
+} from "./_questions"
+
+import { QuestionType, type FormAnswers } from "./_questions/types"
 
 // 3. 인적 사항 입력 완료 - 지원서 작성 중
 export type ApplyStep3 = DataNeedsToBeFilledStep1 &

@@ -195,7 +195,6 @@ function FileList({
               setFileList([])
             }
           }}
-          disabled={fileList.length === 0}
         >
           전체 파일 삭제
           <ChevronRightIcon className="size-5" />

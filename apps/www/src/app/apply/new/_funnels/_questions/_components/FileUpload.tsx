@@ -1,17 +1,18 @@
 import { useEffect, useRef, useState } from "react"
-import TextInput from "@packages/ui/components/krds/Input/TextInput"
+import FileUploadInput from "@packages/ui/components/krds/Input/FileUpload"
 
-import type { QuestionCommonProps } from "./types"
+import type { QuestionCommonProps } from "../types"
 
-/* 단답형 */
-export default function ShortInput({
+/* 파일 업로드형 */
+export default function FileUpload({
   id,
   question,
+  maxFiles,
   required,
   formAnswersState,
-}: Readonly<QuestionCommonProps>) {
+}: Readonly<QuestionCommonProps & { maxFiles: number }>) {
   const [formAnswers, setFormAnswers] = formAnswersState
-  const [currentAnswer, setCurrentAnswer] = useState<string>("")
+  const [currentAnswer, setCurrentAnswer] = useState<File[]>([])
 
   const havePrefilled = useRef<boolean>(false)
 
@@ -20,7 +21,7 @@ export default function ShortInput({
       if (formAnswers.find(formAnswer => formAnswer.id === id)) {
         setCurrentAnswer(
           formAnswers.find(formAnswer => formAnswer.id === id)!
-            .answer as string,
+            .answer as File[],
         )
       }
 
@@ -28,19 +29,17 @@ export default function ShortInput({
     }
   }, [formAnswers, id])
 
-  const setAndSyncAnswer = (input: string) => {
-    setCurrentAnswer(input)
-
+  const setAndSyncAnswer = () => {
     if (formAnswers.find(formAnswer => formAnswer.id === id)) {
       setFormAnswers(prev =>
         prev.map(formAnswer =>
           formAnswer.id === id
-            ? { ...formAnswer, answer: input }
+            ? { ...formAnswer, answer: currentAnswer }
             : formAnswer,
         ),
       )
     } else {
-      setFormAnswers(prev => [...prev, { id, answer: input }])
+      setFormAnswers(prev => [...prev, { id, answer: currentAnswer }])
     }
   }
 
@@ -53,13 +52,13 @@ export default function ShortInput({
         Q. {question}
       </label>
 
-      <TextInput
+      <FileUploadInput
         id={`q-${id}`}
-        type="text"
-        placeholder="응답을 입력하세요."
+        name={`q-${id}`}
+        maxFiles={maxFiles === -1 ? Infinity : maxFiles}
         required={required}
-        value={currentAnswer}
-        onChange={e => setAndSyncAnswer(e.target.value)}
+        onFileSelect={() => setAndSyncAnswer()}
+        fileListState={[currentAnswer, setCurrentAnswer]}
       />
     </div>
   )

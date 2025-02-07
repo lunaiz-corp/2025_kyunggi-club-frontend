@@ -1,18 +1,17 @@
 import { useEffect, useRef, useState } from "react"
-import FileUploadInput from "@packages/ui/components/krds/Input/FileUpload"
+import TextInput from "@packages/ui/components/krds/Input/TextInput"
 
-import type { QuestionCommonProps } from "./types"
+import type { QuestionCommonProps } from "../types"
 
-/* 파일 업로드형 */
-export default function FileUpload({
+/* 단답형 */
+export default function ShortInput({
   id,
   question,
-  maxFiles,
   required,
   formAnswersState,
-}: Readonly<QuestionCommonProps & { maxFiles: number }>) {
+}: Readonly<QuestionCommonProps>) {
   const [formAnswers, setFormAnswers] = formAnswersState
-  const [currentAnswer, setCurrentAnswer] = useState<File[]>([])
+  const [currentAnswer, setCurrentAnswer] = useState<string>("")
 
   const havePrefilled = useRef<boolean>(false)
 
@@ -21,7 +20,7 @@ export default function FileUpload({
       if (formAnswers.find(formAnswer => formAnswer.id === id)) {
         setCurrentAnswer(
           formAnswers.find(formAnswer => formAnswer.id === id)!
-            .answer as File[],
+            .answer as string,
         )
       }
 
@@ -29,17 +28,19 @@ export default function FileUpload({
     }
   }, [formAnswers, id])
 
-  const setAndSyncAnswer = () => {
+  const setAndSyncAnswer = (input: string) => {
+    setCurrentAnswer(input)
+
     if (formAnswers.find(formAnswer => formAnswer.id === id)) {
       setFormAnswers(prev =>
         prev.map(formAnswer =>
           formAnswer.id === id
-            ? { ...formAnswer, answer: currentAnswer }
+            ? { ...formAnswer, answer: input }
             : formAnswer,
         ),
       )
     } else {
-      setFormAnswers(prev => [...prev, { id, answer: currentAnswer }])
+      setFormAnswers(prev => [...prev, { id, answer: input }])
     }
   }
 
@@ -52,13 +53,13 @@ export default function FileUpload({
         Q. {question}
       </label>
 
-      <FileUploadInput
+      <TextInput
         id={`q-${id}`}
-        name={`q-${id}`}
-        maxFiles={maxFiles === -1 ? Infinity : maxFiles}
+        type="text"
+        placeholder="응답을 입력하세요."
         required={required}
-        onFileSelect={() => setAndSyncAnswer()}
-        fileListState={[currentAnswer, setCurrentAnswer]}
+        value={currentAnswer}
+        onChange={e => setAndSyncAnswer(e.target.value)}
       />
     </div>
   )

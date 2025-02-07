@@ -16,9 +16,7 @@ import type { ApplyBaseContext } from "."
 import type { DataNeedsToBeFilled as DataNeedsToBeFilledStep1 } from "./step1"
 
 // 2. 약관 동의 완료 - 인적 사항 입력 중
-export type ApplyStep2 = DataNeedsToBeFilledStep1 & {
-  agreedTerms: number[]
-}
+export type ApplyStep2 = DataNeedsToBeFilledStep1
 
 export type DataNeedsToBeFilled = {
   userInfo: {
