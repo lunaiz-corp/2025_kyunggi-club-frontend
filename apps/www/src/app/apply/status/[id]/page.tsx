@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 
 import Advertisements from "@/components/Advertisements"
-import SearchForm from "./_components/SearchForm"
 
 export const metadata: Metadata = {
   title: "결과 확인",
@@ -13,7 +12,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function ApplyStatus() {
+export default function StatusDetail() {
   return (
     <main className="mx-auto mb-12 flex max-w-[1200px] flex-col gap-19 px-6 pt-8 lg:px-0">
       <div className="inline-flex flex-col gap-3">
@@ -24,8 +23,6 @@ export default function ApplyStatus() {
       </div>
 
       <Advertisements page="apply" />
-
-      <SearchForm />
     </main>
   )
 }

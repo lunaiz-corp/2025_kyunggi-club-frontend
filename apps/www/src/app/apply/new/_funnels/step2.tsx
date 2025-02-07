@@ -136,7 +136,12 @@ export default function ApplyNewFunnelStep2({
             maxLength={5}
             pattern="\d{5}"
             value={studentId}
-            onChange={e => setStudentId(e.target.value)}
+            onChange={e => {
+              // Non-number characters are not allowed
+              if (!/^\d*$/.test(e.target.value)) return
+
+              setStudentId(e.target.value)
+            }}
             required
           />
         </div>
@@ -183,7 +188,12 @@ export default function ApplyNewFunnelStep2({
               maxLength={11}
               pattern="01[0-9][0-9]{7,8}"
               value={studentPhone}
-              onChange={e => setStudentPhone(e.target.value)}
+              onChange={e => {
+                // Non-number characters are not allowed
+                if (!/^\d*$/.test(e.target.value)) return
+
+                setStudentPhone(e.target.value)
+              }}
               readOnly={!isVerifiedPhoneIsParent}
               required
             />
@@ -298,7 +308,12 @@ export default function ApplyNewFunnelStep2({
             maxLength={11}
             pattern="01[0-9][0-9]{7,8}"
             value={parentPhone}
-            onChange={e => setParentPhone(e.target.value)}
+            onChange={e => {
+              // Non-number characters are not allowed
+              if (!/^\d*$/.test(e.target.value)) return
+
+              setParentPhone(e.target.value)
+            }}
             readOnly={isVerifiedPhoneIsParent}
             required
           />
