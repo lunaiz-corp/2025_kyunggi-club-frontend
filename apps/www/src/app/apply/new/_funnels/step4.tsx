@@ -7,7 +7,10 @@ import {
   CheckIcon,
 } from "@heroicons/react/20/solid"
 
-import Button from "@packages/ui/components/krds/Action/Button"
+import { Button } from "@packages/ui/components/krds/Action"
+import type { UploadedFile } from "@packages/ui/components/krds/Input/FileUpload"
+
+import FormPreview from "../../_components/FormPreview"
 
 import type { ApplyBaseContext } from "."
 
@@ -33,12 +36,38 @@ export default function ApplyNewFunnelStep4({
   const [currentStep, setCurrentStep] = useState<string>(
     context.applingClubs![0],
   )
+  const willUploadedForm = context.formAnswers!.map(form => ({
+    club: form.club,
+    answers: form.answers.map(answer => {
+      if (
+        answer.answer instanceof Array &&
+        answer.answer[0] instanceof File
+      ) {
+        return {
+          id: answer.id,
+          answer: answer.answer.map(file => ({
+            name: file.name,
+            url: URL.createObjectURL(file),
+          })),
+        }
+      }
+
+      return answer
+    }) as {
+      id: number
+      answer: string | UploadedFile[]
+    }[],
+  }))
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="h-0.5 bg-gray-900" />
-
-      {/* TODO: 지원서 확인 컴포넌트화 */}
+      <FormPreview
+        form={{
+          applingClubs: context.applingClubs!,
+          formAnswers: willUploadedForm,
+        }}
+        stepState={[currentStep, setCurrentStep]}
+      />
 
       <div className="h-0.5 bg-gray-900" />
 
@@ -76,11 +105,6 @@ export default function ApplyNewFunnelStep4({
                 ) - 1
 
               setCurrentStep(context.applingClubs![prevClubIndex])
-              console.log(
-                "prev =>",
-                prevClubIndex,
-                context.applingClubs![prevClubIndex],
-              )
             }}
           >
             <ArrowLeftIcon className="size-5" /> 이전
@@ -105,11 +129,6 @@ export default function ApplyNewFunnelStep4({
                 ) + 1
 
               setCurrentStep(context.applingClubs![nextClubIndex])
-              console.log(
-                "next =>",
-                nextClubIndex,
-                context.applingClubs![nextClubIndex],
-              )
             }}
           >
             다음 <ArrowRightIcon className="size-5" />

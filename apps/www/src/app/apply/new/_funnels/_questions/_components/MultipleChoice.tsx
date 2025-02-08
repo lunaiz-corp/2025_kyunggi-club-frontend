@@ -17,7 +17,7 @@ export default function MultipleChoice({
   const havePrefilled = useRef<boolean>(false)
 
   useEffect(() => {
-    if (!havePrefilled.current) {
+    if (!havePrefilled.current && formAnswers.length > 0) {
       if (formAnswers.find(formAnswer => formAnswer.id === id)) {
         setCurrentAnswer(
           (

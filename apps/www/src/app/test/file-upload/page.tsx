@@ -4,7 +4,7 @@
 
 import { useEffect, useState } from "react"
 
-import FileUpload from "@packages/ui/components/krds/Input/FileUpload"
+import { FileUpload } from "@packages/ui/components/krds/Input"
 
 export default function TestPage() {
   const [fileList, setFileList] = useState<File[]>([])

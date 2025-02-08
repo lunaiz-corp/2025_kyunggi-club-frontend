@@ -3,7 +3,7 @@
 import { useEffect } from "react"
 
 import { ArrowPathIcon } from "@heroicons/react/20/solid"
-import Button from "@packages/ui/components/krds/Action/Button"
+import { Button } from "@packages/ui/components/krds/Action"
 
 export default function ErrorPage({
   error,
@@ -48,7 +48,7 @@ export default function ErrorPage({
               <br />
 
               <span>
-                지금 개발자들이 열심히 서류를 주우러 전력 질주 중이니
+                지금 개발자들이 열심히 서류를 주우러 전력 질주 중이니{" "}
                 <br className="inline md:hidden" />
                 조금만 기다려 주세요.
               </span>

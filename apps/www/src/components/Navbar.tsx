@@ -12,10 +12,8 @@ import {
   Bars3Icon,
 } from "@heroicons/react/24/outline"
 
-import {
-  NextLink,
-  baseClass as baseLinkClass,
-} from "@packages/ui/components/krds/Action/Link"
+import { NextLink } from "@packages/ui/components/krds/Action"
+import { baseClass as baseLinkClass } from "@packages/ui/components/krds/Action/Link"
 
 import UnionLogo from "@packages/assets/images/union-logo.svg"
 

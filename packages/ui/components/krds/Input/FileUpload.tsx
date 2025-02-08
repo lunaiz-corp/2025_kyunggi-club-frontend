@@ -11,6 +11,7 @@ import type {
 import { useRef, useState } from "react"
 
 import {
+  ArrowDownTrayIcon,
   ArrowUpTrayIcon,
   ChevronRightIcon,
   XCircleIcon,
@@ -34,8 +35,13 @@ type SectionProps = Omit<
   CommonPropsForState & {
     id: string
     name: string
-    onFileSelect?: () => void
+    onFileSelect?: (fileList: File[]) => void
   }
+
+export type UploadedFile = {
+  name: string
+  url: string
+}
 
 function UploadSection({
   id,
@@ -81,9 +87,16 @@ function UploadSection({
       files
         .filter(item => item.kind === "file")
         .forEach(item => {
-          const file = item.getAsFile()
-          if (file) {
-            filteredDataTransfer.items.add(file)
+          const entry = item.webkitGetAsEntry()
+          if (entry && entry.isDirectory) {
+            // TODO: 모달로 변경하기
+            // eslint-disable-next-line no-alert
+            alert("지원되지 않는 파일 형식입니다.")
+          } else if (entry && entry.isFile) {
+            const file = item.getAsFile()
+            if (file) {
+              filteredDataTransfer.items.add(file)
+            }
           }
         })
     } else {
@@ -93,19 +106,31 @@ function UploadSection({
       })
     }
 
-    setFileList([
+    // fileList값이 바로 변하지 않기에 새로운 배열을 만들어서 이를 return한다.
+    // @see https://velog.io/@woohm402/why-my-state-doesnt-change
+
+    const newFileList = [
       ...fileList,
       ...Array.from(filteredDataTransfer.files),
-    ])
+    ]
 
-    if (onFileSelect) onFileSelect()
+    setFileList(newFileList)
+    if (onFileSelect) onFileSelect(newFileList)
   }
 
   function onFileSelectByInput(
     e: React.ChangeEvent<HTMLInputElement>,
   ) {
-    setFileList([...fileList, ...Array.from(e.target.files ?? [])])
-    if (onFileSelect) onFileSelect()
+    // fileList값이 바로 변하지 않기에 새로운 배열을 만들어서 이를 return한다.
+    // @see https://velog.io/@woohm402/why-my-state-doesnt-change
+
+    const newFileList = [
+      ...fileList,
+      ...Array.from(e.target.files ?? []),
+    ]
+
+    setFileList(newFileList)
+    if (onFileSelect) onFileSelect(newFileList)
 
     e.target.value = ""
   }
@@ -224,6 +249,61 @@ function FileList({
                 삭제
                 <XCircleIcon className="size-5" />
               </Button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+export function ReadOnlyFileList({
+  maxFiles = 1,
+  fileList,
+}: {
+  maxFiles: number
+  fileList: {
+    name: string
+    url: string
+  }[]
+}) {
+  return (
+    <div className="flex w-full flex-col gap-6">
+      <div className="flex items-center justify-between">
+        <div className="font-bold">
+          {maxFiles > 1 && (
+            <>
+              <span className="text-ceruleanBlue-400">
+                {fileList.length.toLocaleString("ko-KR")}개
+              </span>{" "}
+              /{" "}
+              {maxFiles === Infinity
+                ? "∞"
+                : maxFiles.toLocaleString("ko-KR")}
+              개
+            </>
+          )}
+        </div>
+      </div>
+
+      <ul className="flex flex-col gap-4">
+        {fileList.map(file => (
+          <li
+            key={`${file.name}-${crypto.randomUUID()}`}
+            className="rounded-lg border border-gray-800 p-4"
+          >
+            <div className="inline-flex w-full items-center justify-between">
+              <span className="elipsis">{file.name}</span>
+
+              <a href={file.url} download={file.name}>
+                <Button
+                  type="button"
+                  className="border-gray-800 bg-transparent text-sm hover:bg-gray-900 focus:bg-gray-900 focus:outline-gray-800 active:bg-gray-900"
+                >
+                  다운로드
+                  <ArrowDownTrayIcon className="size-5" />
+                </Button>
+              </a>
             </div>
           </li>
         ))}

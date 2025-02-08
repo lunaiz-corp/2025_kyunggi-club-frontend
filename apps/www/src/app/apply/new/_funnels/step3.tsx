@@ -6,7 +6,7 @@ import {
   ArrowRightIcon,
 } from "@heroicons/react/20/solid"
 
-import Button from "@packages/ui/components/krds/Action/Button"
+import { Button } from "@packages/ui/components/krds/Action"
 import { clubs } from "@/data/clubs.json"
 
 import type { ApplyBaseContext } from "."
@@ -35,7 +35,7 @@ export type DataNeedsToBeFilled = {
   }[]
 }
 
-const MOCK_QUESTIONS = [
+export const MOCK_QUESTIONS = [
   {
     club: "list",
     questions: [
@@ -239,45 +239,51 @@ export default function ApplyNewFunnelStep3({
   >([])
 
   useEffect(() => {
-    if (!havePrefilled.current) {
+    if (context.formAnswers) {
       // 만약 이미 데이터가 저장되어 있으면 데이터를 채워준다.
-      if (context.formAnswers) {
+      if (!havePrefilled.current) {
         setFormAnswers(context.formAnswers)
       }
 
-      havePrefilled.current = true
-    }
-  }, [context])
-
-  useEffect(() => {
-    if (!havePrefilledForEachQuestion.current) {
       // 만약 이미 지원서 응답이 저장되어 있으면 데이터를 채워준다.
-      if (formAnswers.find(answer => answer.club === currentStep)) {
-        setFormAnswersByStep(
-          formAnswers.find(answer => answer.club === currentStep)!
-            .answers,
-        )
+      if (!havePrefilledForEachQuestion.current) {
+        if (
+          context.formAnswers.find(
+            answer => answer.club === currentStep,
+          )
+        ) {
+          setFormAnswersByStep(
+            context.formAnswers.find(
+              answer => answer.club === currentStep,
+            )!.answers,
+          )
+        }
       }
-
-      havePrefilledForEachQuestion.current = true
     }
-  }, [currentStep, formAnswers])
+
+    havePrefilled.current = true
+    havePrefilledForEachQuestion.current = true
+  }, [context.formAnswers, currentStep, formAnswers])
 
   function saveFormAnswers() {
-    if (formAnswers.find(answer => answer.club === currentStep)) {
-      setFormAnswers(prev =>
-        prev.map(answer =>
+    // formAnswer값이 바로 변하지 않기에 새로운 배열을 만들어서 이를 return한다.
+    // @see https://velog.io/@woohm402/why-my-state-doesnt-change
+
+    const newFormAnswers = formAnswers.find(
+      answer => answer.club === currentStep,
+    )
+      ? formAnswers.map(answer =>
           answer.club === currentStep
             ? { club: currentStep, answers: formAnswersByStep }
             : answer,
-        ),
-      )
-    } else {
-      setFormAnswers(prev => [
-        ...prev,
-        { club: currentStep, answers: formAnswersByStep },
-      ])
-    }
+        )
+      : [
+          ...formAnswers,
+          { club: currentStep, answers: formAnswersByStep },
+        ]
+
+    setFormAnswers(newFormAnswers)
+    return newFormAnswers
   }
 
   return (
@@ -286,13 +292,14 @@ export default function ApplyNewFunnelStep3({
       onSubmit={e => {
         e.preventDefault()
 
+        havePrefilledForEachQuestion.current = false
+
         window.scrollTo({
           top: 0,
           behavior: "instant",
         })
 
-        saveFormAnswers()
-        setFormAnswersByStep([])
+        const savedFormAnswers = saveFormAnswers()
 
         const nextClubIndex =
           context.applingClubs!.findIndex(
@@ -300,10 +307,11 @@ export default function ApplyNewFunnelStep3({
           ) + 1
 
         if (nextClubIndex < context.applingClubs!.length) {
-          havePrefilledForEachQuestion.current = false
+          setFormAnswersByStep([])
           setCurrentStep(context.applingClubs![nextClubIndex])
         } else {
-          onNext({ formAnswers })
+          havePrefilled.current = false
+          onNext({ formAnswers: savedFormAnswers })
         }
       }}
     >

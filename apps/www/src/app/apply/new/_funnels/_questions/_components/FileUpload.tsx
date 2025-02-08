@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import FileUploadInput from "@packages/ui/components/krds/Input/FileUpload"
+import { FileUpload as FileUploadInput } from "@packages/ui/components/krds/Input"
 
 import type { QuestionCommonProps } from "../types"
 
@@ -29,17 +29,20 @@ export default function FileUpload({
     }
   }, [formAnswers, id])
 
-  const setAndSyncAnswer = () => {
+  const setAndSyncAnswer = (fileList: File[]) => {
+    // fileList값이 바로 변하지 않기에 event로 받은 fileList를 바로 쓴다.
+    // @see https://velog.io/@woohm402/why-my-state-doesnt-change
+
     if (formAnswers.find(formAnswer => formAnswer.id === id)) {
       setFormAnswers(prev =>
         prev.map(formAnswer =>
           formAnswer.id === id
-            ? { ...formAnswer, answer: currentAnswer }
+            ? { ...formAnswer, answer: fileList }
             : formAnswer,
         ),
       )
     } else {
-      setFormAnswers(prev => [...prev, { id, answer: currentAnswer }])
+      setFormAnswers(prev => [...prev, { id, answer: fileList }])
     }
   }
 
@@ -57,7 +60,7 @@ export default function FileUpload({
         name={`q-${id}`}
         maxFiles={maxFiles === -1 ? Infinity : maxFiles}
         required={required}
-        onFileSelect={() => setAndSyncAnswer()}
+        onFileSelect={fileList => setAndSyncAnswer(fileList)}
         fileListState={[currentAnswer, setCurrentAnswer]}
       />
     </div>

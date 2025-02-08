@@ -82,7 +82,7 @@ export default function ApplyNewFunnel() {
     }
 
     const preventAutoSubmit = (e: KeyboardEvent) => {
-      if (e.key === "Enter") {
+      if (e.key === "Enter" || e.key === "NumpadEnter") {
         e.preventDefault()
       }
     }
@@ -110,11 +110,7 @@ export default function ApplyNewFunnel() {
           />
         )}
         step2={({ context, history }) => {
-          if (
-            !context ||
-            !context.agreedTerms ||
-            context.agreedTerms.length === 0
-          ) {
+          if (!context?.agreedTerms?.length) {
             // step1에서 넘어온 데이터가 없으면 step1 페이지로 이동
             history.replace("step1", { agreedTerms: [] })
           }
@@ -129,11 +125,9 @@ export default function ApplyNewFunnel() {
         }}
         step3={({ context, history }) => {
           if (
-            !context ||
-            !context.userInfo ||
-            !context.parentInfo ||
-            !context.applingClubs ||
-            context.applingClubs.length === 0
+            !context?.userInfo ||
+            !context?.parentInfo ||
+            !context?.applingClubs?.length
           ) {
             // step2에서 넘어온 데이터가 없으면 step1 페이지로 이동
             // step1에서 데이터가 제대로 왔다는 보장이 없으므로 아예 초기화하여 step1으로 보내기로
@@ -149,11 +143,7 @@ export default function ApplyNewFunnel() {
           )
         }}
         step4={({ context, history }) => {
-          if (
-            !context ||
-            !context.formAnswers ||
-            context.formAnswers.length === 0
-          ) {
+          if (!context?.formAnswers?.length) {
             // step3에서 넘어온 데이터가 없으면 step1 페이지로 이동
             // step1에서 데이터가 제대로 왔다는 보장이 없으므로 아예 초기화하여 step1으로 보내기로
             history.replace("step1", { agreedTerms: [] })

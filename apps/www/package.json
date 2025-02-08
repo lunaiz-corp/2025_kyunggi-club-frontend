@@ -14,6 +14,7 @@
     "@packages/eslint-config": "workspace:^",
     "@packages/ui": "workspace:^",
     "@use-funnel/browser": "^0.0.11",
+    "overlay-kit": "^1.6.0",
     "swiper": "^11.2.1"
   }
 }

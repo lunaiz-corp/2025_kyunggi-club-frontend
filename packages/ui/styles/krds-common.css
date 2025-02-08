@@ -7,3 +7,12 @@ body {
 * {
   @apply transition duration-200 ease-in-out;
 }
+
+/* KRDS - Selection */
+::-moz-selection {
+  @apply bg-ceruleanBlue-900 text-gray-100;
+}
+
+::selection {
+  @apply bg-ceruleanBlue-900 text-gray-100;
+}

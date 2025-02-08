@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 import Advertisements from "@/components/Advertisements"
-import SearchForm from "./_components/SearchForm"
+import ApplyForm from "./_components/ApplyForm"
 
 export const metadata: Metadata = {
   title: "결과 확인",
@@ -25,7 +25,7 @@ export default function ApplyStatus() {
 
       <Advertisements page="apply" />
 
-      <SearchForm />
+      <ApplyForm />
     </main>
   )
 }

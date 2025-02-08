@@ -7,9 +7,9 @@ import {
   ArrowRightIcon,
 } from "@heroicons/react/20/solid"
 
-import TextInput from "@packages/ui/components/krds/Input/TextInput"
+import { TextInput } from "@packages/ui/components/krds/Input"
 import Select from "@packages/ui/components/krds/Select"
-import Button from "@packages/ui/components/krds/Action/Button"
+import { Button } from "@packages/ui/components/krds/Action"
 
 import { clubs } from "@/data/clubs.json"
 import type { ApplyBaseContext } from "."
