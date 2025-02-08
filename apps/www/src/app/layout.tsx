@@ -11,6 +11,8 @@ import ChannelIO from "@packages/channelio"
 import "react-loading-skeleton/dist/skeleton.css"
 import "@/styles/globals.css"
 
+import OverlayProvider from "@/providers/OverlayProvider"
+
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 
@@ -111,12 +113,14 @@ export default function RootLayout({
       </head>
       <body className="relative top-[90px] bg-gray-950 text-gray-100 antialiased md:static md:top-0">
         <ProgressBarProvider>
-          <A11ySkipLink />
+          <OverlayProvider>
+            <A11ySkipLink />
 
-          <Navbar />
+            <Navbar />
 
-          {children}
-          <Footer />
+            {children}
+            <Footer />
+          </OverlayProvider>
         </ProgressBarProvider>
 
         <Toaster />

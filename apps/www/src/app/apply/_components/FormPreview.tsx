@@ -39,7 +39,6 @@ export default function FormPreview({
 
   return (
     <div className="flex flex-col gap-6">
-      <span>{JSON.stringify(form.formAnswers)}</span>
       <div className="h-0.5 bg-gray-900" />
 
       <div className="inline-flex flex-col gap-5">

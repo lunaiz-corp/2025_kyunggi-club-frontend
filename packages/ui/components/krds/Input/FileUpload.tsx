@@ -10,6 +10,8 @@ import type {
 } from "react"
 import { useRef, useState } from "react"
 
+import { overlay } from "overlay-kit"
+
 import {
   ArrowDownTrayIcon,
   ArrowUpTrayIcon,
@@ -17,7 +19,9 @@ import {
   XCircleIcon,
 } from "@heroicons/react/20/solid"
 
-import Button from "../Action/Button"
+import { Button } from "../Action"
+import { Modal } from "../Layout"
+
 import { cn } from "../../../utils/tailwindMerge"
 
 type CommonPropsForState = {
@@ -72,9 +76,21 @@ function UploadSection({
     onDragLeave(e)
 
     if (maxFiles && fileList.length >= maxFiles) {
-      // TODO: 모달로 변경하기
-      // eslint-disable-next-line no-alert
-      alert("최대 파일 개수를 초과했습니다.")
+      overlay.open(({ isOpen, close, unmount }) => {
+        return (
+          <Modal
+            isOpen={isOpen}
+            close={() => {
+              close()
+              setTimeout(unmount, 200)
+            }}
+            title="오류"
+          >
+            최대 파일 개수를 초과했습니다.
+          </Modal>
+        )
+      })
+
       return
     }
 
@@ -89,9 +105,20 @@ function UploadSection({
         .forEach(item => {
           const entry = item.webkitGetAsEntry()
           if (entry && entry.isDirectory) {
-            // TODO: 모달로 변경하기
-            // eslint-disable-next-line no-alert
-            alert("지원되지 않는 파일 형식입니다.")
+            overlay.open(({ isOpen, close, unmount }) => {
+              return (
+                <Modal
+                  isOpen={isOpen}
+                  close={() => {
+                    close()
+                    setTimeout(unmount, 200)
+                  }}
+                  title="오류"
+                >
+                  지원되지 않는 파일 형식입니다.
+                </Modal>
+              )
+            })
           } else if (entry && entry.isFile) {
             const file = item.getAsFile()
             if (file) {
@@ -207,16 +234,28 @@ function FileList({
         <Button
           type="button"
           className="border-gray-800 bg-transparent text-sm hover:bg-gray-900 focus:bg-gray-900 focus:outline-gray-800 active:bg-gray-900"
-          onClick={() => {
+          onClick={async () => {
             if (fileList.length === 0) {
               return
             }
 
-            if (
-              // TODO: 모달로 변경하기
-              // eslint-disable-next-line no-alert
-              window.confirm("정말로 모든 파일을 삭제하시겠습니까?")
-            ) {
+            const confirm = await overlay.openAsync<boolean>(
+              ({ isOpen, close, unmount }) => {
+                return (
+                  <Modal
+                    isOpen={isOpen}
+                    close={(returnValue: boolean = false) => {
+                      close(returnValue)
+                      setTimeout(unmount, 200)
+                    }}
+                    title="정말로 모든 파일을 삭제하시겠습니까?"
+                    isForConfirm
+                  />
+                )
+              },
+            )
+
+            if (confirm) {
               setFileList([])
             }
           }}
@@ -238,10 +277,24 @@ function FileList({
               <Button
                 type="button"
                 className="border-gray-800 bg-transparent text-sm hover:bg-gray-900 focus:bg-gray-900 focus:outline-gray-800 active:bg-gray-900"
-                onClick={() => {
-                  // TODO: 모달로 변경하기
-                  // eslint-disable-next-line no-alert
-                  if (window.confirm("정말로 삭제하시겠습니까?")) {
+                onClick={async () => {
+                  const confirm = await overlay.openAsync<boolean>(
+                    ({ isOpen, close, unmount }) => {
+                      return (
+                        <Modal
+                          isOpen={isOpen}
+                          close={(returnValue: boolean = false) => {
+                            close(returnValue)
+                            setTimeout(unmount, 200)
+                          }}
+                          title="정말로 삭제하시겠습니까?"
+                          isForConfirm
+                        />
+                      )
+                    },
+                  )
+
+                  if (confirm) {
                     setFileList(fileList.filter(f => f !== file))
                   }
                 }}

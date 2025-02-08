@@ -3,10 +3,13 @@
 import type { DetailedHTMLProps, FormHTMLAttributes } from "react"
 import { useState } from "react"
 
+import { overlay } from "overlay-kit"
+
 import { CheckIcon } from "@heroicons/react/20/solid"
 
 import { TextInput } from "@packages/ui/components/krds/Input"
 import { Button } from "@packages/ui/components/krds/Action"
+import { Modal } from "@packages/ui/components/krds/Layout"
 
 import { retrieveSubmittedForm, type SubmittedForm } from "../actions"
 import {
@@ -172,9 +175,20 @@ export default function ApplyForm() {
             throw error
           }
 
-          // TODO: 모달로 바꾸기
-          // eslint-disable-next-line no-alert
-          alert(error.message)
+          overlay.open(({ isOpen, close, unmount }) => {
+            return (
+              <Modal
+                isOpen={isOpen}
+                close={() => {
+                  close()
+                  setTimeout(unmount, 200)
+                }}
+                title="오류"
+              >
+                {error.message}
+              </Modal>
+            )
+          })
         }
       }}
     />
