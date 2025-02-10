@@ -11,8 +11,8 @@ export const TITLE_BY_STEP = {
 }
 
 export default function TitleBar({
-  title,
-}: Readonly<{ title?: string }>) {
+  step,
+}: Readonly<{ step: string }>) {
   const searchParams = useSearchParams()
   // Client side에서 실제 타이틀을 가져옴으로써 hydration 오류 방지
   // @use-funnel 로딩 중일 때는 현재 파라미터를 가지고 추론
@@ -22,8 +22,8 @@ export default function TitleBar({
   ) as keyof typeof TITLE_BY_STEP
 
   useEffect(() => {
-    setRealText(title)
-  }, [title])
+    setRealText(TITLE_BY_STEP[step as keyof typeof TITLE_BY_STEP])
+  }, [step])
 
   return (
     <div className="inline-flex flex-col gap-3">

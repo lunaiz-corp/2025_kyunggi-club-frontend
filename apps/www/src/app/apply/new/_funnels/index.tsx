@@ -1,18 +1,20 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
 import { useFunnel } from "@use-funnel/browser"
 
 import Advertisements from "@/components/Advertisements"
 import ScreenLoading from "@/components/ScreenLoading"
 
-import TitleBar, { TITLE_BY_STEP } from "../_components/TitleBar"
+import TitleBar from "../_components/TitleBar"
+import SubmitTitle from "../_components/SubmitTitle"
 
 import type { ApplyStep1 } from "./step1"
 import type { ApplyStep2 } from "./step2"
 import type { ApplyStep3 } from "./step3"
 import type { ApplyStep4 } from "./step4"
+import type { ApplyStep5 } from "./step5"
 
 // dynamic으로 불러옴으로 @use-funnel Hydration 문제 해결
 // @see https://use-funnel.slash.page/ko/docs/get-started#%EC%B4%88%EA%B8%B0-%EB%8B%A8%EA%B3%84-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0
@@ -29,6 +31,10 @@ const Step3 = dynamic(() => import("./step3"), {
   loading: () => <ScreenLoading />,
 })
 const Step4 = dynamic(() => import("./step4"), {
+  ssr: false,
+  loading: () => <ScreenLoading />,
+})
+const Step5 = dynamic(() => import("./step5"), {
   ssr: false,
   loading: () => <ScreenLoading />,
 })
@@ -68,6 +74,7 @@ export default function ApplyNewFunnel() {
     step2: ApplyStep2
     step3: ApplyStep3
     step4: ApplyStep4
+    step5: ApplyStep5
   }>({
     id: "apply",
     initial: {
@@ -75,6 +82,8 @@ export default function ApplyNewFunnel() {
       context: {},
     },
   })
+
+  const [submitted, isSubmitted] = useState<boolean>(false)
 
   useEffect(() => {
     const preventLeave = (e: BeforeUnloadEvent) => {
@@ -98,7 +107,11 @@ export default function ApplyNewFunnel() {
 
   return (
     <>
-      <TitleBar title={TITLE_BY_STEP[funnel.step]} />
+      {funnel.step !== "step5" ? (
+        <TitleBar step={funnel.step} />
+      ) : (
+        <SubmitTitle submitted={submitted} />
+      )}
 
       <Advertisements page="apply" />
 
@@ -150,13 +163,23 @@ export default function ApplyNewFunnel() {
           }
 
           return (
-            // TODO: step4 -> 서버 제출
             <Step4
               onPrev={() => history.push("step3", context)}
-              onNext={() => {
-                // eslint-disable-next-line no-console
-                console.log("submit")
-              }}
+              onNext={() => history.push("step5")}
+              {...context}
+            />
+          )
+        }}
+        step5={({ context, history }) => {
+          if (!context?.formAnswers?.length) {
+            // step4에서 넘어온 데이터가 없으면 step1 페이지로 이동
+            // step1에서 데이터가 제대로 왔다는 보장이 없으므로 아예 초기화하여 step1으로 보내기로
+            history.replace("step1", { agreedTerms: [] })
+          }
+
+          return (
+            <Step5
+              submittedState={[submitted, isSubmitted]}
               {...context}
             />
           )

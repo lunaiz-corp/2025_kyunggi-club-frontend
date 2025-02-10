@@ -102,9 +102,9 @@ function RetrieveRequestForm({
           htmlFor="password"
           className="inline-flex cursor-pointer flex-col gap-3"
         >
-          <span className="text-2xl font-bold">개인 확인 코드</span>
+          <span className="text-2xl font-bold">접수 번호</span>
           <span className="text-sm text-gray-500">
-            최초 지원 당시 알림톡으로 전송된 확인 코드를 입력해주세요.
+            최초 지원 당시 알림톡으로 전송된 접수 번호를 입력해주세요.
           </span>
         </label>
         <TextInput
