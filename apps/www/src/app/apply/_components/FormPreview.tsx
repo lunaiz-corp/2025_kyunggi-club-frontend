@@ -15,7 +15,7 @@ import { cn } from "@packages/ui/utils/tailwindMerge"
 
 import { clubs } from "@/data/clubs.json"
 
-import { SubmittedForm } from "../status/actions"
+import type { SubmittedForm } from "../status/types"
 import { MOCK_QUESTIONS } from "../new/_funnels/step3"
 
 import { QuestionType } from "../new/_funnels/_questions/types"

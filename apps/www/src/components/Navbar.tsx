@@ -117,7 +117,7 @@ export default function Navbar() {
               href="/apply/status"
               className={cn(
                 "justify-between px-4 py-2 font-bold",
-                pathname === "/apply/status" &&
+                pathname.startsWith("/apply/status") &&
                   "bg-ceruleanBlue-700 hover:bg-ceruleanBlue-600 focus:bg-ceruleanBlue-600 active:bg-ceruleanBlue-600",
               )}
             >

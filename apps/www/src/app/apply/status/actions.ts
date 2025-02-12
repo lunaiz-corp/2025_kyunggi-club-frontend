@@ -1,18 +1,6 @@
 "use server"
 
-import type { UploadedFile } from "@packages/ui/components/krds/Input/FileUpload"
-import type { DataNeedsToBeFilled as Step2Data } from "../new/_funnels/step2"
-
-export type SubmittedForm = {
-  applingClubs: Step2Data["applingClubs"]
-  formAnswers: {
-    club: string // 학생 지망 동아리
-    answers: {
-      id: number
-      answer: string | UploadedFile[]
-    }[]
-  }[]
-}
+import { CurrentStatus, SubmittedForm } from "./types"
 
 export async function retrieveSubmittedForm({
   studentId,
@@ -48,7 +36,27 @@ export async function retrieveSubmittedForm({
   return {
     result: "SUCCESS",
     data: {
+      userInfo: {
+        id: studentId,
+        name: studentName,
+      },
+
       applingClubs: ["list", "kec", "kphc"],
+      currentStatus: [
+        {
+          club: "list",
+          status: CurrentStatus.PASSED,
+        },
+        {
+          club: "kec",
+          status: CurrentStatus.WAITING,
+        },
+        {
+          club: "kphc",
+          status: CurrentStatus.REJECTED,
+        },
+      ],
+
       formAnswers: [
         {
           club: "list",

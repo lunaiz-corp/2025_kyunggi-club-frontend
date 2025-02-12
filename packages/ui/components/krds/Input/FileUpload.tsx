@@ -348,7 +348,12 @@ export function ReadOnlyFileList({
             <div className="inline-flex w-full items-center justify-between">
               <span className="elipsis">{file.name}</span>
 
-              <a href={file.url} download={file.name}>
+              <a
+                href={file.url}
+                download={file.name}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <Button
                   type="button"
                   className="border-gray-800 bg-transparent text-sm hover:bg-gray-900 focus:bg-gray-900 focus:outline-gray-800 active:bg-gray-900"
