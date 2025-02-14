@@ -236,7 +236,7 @@ function Status({ form }: Readonly<{ form: SubmittedForm }>) {
             어려울 수 있습니다.
             <br />
             자세한 사항은 화면 하단 채널톡 혹은 고객센터
-            (070-0000-0000)으로 문의 부탁드립니다.
+            (010-9212-1267)으로 문의 부탁드립니다.
           </span>
         </div>
       </div>

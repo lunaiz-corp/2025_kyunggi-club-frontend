@@ -24,7 +24,7 @@ export default function FormPreview({
   form,
   stepState,
 }: Readonly<{
-  form: SubmittedForm
+  form: Pick<SubmittedForm, "applingClubs" | "formAnswers">
   stepState: [string, Dispatch<SetStateAction<string>>]
 }>) {
   const [step, setStep] = stepState
