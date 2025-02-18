@@ -1,32 +1,36 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 
-import { ChevronLeftIcon } from "@heroicons/react/24/solid"
-import { NextLink } from "@packages/ui/components/krds/Action"
+import {
+  ChevronLeftIcon,
+  PencilIcon,
+} from "@heroicons/react/24/solid"
+import { TrashIcon } from "@heroicons/react/24/outline"
 
-import Advertisements from "@/components/Advertisements"
+import { NextLink, Button } from "@packages/ui/components/krds/Action"
 
 export const metadata: Metadata = {
-  title: "공지사항 보기",
+  title: "공지사항 관리",
   openGraph: {
-    title: "공지사항 보기",
+    title: "공지사항 관리",
   },
   twitter: {
-    title: "공지사항 보기",
+    title: "공지사항 관리",
   },
 }
 
-export default function NoticeDetail() {
+export default async function Notice({
+  params,
+}: Readonly<{
+  params: Promise<{ id: string }>
+}>) {
+  const { id } = await params
+
   return (
-    <main className="mx-auto mb-12 flex max-w-[1200px] flex-col gap-12 px-6 pt-8 lg:px-0">
-      <h1 className="text-4xl font-bold tracking-tight md:text-[42px]">
-        공지사항
-      </h1>
-
-      <Advertisements page="notice" />
-
+    <div className="my-10 flex flex-col gap-12">
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
-          <NextLink href="/notice" className="p-1.5">
+          <NextLink href="/dashboard/notice" className="p-1.5">
             <ChevronLeftIcon className="size-5" />
           </NextLink>
 
@@ -99,6 +103,26 @@ export default function NoticeDetail() {
           pulvinar.
         </span>
       </article>
-    </main>
+
+      <div className="flex gap-6">
+        <Button
+          type="button"
+          className="disabled:bg-point-970 border-point-500 bg-point-500 hover:bg-point-400 focus:bg-point-400 focus:outline-point-500 active:bg-point-400 disabled:cursor-not-allowed disabled:border-point-700"
+        >
+          <TrashIcon className="size-5 stroke-gray-100 stroke-2" />
+          <span className="text-gray-100">삭제</span>
+        </Button>
+
+        <Link href={`/dashboard/notice/${id}/edit`}>
+          <Button
+            type="button"
+            className="border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
+          >
+            <PencilIcon className="size-4 fill-gray-900" />
+            <span className="text-gray-900">수정</span>
+          </Button>
+        </Link>
+      </div>
+    </div>
   )
 }
