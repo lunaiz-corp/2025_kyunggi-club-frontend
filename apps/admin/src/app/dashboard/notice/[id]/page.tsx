@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { notFound } from "next/navigation"
 
 import {
   ChevronLeftIcon,
@@ -25,6 +26,10 @@ export default async function Notice({
   params: Promise<{ id: string }>
 }>) {
   const { id } = await params
+
+  if (Number.isNaN(Number(id))) {
+    notFound()
+  }
 
   return (
     <div className="my-10 flex flex-col gap-12">
