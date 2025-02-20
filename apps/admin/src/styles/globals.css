@@ -2,3 +2,7 @@
 
 @source "../app";
 @source "../../../../packages/ui/components";
+
+body {
+    color-scheme: dark;
+}

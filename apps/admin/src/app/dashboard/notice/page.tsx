@@ -20,7 +20,7 @@ export default function Notice() {
   return (
     <div>
       <div className="mt-10 mb-15 flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-gray-100">
+        <h1 className="text-3xl font-bold tracking-tight md:text-[36px]">
           공지사항 관리
         </h1>
 

@@ -101,6 +101,7 @@ export default async function ClubDetail({
               <span className="sr-only">뒤로 가기</span>
               <ChevronLeftIcon className="size-5" />
             </NextLink>
+
             <h1 className="inline-flex gap-3 text-4xl font-bold tracking-tight md:text-5xl">
               <span className="hidden md:inline">
                 {currentClub.name.split(" ")[0]}

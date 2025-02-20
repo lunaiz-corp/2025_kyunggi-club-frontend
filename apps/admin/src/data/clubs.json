@@ -1,0 +1,49 @@
+{
+  "clubs": [
+    {
+      "id": "list",
+      "name": "LIST 과학기술정보통신부",
+      "description": "LIST 과학기술정보통신부 - Leader of ICT, Science and Technology"
+    },
+    {
+      "id": "kec",
+      "name": "KEC 기계공학부",
+      "description": "KEC 기계공학부 - Design, Create, Activate 공학을 배우며 원하는 것을 만들다"
+    },
+    {
+      "id": "kphc",
+      "name": "KPhC 물리부",
+      "description": "KPhC 물리부 - Provocationem et creationem, 도전과 창조"
+    },
+    {
+      "id": "kbrc",
+      "name": "KBRC 생물부",
+      "description": "KBRC 생물부 - From molecules to ecosystems - "
+    },
+    {
+      "id": "kmoc",
+      "name": "KMOC 수학부",
+      "description": "KMOC 수학부 - 경기고등학교 이공계동아리연합"
+    },
+    {
+      "id": "kac",
+      "name": "KAC 천문학부",
+      "description": "KAC 천문학부 - Explore the Universe."
+    },
+    {
+      "id": "css",
+      "name": "CSS 창의융합과학부",
+      "description": "CSS 창의융합과학부 - 경기고등학교 이공계동아리연합"
+    },
+    {
+      "id": "cel",
+      "name": "CE-L 컴퓨터부",
+      "description": "CE-L 컴퓨터부 - Computers turn your imagination into reality."
+    },
+    {
+      "id": "kcc",
+      "name": "KCC 화학부",
+      "description": "KCC 화학부 - 경기고등학교 이공계동아리연합"
+    }
+  ]
+}

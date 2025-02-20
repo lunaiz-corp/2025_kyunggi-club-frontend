@@ -2,10 +2,15 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 
-import { CheckIcon, ClockIcon } from "@heroicons/react/24/outline"
+import {
+  CheckIcon,
+  ChevronLeftIcon,
+  ClockIcon,
+} from "@heroicons/react/24/outline"
 
 import { clubs } from "@/data/clubs.json"
 import Advertisements from "@/components/Advertisements"
+import { NextLink } from "@packages/ui/components/krds/Action"
 
 export const metadata: Metadata = {
   title: "결과 확인",
@@ -36,12 +41,27 @@ export default async function ApplyStatus({
           <span className="text-2xl text-gray-400">결과 확인</span>
 
           <div className="inline-flex flex-col items-center justify-between gap-8 md:flex-row">
-            <h1 className="inline-flex gap-3 text-4xl font-bold tracking-tight md:text-5xl">
-              <span className="hidden md:inline">
-                {currentClub.name.split(" ")[0]}
-              </span>
-              <span>{currentClub.name.split(" ")[1]}</span>
-            </h1>
+            <div className="flex items-center gap-4">
+              <NextLink
+                href="/apply/status"
+                className="hidden p-1.5 md:inline"
+                title="뒤로 가기"
+                onClick={e => {
+                  e.preventDefault()
+                  window.history.back()
+                }}
+              >
+                <span className="sr-only">뒤로 가기</span>
+                <ChevronLeftIcon className="size-5" />
+              </NextLink>
+
+              <h1 className="inline-flex gap-3 text-4xl font-bold tracking-tight md:text-5xl">
+                <span className="hidden md:inline">
+                  {currentClub.name.split(" ")[0]}
+                </span>
+                <span>{currentClub.name.split(" ")[1]}</span>
+              </h1>
+            </div>
 
             <Image
               src={`https://cdn.lunaiz.com/kghs/badge_${id}.png`}

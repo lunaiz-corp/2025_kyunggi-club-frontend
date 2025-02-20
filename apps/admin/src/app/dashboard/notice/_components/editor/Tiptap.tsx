@@ -69,6 +69,7 @@ export default function Tiptap({
       },
     },
     content,
+    immediatelyRender: false,
   })
 
   return (
