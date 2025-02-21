@@ -116,7 +116,7 @@ export default function Sidebar() {
       <button
         type="button"
         className={cn(
-          "absolute top-14 z-50 flex h-12 w-8 items-center justify-center rounded-r-lg bg-gray-600 transition-transform duration-300 ease-in-out lg:hidden",
+          "absolute top-14 z-50 flex h-12 w-8 items-center justify-center rounded-r-lg bg-gray-700 transition-transform duration-300 ease-in-out lg:hidden",
           isSidebarOpen ? "translate-x-80" : "translate-x-0",
         )}
         onClick={() => setIsSidebarOpen(prev => !prev)}
