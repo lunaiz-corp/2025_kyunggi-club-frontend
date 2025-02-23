@@ -2,48 +2,39 @@
   "clubs": [
     {
       "id": "list",
-      "name": "LIST 과학기술정보통신부",
-      "description": "LIST 과학기술정보통신부 - Leader of ICT, Science and Technology"
+      "name": "LIST 과학기술정보통신부"
     },
     {
       "id": "kec",
-      "name": "KEC 기계공학부",
-      "description": "KEC 기계공학부 - Design, Create, Activate 공학을 배우며 원하는 것을 만들다"
+      "name": "KEC 기계공학부"
     },
     {
       "id": "kphc",
-      "name": "KPhC 물리부",
-      "description": "KPhC 물리부 - Provocationem et creationem, 도전과 창조"
+      "name": "KPhC 물리부"
     },
     {
       "id": "kbrc",
-      "name": "KBRC 생물부",
-      "description": "KBRC 생물부 - From molecules to ecosystems - "
+      "name": "KBRC 생물부"
     },
     {
       "id": "kmoc",
-      "name": "KMOC 수학부",
-      "description": "KMOC 수학부 - 경기고등학교 이공계동아리연합"
+      "name": "KMOC 수학부"
     },
     {
       "id": "kac",
-      "name": "KAC 천문학부",
-      "description": "KAC 천문학부 - Explore the Universe."
+      "name": "KAC 천문학부"
     },
     {
       "id": "css",
-      "name": "CSS 창의융합과학부",
-      "description": "CSS 창의융합과학부 - 경기고등학교 이공계동아리연합"
+      "name": "CSS 창의융합과학부"
     },
     {
       "id": "cel",
-      "name": "CE-L 컴퓨터부",
-      "description": "CE-L 컴퓨터부 - Computers turn your imagination into reality."
+      "name": "CE-L 컴퓨터부"
     },
     {
       "id": "kcc",
-      "name": "KCC 화학부",
-      "description": "KCC 화학부 - 경기고등학교 이공계동아리연합"
+      "name": "KCC 화학부"
     }
   ]
 }

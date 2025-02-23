@@ -116,7 +116,7 @@ export default function Sidebar() {
       <button
         type="button"
         className={cn(
-          "absolute top-14 z-50 flex h-12 w-8 items-center justify-center rounded-r-lg bg-gray-700 transition-transform duration-300 ease-in-out lg:hidden",
+          "absolute top-14 z-50 flex h-12 w-8 cursor-pointer items-center justify-center rounded-r-lg bg-gray-700 transition-transform duration-300 ease-in-out lg:hidden",
           isSidebarOpen ? "translate-x-80" : "translate-x-0",
         )}
         onClick={() => setIsSidebarOpen(prev => !prev)}
@@ -141,7 +141,7 @@ export default function Sidebar() {
             title="경기고등학교 이공계동아리연합 로고"
           />
 
-          <div className="inline-flex flex-col gap-0.5 text-left">
+          <div className="inline-flex flex-col gap-0.5 text-left select-none">
             <span className="text-xs leading-[normal] font-bold text-gray-100">
               경기고등학교
             </span>
@@ -153,7 +153,10 @@ export default function Sidebar() {
 
         <div className="mt-12 flex flex-col gap-7">
           {Object.entries(ROUTES).map(([key, value]) => (
-            <div key={key} className="flex flex-col gap-3">
+            <div
+              key={key}
+              className="flex flex-col gap-3 select-none"
+            >
               <span className="text-sm font-bold text-gray-100">
                 {key}
               </span>
@@ -180,7 +183,7 @@ export default function Sidebar() {
           ))}
         </div>
 
-        <div className="mt-12 inline-flex w-full flex-col items-start justify-center gap-2 rounded-md border border-[#eff6ff]/75 p-4">
+        <div className="mt-12 inline-flex w-full flex-col items-start justify-center gap-2 rounded-md border border-[#eff6ff]/75 p-4 select-none">
           <span className="text-sm font-bold text-gray-100">
             로그 실시간 기록 중
           </span>

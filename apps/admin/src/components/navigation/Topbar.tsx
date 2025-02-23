@@ -45,7 +45,7 @@ export default function Topbar() {
         </div>
 
         <div className="flex items-center gap-6 text-gray-500">
-          <div className="inline-flex items-center gap-[10px] text-gray-100">
+          <div className="inline-flex items-center gap-[10px] text-gray-100 select-none">
             <div className="flex items-center justify-center rounded bg-gray-600 p-1.5">
               <UserIcon className="size-5" />
             </div>
