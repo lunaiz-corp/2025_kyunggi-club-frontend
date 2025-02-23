@@ -22,7 +22,11 @@ import {
   FileUpload,
 } from "./_questions"
 
-import { QuestionType, type FormAnswers } from "./_questions/types"
+import {
+  type FormAnswers,
+  type QuestionObject,
+  QuestionType,
+} from "./_questions/types"
 
 // 3. 인적 사항 입력 완료 - 지원서 작성 중
 export type ApplyStep3 = DataNeedsToBeFilledStep1 &
@@ -35,39 +39,43 @@ export type DataNeedsToBeFilled = {
   }[]
 }
 
-export const MOCK_QUESTIONS = [
+export const MOCK_QUESTIONS: {
+  club: string
+  questions: QuestionObject[]
+}[] = [
   {
     club: "list",
     questions: [
       {
         id: 1,
         question: "무임승차를 하실건가요?1",
-        type: "SHORT_INPUT",
+        type: QuestionType.SHORT_INPUT,
         required: false,
       },
       {
         id: 2,
         question: "무임승차를 하실건가요?2",
-        type: "LONG_INPUT",
+        type: QuestionType.LONG_INPUT,
         required: false,
       },
       {
         id: 3,
         question: "무임승차를 하실건가요?3",
-        type: "MULTIPLE_CHOICE",
+        type: QuestionType.MULTIPLE_CHOICE,
         options: ["옵션 1", "옵션 2"],
+        required: false,
       },
       {
         id: 4,
         question: "무임승차를 하실건가요?4",
-        type: "DROPDOWN",
+        type: QuestionType.DROPDOWN,
         options: ["옵션 1", "옵션 2"],
         required: false,
       },
       {
         id: 5,
         question: "무임승차를 하실건가요?5",
-        type: "FILE_UPLOAD",
+        type: QuestionType.FILE_UPLOAD,
         maxFiles: 10,
         required: false,
       },
@@ -79,32 +87,33 @@ export const MOCK_QUESTIONS = [
       {
         id: 1,
         question: "무임승차를 하실건가요?6",
-        type: "SHORT_INPUT",
+        type: QuestionType.SHORT_INPUT,
         required: false,
       },
       {
         id: 2,
         question: "무임승차를 하실건가요?7",
-        type: "LONG_INPUT",
+        type: QuestionType.LONG_INPUT,
         required: false,
       },
       {
         id: 3,
         question: "무임승차를 하실건가요?8",
-        type: "MULTIPLE_CHOICE",
+        type: QuestionType.MULTIPLE_CHOICE,
         options: ["옵션 1", "옵션 2"],
+        required: false,
       },
       {
         id: 4,
         question: "무임승차를 하실건가요?9",
-        type: "DROPDOWN",
+        type: QuestionType.DROPDOWN,
         options: ["옵션 1", "옵션 2"],
         required: false,
       },
       {
         id: 5,
         question: "무임승차를 하실건가요?10",
-        type: "FILE_UPLOAD",
+        type: QuestionType.FILE_UPLOAD,
         maxFiles: 10,
         required: false,
       },
@@ -116,32 +125,33 @@ export const MOCK_QUESTIONS = [
       {
         id: 1,
         question: "무임승차를 하실건가요?11",
-        type: "SHORT_INPUT",
+        type: QuestionType.SHORT_INPUT,
         required: false,
       },
       {
         id: 2,
         question: "무임승차를 하실건가요?12",
-        type: "LONG_INPUT",
+        type: QuestionType.LONG_INPUT,
         required: false,
       },
       {
         id: 3,
         question: "무임승차를 하실건가요?13",
-        type: "MULTIPLE_CHOICE",
+        type: QuestionType.MULTIPLE_CHOICE,
         options: ["옵션 1", "옵션 2"],
+        required: false,
       },
       {
         id: 4,
         question: "무임승차를 하실건가요?14",
-        type: "DROPDOWN",
+        type: QuestionType.DROPDOWN,
         options: ["옵션 1", "옵션 2"],
         required: false,
       },
       {
         id: 5,
         question: "무임승차를 하실건가요?15",
-        type: "FILE_UPLOAD",
+        type: QuestionType.FILE_UPLOAD,
         maxFiles: 10,
         required: false,
       },

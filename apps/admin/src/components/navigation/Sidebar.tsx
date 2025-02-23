@@ -12,19 +12,19 @@ import UnionLogo from "@packages/assets/images/union-logo.svg"
 // ---
 import { Bars4Icon } from "@heroicons/react/20/solid"
 
-import HomeIcon from "@/assets/icons/home.svg"
-import SpeakerphoneIcon from "@/assets/icons/speakerphone.svg"
+import HomeIcon from "@/assets/icons/sidebar/home.svg"
+import SpeakerphoneIcon from "@/assets/icons/sidebar/speakerphone.svg"
 
-import UserIcon from "@/assets/icons/user.svg"
-import NewspaperIcon from "@/assets/icons/newspaper.svg"
-import UserGroupIcon from "@/assets/icons/user-group.svg"
+import UserIcon from "@/assets/icons/sidebar/user.svg"
+import NewspaperIcon from "@/assets/icons/sidebar/newspaper.svg"
+import UserGroupIcon from "@/assets/icons/sidebar/user-group.svg"
 
-import CogIcon from "@/assets/icons/cog.svg"
-import ScheduleIcon from "@/assets/icons/schedule.svg"
+import CogIcon from "@/assets/icons/sidebar/cog.svg"
+import ScheduleIcon from "@/assets/icons/sidebar/schedule.svg"
 
-import CalendarIcon from "@/assets/icons/calendar.svg"
-import PencilIcon from "@/assets/icons/pencil.svg"
-import ChatIcon from "@/assets/icons/chat.svg"
+import CalendarIcon from "@/assets/icons/sidebar/calendar.svg"
+import PencilIcon from "@/assets/icons/sidebar/pencil.svg"
+import ChatIcon from "@/assets/icons/sidebar/chat.svg"
 // ---
 
 export default function Sidebar() {

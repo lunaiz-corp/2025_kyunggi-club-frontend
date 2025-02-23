@@ -13,6 +13,17 @@ export enum QuestionType {
   FILE_UPLOAD = "FILE_UPLOAD",
 }
 
+export type QuestionObject = {
+  id: number
+  question: string
+
+  type: QuestionType
+  options?: string[]
+  maxFiles?: number
+
+  required: boolean
+}
+
 export type QuestionCommonProps = {
   id: number
   question: string

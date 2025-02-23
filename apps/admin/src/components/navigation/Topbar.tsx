@@ -6,9 +6,9 @@ import { useRouter } from "next-nprogress-bar"
 import { MegaphoneIcon } from "@heroicons/react/20/solid"
 import { UserIcon } from "@heroicons/react/24/solid"
 
-import CogIcon from "@/assets/icons/cog-for-topbar.svg"
-import BellIcon from "@/assets/icons/bell.svg"
-import SignoutIcon from "@/assets/icons/signout.svg"
+import CogIcon from "@/assets/icons/topbar/cog-for-topbar.svg"
+import BellIcon from "@/assets/icons/topbar/bell.svg"
+import SignoutIcon from "@/assets/icons/topbar/signout.svg"
 // ---
 
 export default function Topbar() {
