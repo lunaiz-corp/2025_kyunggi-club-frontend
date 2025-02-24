@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 
 import { clubs } from "@/data/clubs.json"
 
-import TitleBar from "@/components/common/TitleBar"
 import Template from "../_components/Template"
 
 export const metadata: Metadata = {
@@ -30,12 +29,7 @@ export default async function ClubTemplateDetail({
 
   return (
     <div className="flex flex-col gap-10">
-      <TitleBar
-        category="동아리 관리 / 지원서 양식 관리"
-        title={currentClub.name.split(" ")[1]}
-      />
-
-      <Template />
+      <Template club={currentClub} />
     </div>
   )
 }

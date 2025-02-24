@@ -6,20 +6,23 @@ import {
   Textarea,
 } from "@packages/ui/components/krds/Input"
 import Checkbox from "@packages/ui/components/Checkbox"
-import Select from "@packages/ui/components/krds/Select"
 import { ReadOnlyFileList } from "@packages/ui/components/krds/Input/FileUpload"
 
 import DndIcon from "@/assets/icons/dnd.svg"
 import DeleteIcon from "@/assets/icons/delete.svg"
+
+import { Input as FieldSizingInput } from "./lib/react-field-sizing-content"
 
 import { type QuestionObject, QuestionType } from "./types"
 
 export default function DndQuestion({
   question,
   onDelete,
+  onQuestionNameChange,
 }: Readonly<{
   question: QuestionObject
   onDelete: (id: number) => void
+  onQuestionNameChange: (id: number, name: string) => void
 }>) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: question.id })
@@ -50,8 +53,16 @@ export default function DndQuestion({
           htmlFor={`q-${question.id}`}
           className="text-2xl font-bold"
         >
-          {/* TODO: 제목 수정 가능하게 하기 */}
-          Q. {question.question}
+          Q.{" "}
+          <FieldSizingInput
+            type="text"
+            defaultValue={question.question}
+            className="border-0 bg-inherit p-0 text-2xl"
+            fieldSizing="content"
+            onChange={e =>
+              onQuestionNameChange(question.id, e.target.value)
+            }
+          />
         </label>
 
         <button
@@ -67,6 +78,8 @@ export default function DndQuestion({
         >
           <DeleteIcon className="size-6 fill-gray-500" />
         </button>
+
+        {/* TODO: 필수 여부 토글 버튼 */}
       </div>
 
       {question.type === QuestionType.SHORT_INPUT && (
@@ -113,18 +126,15 @@ export default function DndQuestion({
         </>
       )}
 
-      {question.type === QuestionType.DROPDOWN && (
-        <Select key={question.id} id={`q-${question.id}`} disabled>
-          {question.options!.map((option, index) => (
-            <option
-              key={`q-${question.id}-${index.toString()}`}
-              value={option}
-            >
-              {option}
-            </option>
-          ))}
-        </Select>
-      )}
+      {question.type === QuestionType.DROPDOWN &&
+        question.options!.map((option, index) => (
+          <div
+            key={`q-${question.id}-${index.toString()}`}
+            className="rounded-lg border border-gray-800 bg-gray-900 p-4"
+          >
+            {option}
+          </div>
+        ))}
 
       {question.type === QuestionType.FILE_UPLOAD && (
         <ReadOnlyFileList
