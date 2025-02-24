@@ -19,10 +19,22 @@ export default function DndQuestion({
   question,
   onDelete,
   onQuestionNameChange,
+  onQuestionOptionAdded,
+  onQuestionOptionDeleted,
+  onQuestionOptionChange,
+  onFileLimitChange,
 }: Readonly<{
   question: QuestionObject
   onDelete: (id: number) => void
   onQuestionNameChange: (id: number, name: string) => void
+  onQuestionOptionAdded: (id: number) => void
+  onQuestionOptionDeleted: (id: number, option: number) => void
+  onQuestionOptionChange: (
+    id: number,
+    option: number,
+    name: string,
+  ) => void
+  onFileLimitChange: (id: number, limit: number) => void
 }>) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: question.id })
@@ -80,6 +92,50 @@ export default function DndQuestion({
         </button>
 
         {/* TODO: 필수 여부 토글 버튼 */}
+
+        {/* 드롭다운, 체크박스 일 경우 옵션 추가 버튼 */}
+        {[
+          QuestionType.DROPDOWN,
+          QuestionType.MULTIPLE_CHOICE,
+        ].includes(question.type) && (
+          <button
+            type="button"
+            title="옵션 추가"
+            className="ml-2 cursor-pointer text-2xl text-gray-500"
+            onClick={() => {
+              onQuestionOptionAdded(question.id)
+            }}
+          >
+            +
+          </button>
+        )}
+
+        {/* 파일 업로드 일 경우 파일 개수 증가/감소 */}
+        {question.type === QuestionType.FILE_UPLOAD && (
+          <>
+            <button
+              type="button"
+              title="파일 개수 증가"
+              className="ml-2 cursor-pointer text-2xl text-gray-500"
+              onClick={() => {
+                onFileLimitChange(question.id, question.maxFiles! + 1)
+              }}
+            >
+              +
+            </button>
+
+            <button
+              type="button"
+              title="파일 개수 감소"
+              className="ml-2 cursor-pointer text-2xl text-gray-500"
+              onClick={() => {
+                onFileLimitChange(question.id, question.maxFiles! - 1)
+              }}
+            >
+              -
+            </button>
+          </>
+        )}
       </div>
 
       {question.type === QuestionType.SHORT_INPUT && (
@@ -112,6 +168,7 @@ export default function DndQuestion({
             >
               <Checkbox
                 id={`q-${question.id}-${index.toString()}`}
+                checked
                 disabled
               />
 
@@ -119,7 +176,32 @@ export default function DndQuestion({
                 htmlFor={`q-${question.id}-${index.toString()}`}
                 className="inline-flex items-center gap-2 text-lg"
               >
-                {option}
+                <span className="sr-only">{option}</span>
+
+                <FieldSizingInput
+                  type="text"
+                  defaultValue={option}
+                  className="border-0 bg-inherit p-0"
+                  fieldSizing="content"
+                  onChange={e =>
+                    onQuestionOptionChange(
+                      question.id,
+                      index,
+                      e.target.value,
+                    )
+                  }
+                />
+
+                <button
+                  type="button"
+                  title="옵션 삭제"
+                  className="cursor-pointer"
+                  onClick={() =>
+                    onQuestionOptionDeleted(question.id, index)
+                  }
+                >
+                  <DeleteIcon className="size-6 fill-gray-500" />
+                </button>
               </label>
             </div>
           ))}
@@ -132,7 +214,19 @@ export default function DndQuestion({
             key={`q-${question.id}-${index.toString()}`}
             className="rounded-lg border border-gray-800 bg-gray-900 p-4"
           >
-            {option}
+            <FieldSizingInput
+              type="text"
+              defaultValue={option}
+              className="border-0 bg-inherit p-0 pr-2"
+              fieldSizing="content"
+              onChange={e =>
+                onQuestionOptionChange(
+                  question.id,
+                  index,
+                  e.target.value,
+                )
+              }
+            />
           </div>
         ))}
 
@@ -143,6 +237,7 @@ export default function DndQuestion({
           maxFiles={
             question.maxFiles === -1 ? Infinity : question.maxFiles!
           }
+          shouldAlwaysMaxFilesVisible
         />
       )}
     </div>

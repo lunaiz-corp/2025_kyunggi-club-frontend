@@ -91,6 +91,69 @@ export default function Template({
     )
   }
 
+  const handleQuestionOptionAdded = (id: number) => {
+    setQuestions(qs =>
+      qs.map(q =>
+        q.id === id
+          ? {
+              ...q,
+              options: [...q.options!, "옵션을 입력해 주세요."],
+            }
+          : q,
+      ),
+    )
+  }
+
+  const handleQuestionOptionDeleted = (
+    id: number,
+    option: number,
+  ) => {
+    setQuestions(qs =>
+      qs.map(q =>
+        q.id === id
+          ? {
+              ...q,
+              options: q.options!.filter(
+                (_, index) => index !== option,
+              ),
+            }
+          : q,
+      ),
+    )
+  }
+
+  const handleQuestionOptionChange = (
+    id: number,
+    option: number,
+    name: string,
+  ) => {
+    setQuestions(qs =>
+      qs.map(q =>
+        q.id === id
+          ? {
+              ...q,
+              options: q.options!.map((o, index) =>
+                index === option ? name : o,
+              ),
+            }
+          : q,
+      ),
+    )
+  }
+
+  const handleFileLimitChange = (id: number, limit: number) => {
+    setQuestions(qs =>
+      qs.map(q =>
+        q.id === id
+          ? {
+              ...q,
+              maxFiles: limit,
+            }
+          : q,
+      ),
+    )
+  }
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -124,6 +187,10 @@ export default function Template({
                 question={question}
                 onDelete={handleDelete}
                 onQuestionNameChange={handleQuestionNameChange}
+                onQuestionOptionAdded={handleQuestionOptionAdded}
+                onQuestionOptionDeleted={handleQuestionOptionDeleted}
+                onQuestionOptionChange={handleQuestionOptionChange}
+                onFileLimitChange={handleFileLimitChange}
               />
             ))}
           </SortableContext>

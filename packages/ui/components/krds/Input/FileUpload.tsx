@@ -313,18 +313,20 @@ function FileList({
 export function ReadOnlyFileList({
   maxFiles = 1,
   fileList,
+  shouldAlwaysMaxFilesVisible = false,
 }: {
   maxFiles: number
   fileList: {
     name: string
     url: string
   }[]
+  shouldAlwaysMaxFilesVisible?: boolean
 }) {
   return (
     <div className="flex w-full flex-col gap-6">
       <div className="flex items-center justify-between">
         <div className="font-bold">
-          {maxFiles > 1 && (
+          {(maxFiles > 1 || shouldAlwaysMaxFilesVisible) && (
             <>
               <span className="text-ceruleanBlue-400">
                 {fileList.length.toLocaleString("ko-KR")}개
