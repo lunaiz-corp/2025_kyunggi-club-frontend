@@ -141,6 +141,22 @@ export default function Template({
     )
   }
 
+  const handleQuestionRequiredChange = (
+    id: number,
+    required: boolean,
+  ) => {
+    setQuestions(qs =>
+      qs.map(q =>
+        q.id === id
+          ? {
+              ...q,
+              required,
+            }
+          : q,
+      ),
+    )
+  }
+
   const handleFileLimitChange = (id: number, limit: number) => {
     setQuestions(qs =>
       qs.map(q =>
@@ -190,6 +206,9 @@ export default function Template({
                 onQuestionOptionAdded={handleQuestionOptionAdded}
                 onQuestionOptionDeleted={handleQuestionOptionDeleted}
                 onQuestionOptionChange={handleQuestionOptionChange}
+                onQuestionRequiredChange={
+                  handleQuestionRequiredChange
+                }
                 onFileLimitChange={handleFileLimitChange}
               />
             ))}

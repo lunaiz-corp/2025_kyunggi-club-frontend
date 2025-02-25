@@ -27,7 +27,11 @@ import Advertisements from "@/components/Advertisements"
 import { clubs } from "@/data/clubs.json"
 
 import { retrieveSubmittedForm } from "../actions"
-import { CurrentStatus, type SubmittedForm } from "../types"
+import {
+  CurrentStatus,
+  statusInText,
+  type SubmittedForm,
+} from "../types"
 
 import {
   RetrieveKnownError,
@@ -150,21 +154,6 @@ function RetrieveRequestForm({
 }
 
 function Status({ form }: Readonly<{ form: SubmittedForm }>) {
-  const getCurrentStatusText = (status: string) => {
-    switch (status) {
-      case CurrentStatus.PASSED:
-        return "최종 합격"
-      case CurrentStatus.WAITING:
-        return "결과 대기"
-      case CurrentStatus.REJECTED:
-        return "최종 불합격"
-      case CurrentStatus.FINAL_SUBMISSION:
-        return "최종 지원 대기"
-      default:
-        return "알 수 없음"
-    }
-  }
-
   return (
     <div className="flex flex-col gap-7">
       {form.currentStatus.map((status, index) => (
@@ -181,7 +170,7 @@ function Status({ form }: Readonly<{ form: SubmittedForm }>) {
                   ({index + 1}지망)
                 </span>
                 <span className="text-[45px] font-bold">
-                  {getCurrentStatusText(status.status)}
+                  {statusInText[status.status]}
                 </span>
               </div>
             </Link>

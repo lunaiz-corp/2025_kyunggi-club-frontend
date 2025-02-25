@@ -8,6 +8,8 @@ import {
 import Checkbox from "@packages/ui/components/Checkbox"
 import { ReadOnlyFileList } from "@packages/ui/components/krds/Input/FileUpload"
 
+import { cn } from "@packages/ui/utils/tailwindMerge"
+
 import DndIcon from "@/assets/icons/dnd.svg"
 import DeleteIcon from "@/assets/icons/delete.svg"
 
@@ -22,6 +24,7 @@ export default function DndQuestion({
   onQuestionOptionAdded,
   onQuestionOptionDeleted,
   onQuestionOptionChange,
+  onQuestionRequiredChange,
   onFileLimitChange,
 }: Readonly<{
   question: QuestionObject
@@ -34,6 +37,7 @@ export default function DndQuestion({
     option: number,
     name: string,
   ) => void
+  onQuestionRequiredChange: (id: number, required: boolean) => void
   onFileLimitChange: (id: number, limit: number) => void
 }>) {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -59,6 +63,25 @@ export default function DndQuestion({
           {...listeners}
         >
           <DndIcon className="h-[15px] w-[9px] fill-gray-500" />
+        </button>
+
+        {/* 필수 여부 토글 버튼 */}
+        <button
+          type="button"
+          title={
+            !question.required
+              ? "필수 질문으로 변경"
+              : "선택 질문으로 변경"
+          }
+          className={cn(
+            "cursor-pointer text-2xl",
+            question.required ? "text-point-500" : "text-gray-500",
+          )}
+          onClick={() =>
+            onQuestionRequiredChange(question.id, !question.required)
+          }
+        >
+          *
         </button>
 
         <label
@@ -90,8 +113,6 @@ export default function DndQuestion({
         >
           <DeleteIcon className="size-6 fill-gray-500" />
         </button>
-
-        {/* TODO: 필수 여부 토글 버튼 */}
 
         {/* 드롭다운, 체크박스 일 경우 옵션 추가 버튼 */}
         {[
