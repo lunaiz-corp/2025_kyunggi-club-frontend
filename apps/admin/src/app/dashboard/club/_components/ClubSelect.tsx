@@ -2,7 +2,9 @@ import Image from "next/image"
 
 import { NextLink } from "@packages/ui/components/krds/Action"
 
-import { clubs } from "@/data/clubs.json"
+import * as clubsJson from "@/data/clubs.json"
+
+const { clubs } = clubsJson
 
 export default function ClubSelect({
   nextUrl,

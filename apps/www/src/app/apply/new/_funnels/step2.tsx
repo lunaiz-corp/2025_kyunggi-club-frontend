@@ -11,9 +11,12 @@ import { TextInput } from "@packages/ui/components/krds/Input"
 import Select from "@packages/ui/components/krds/Select"
 import { Button } from "@packages/ui/components/krds/Action"
 
-import { clubs } from "@/data/clubs.json"
+import * as clubsJson from "@/data/clubs.json"
+
 import type { ApplyBaseContext } from "."
 import type { DataNeedsToBeFilled as DataNeedsToBeFilledStep1 } from "./step1"
+
+const { clubs } = clubsJson
 
 // 2. 약관 동의 완료 - 인적 사항 입력 중
 export type ApplyStep2 = DataNeedsToBeFilledStep1

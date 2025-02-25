@@ -8,7 +8,8 @@ import { NextLink } from "@packages/ui/components/krds/Action"
 import { getBackgroundImage } from "@/utils/image"
 import Advertisements from "@/components/Advertisements"
 
-import { clubs } from "@/data/clubs.json"
+import * as clubsJson from "@/data/clubs.json"
+const { clubs } = clubsJson
 
 export async function generateMetadata({
   params,

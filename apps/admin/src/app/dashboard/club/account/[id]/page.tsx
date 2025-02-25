@@ -1,12 +1,14 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import { clubs } from "@/data/clubs.json"
+import * as clubsJson from "@/data/clubs.json"
 
 import TitleBar from "@/components/common/TitleBar"
 
 import RegisterForm from "../_components/RegisterForm"
 import AccountListTable from "../_components/Table"
+
+const { clubs } = clubsJson
 
 export const metadata: Metadata = {
   title: "동아리 계정 관리",

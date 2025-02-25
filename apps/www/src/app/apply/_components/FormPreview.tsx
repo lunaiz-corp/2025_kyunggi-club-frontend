@@ -13,12 +13,14 @@ import {
 
 import { cn } from "@packages/ui/utils/tailwindMerge"
 
-import { clubs } from "@/data/clubs.json"
+import * as clubsJson from "@/data/clubs.json"
 
 import type { SubmittedForm } from "../status/types"
 import { MOCK_QUESTIONS } from "../new/_funnels/step3"
 
 import { QuestionType } from "../new/_funnels/_questions/types"
+
+const { clubs } = clubsJson
 
 export default function FormPreview({
   form,

@@ -4,7 +4,9 @@ import Image from "next/image"
 import { NextLink } from "@packages/ui/components/krds/Action"
 import Advertisements from "@/components/Advertisements"
 
-import { clubs } from "@/data/clubs.json"
+import * as clubsJson from "@/data/clubs.json"
+
+const { clubs } = clubsJson
 
 export const metadata: Metadata = {
   title: "동아리 소개",

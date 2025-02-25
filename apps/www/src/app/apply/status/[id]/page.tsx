@@ -8,9 +8,12 @@ import {
   ClockIcon,
 } from "@heroicons/react/24/outline"
 
-import { clubs } from "@/data/clubs.json"
+import * as clubsJson from "@/data/clubs.json"
+
 import Advertisements from "@/components/Advertisements"
 import { NextLink } from "@packages/ui/components/krds/Action"
+
+const { clubs } = clubsJson
 
 export const metadata: Metadata = {
   title: "결과 확인",

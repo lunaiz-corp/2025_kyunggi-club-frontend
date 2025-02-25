@@ -7,8 +7,9 @@ import { cn } from "@packages/ui/utils/tailwindMerge"
 import { ServiceStatus, statusInText } from "../types"
 
 export default function Status() {
-  const [serviceStatus, setServiceStatus] =
-    useState<ServiceStatus | null>(null)
+  const [serviceStatus, setServiceStatus] = useState<ServiceStatus>(
+    ServiceStatus.OPEN,
+  )
 
   useEffect(() => {
     // fetch service status
@@ -37,7 +38,7 @@ export default function Status() {
               "inline-flex w-full cursor-pointer items-center justify-center rounded-xl bg-gray-700 px-4 py-1.5 hover:bg-gray-600",
               serviceStatus === id && "bg-gray-600",
             )}
-            onClick={() => setServiceStatus(id)}
+            onClick={() => setServiceStatus(id as ServiceStatus)}
           >
             <span className="font-bold">{value}</span>
           </button>

@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/20/solid"
 
 import { Button } from "@packages/ui/components/krds/Action"
-import { clubs } from "@/data/clubs.json"
+import * as clubsJson from "@/data/clubs.json"
 
 import type { ApplyBaseContext } from "."
 
@@ -27,6 +27,8 @@ import {
   type QuestionObject,
   QuestionType,
 } from "./_questions/types"
+
+const { clubs } = clubsJson
 
 // 3. 인적 사항 입력 완료 - 지원서 작성 중
 export type ApplyStep3 = DataNeedsToBeFilledStep1 &

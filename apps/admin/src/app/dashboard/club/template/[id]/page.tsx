@@ -1,9 +1,11 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import { clubs } from "@/data/clubs.json"
+import * as clubsJson from "@/data/clubs.json"
 
 import Template from "../_components/Template"
+
+const { clubs } = clubsJson
 
 export const metadata: Metadata = {
   title: "동아리 지원서 양식 관리",

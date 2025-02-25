@@ -24,7 +24,7 @@ import { Modal } from "@packages/ui/components/krds/Layout"
 
 import Advertisements from "@/components/Advertisements"
 
-import { clubs } from "@/data/clubs.json"
+import * as clubsJson from "@/data/clubs.json"
 
 import { retrieveSubmittedForm } from "../actions"
 import {
@@ -38,6 +38,8 @@ import {
   RetrieveNotKnownError,
 } from "../_exceptions/RetrieveExceptions"
 import FormPreview from "../../_components/FormPreview"
+
+const { clubs } = clubsJson
 
 function RetrieveRequestForm({
   onSubmit,
