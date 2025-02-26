@@ -180,7 +180,7 @@ export default function Template({
 
         <Button
           type="button"
-          className="border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
+          className="mt-5 border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
         >
           <PencilIcon className="size-4 fill-gray-900" />
           <span className="text-gray-900">저장하기</span>

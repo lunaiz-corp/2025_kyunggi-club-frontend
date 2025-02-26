@@ -3,19 +3,19 @@ import type { Metadata } from "next"
 import TitleBarWithButton from "@/components/schedule/TitleBarWithButton"
 
 export const metadata: Metadata = {
-  title: "운영 일정 관리",
+  title: "모집 일정 관리",
   openGraph: {
-    title: "운영 일정 관리",
+    title: "모집 일정 관리",
   },
   twitter: {
-    title: "운영 일정 관리",
+    title: "모집 일정 관리",
   },
 }
 
-export default function ScheduleOperation() {
+export default function ScheduleApplicationDetail() {
   return (
     <div className="flex flex-col gap-10">
-      <TitleBarWithButton type="OPERATION" />
+      <TitleBarWithButton type="APPLICATION" />
     </div>
   )
 }
