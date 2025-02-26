@@ -14,9 +14,9 @@ export const statusInText = {
   [CurrentStatus.FINAL_SUBMISSION]: "최종 지원 대기",
 }
 
-export type SubmittedForm = {
+export type SubmittedFormForList = {
   userInfo: {
-    id: string // 학번
+    id: number // 학번
     name: string // 이름
   }
 
@@ -33,4 +33,16 @@ export type SubmittedForm = {
       answer: string | UploadedFile[]
     }[]
   }[]
+}
+
+export type SubmittedForm = SubmittedFormForList & {
+  userInfo: {
+    phone: string // 전화번호
+  }
+
+  parentInfo: {
+    name: string // 부모님 이름
+    relationship: string // 학생 간 관계
+    phone: string // 부모님 전화번호
+  }
 }

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function ClubApplication() {
+export default function ClubApplicationGate() {
   return (
     <div className="flex flex-col gap-10">
       <TitleBar category="동아리 관리" title="접수된 지원서 목록" />

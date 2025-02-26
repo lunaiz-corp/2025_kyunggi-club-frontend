@@ -19,50 +19,54 @@ import Checkbox from "@packages/ui/components/Checkbox"
 
 import { cn } from "@packages/ui/utils/tailwindMerge"
 
-import { CurrentStatus, statusInText, SubmittedForm } from "./types"
+import {
+  CurrentStatus,
+  statusInText,
+  SubmittedFormForList,
+} from "./types"
 
 import actionRowStyle from "./_styles/actionrow.module.css"
 
 const MOCK_LIST: {
-  [key: string]: SubmittedForm["userInfo"][]
+  [key: string]: SubmittedFormForList["userInfo"][]
 } = {
   [CurrentStatus.PASSED]: [
     {
-      id: "12345",
+      id: 12345,
       name: "홍길동",
     },
     {
-      id: "23456",
+      id: 23456,
       name: "홍길동",
     },
   ],
   [CurrentStatus.WAITING]: [
     {
-      id: "34567",
+      id: 34567,
       name: "홍길동",
     },
     {
-      id: "45678",
+      id: 45678,
       name: "홍길동",
     },
   ],
   [CurrentStatus.REJECTED]: [
     {
-      id: "56789",
+      id: 56789,
       name: "홍길동",
     },
     {
-      id: "67890",
+      id: 67890,
       name: "홍길동",
     },
   ],
   [CurrentStatus.FINAL_SUBMISSION]: [
     {
-      id: "78901",
+      id: 78901,
       name: "홍길동",
     },
     {
-      id: "89012",
+      id: 89012,
       name: "홍길동",
     },
   ],
@@ -71,7 +75,7 @@ const MOCK_LIST: {
 function ActionRows({
   checkedItems,
 }: Readonly<{
-  checkedItems: Set<SubmittedForm["userInfo"]>
+  checkedItems: Set<SubmittedFormForList["userInfo"]>
 }>) {
   type TAnimation = "fadeInUp" | "fadeOutDown" | "none"
 
@@ -146,10 +150,10 @@ function ActionRows({
 export default function List() {
   const [searchInput, setSearchInput] = useState("")
   const [filteredList, setFilteredList] = useState<{
-    [key: string]: SubmittedForm["userInfo"][]
+    [key: string]: SubmittedFormForList["userInfo"][]
   }>()
   const [selectedList, setSelectedList] = useState<
-    SubmittedForm["userInfo"][]
+    SubmittedFormForList["userInfo"][]
   >([])
 
   useEffect(() => {
@@ -161,7 +165,7 @@ export default function List() {
       const result = Object.fromEntries(
         Object.entries(MOCK_LIST).map(([status, userList]) => [
           status,
-          userList.filter(user => user.id.includes(searchInput)),
+          userList.filter(user => user.id === Number(searchInput)),
         ]),
       )
 
@@ -215,7 +219,7 @@ export default function List() {
               >
                 <div className="flex size-6 items-center justify-center p-1">
                   <Checkbox
-                    id={student.id}
+                    id={student.id.toString()}
                     onChange={e => {
                       if (e.target.checked) {
                         setSelectedList(selected => [

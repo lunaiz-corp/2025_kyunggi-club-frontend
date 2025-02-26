@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"
 import * as clubsJson from "@/data/clubs.json"
 
 import TitleBar from "@/components/common/TitleBar"
-import List from "../_components/List"
+import List from "./_components/List"
 
 const { clubs } = clubsJson
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function ClubApplicationDetail({
+export default async function ClubApplicationList({
   params,
 }: Readonly<{
   params: Promise<{ id: string }>

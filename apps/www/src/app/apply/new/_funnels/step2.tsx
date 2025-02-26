@@ -125,50 +125,52 @@ export default function ApplyNewFunnelStep2({
       <div className="h-0.5 bg-gray-900" />
 
       <div className="flex flex-col gap-8">
-        <div className="flex flex-col gap-5">
-          <label
-            htmlFor="student-id"
-            className="cursor-pointer text-2xl font-bold"
-          >
-            학번
-          </label>
-          <TextInput
-            id="student-id"
-            type="text"
-            placeholder="예) 12345"
-            maxLength={5}
-            pattern="\d{5}"
-            value={studentId}
-            onChange={e => {
-              // Non-number characters are not allowed
-              if (!/^\d*$/.test(e.target.value)) return
+        <div className="flex w-full flex-col gap-5 md:flex-row">
+          <div className="flex w-full flex-col gap-5">
+            <label
+              htmlFor="student-id"
+              className="cursor-pointer text-2xl font-bold"
+            >
+              학번
+            </label>
+            <TextInput
+              id="student-id"
+              type="text"
+              placeholder="예) 12345"
+              maxLength={5}
+              pattern="\d{5}"
+              value={studentId}
+              onChange={e => {
+                // Non-number characters are not allowed
+                if (!/^\d*$/.test(e.target.value)) return
 
-              setStudentId(e.target.value)
-            }}
-            required
-          />
-        </div>
+                setStudentId(e.target.value)
+              }}
+              required
+            />
+          </div>
 
-        <div className="flex flex-col gap-5">
-          <label
-            htmlFor="student-name"
-            className="cursor-pointer text-2xl font-bold"
-          >
-            학생 이름
-          </label>
-          <TextInput
-            id="student-name"
-            type="text"
-            placeholder={
-              !isVerifiedPhoneIsParent
-                ? "실명 인증 후 자동 입력됩니다."
-                : "예) 홍길동"
-            }
-            value={studentName}
-            onChange={e => setStudentName(e.target.value)}
-            readOnly={!isVerifiedPhoneIsParent}
-            required
-          />
+          <div className="flex w-full flex-col gap-5">
+            <label
+              htmlFor="student-name"
+              className="cursor-pointer text-2xl font-bold"
+            >
+              학생 이름
+            </label>
+            <TextInput
+              id="student-name"
+              type="text"
+              placeholder={
+                !isVerifiedPhoneIsParent
+                  ? "실명 인증 후 자동 입력됩니다."
+                  : "예) 홍길동"
+              }
+              value={studentName}
+              onChange={e => setStudentName(e.target.value)}
+              readOnly={!isVerifiedPhoneIsParent}
+              required
+            />
+          </div>
         </div>
 
         <div className="flex flex-col gap-5">

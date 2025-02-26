@@ -28,7 +28,7 @@ export default async function Notice({
   const { id } = await params
 
   if (Number.isNaN(Number(id))) {
-    notFound()
+    return notFound()
   }
 
   return (
