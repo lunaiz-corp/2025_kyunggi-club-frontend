@@ -6,26 +6,3 @@
 body {
     color-scheme: dark;
 }
-
-/* Action Rows */
-@keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translate(-50%, 30px);
-    }
-    100% {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-}
-
-@keyframes fadeOutDown {
-    0% {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-    100% {
-      opacity: 0;
-      transform: translate(-50%, 30px);
-    }
-}

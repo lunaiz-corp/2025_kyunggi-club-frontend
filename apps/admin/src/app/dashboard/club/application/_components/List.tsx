@@ -1,13 +1,17 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Link from "next/link"
 
 import {
   CheckIcon,
   ClockIcon,
   XMarkIcon,
   MagnifyingGlassIcon,
+  NewspaperIcon,
 } from "@heroicons/react/24/outline"
+
+import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/solid"
 
 import { Button } from "@packages/ui/components/krds/Action"
 import { TextInput } from "@packages/ui/components/krds/Input"
@@ -16,6 +20,8 @@ import Checkbox from "@packages/ui/components/Checkbox"
 import { cn } from "@packages/ui/utils/tailwindMerge"
 
 import { CurrentStatus, statusInText, SubmittedForm } from "./types"
+
+import actionRowStyle from "./_styles/actionrow.module.css"
 
 const MOCK_LIST: {
   [key: string]: SubmittedForm["userInfo"][]
@@ -32,31 +38,31 @@ const MOCK_LIST: {
   ],
   [CurrentStatus.WAITING]: [
     {
-      id: "12345",
+      id: "34567",
       name: "홍길동",
     },
     {
-      id: "23456",
+      id: "45678",
       name: "홍길동",
     },
   ],
   [CurrentStatus.REJECTED]: [
     {
-      id: "12345",
+      id: "56789",
       name: "홍길동",
     },
     {
-      id: "23456",
+      id: "67890",
       name: "홍길동",
     },
   ],
   [CurrentStatus.FINAL_SUBMISSION]: [
     {
-      id: "12345",
+      id: "78901",
       name: "홍길동",
     },
     {
-      id: "23456",
+      id: "89012",
       name: "홍길동",
     },
   ],
@@ -67,32 +73,72 @@ function ActionRows({
 }: Readonly<{
   checkedItems: Set<SubmittedForm["userInfo"]>
 }>) {
-  type TAnimation = "fadeInUp" | "fadeOutDown"
+  type TAnimation = "fadeInUp" | "fadeOutDown" | "none"
 
+  const prevSelectedItemsRef = useRef(checkedItems.size)
   const [itemsSize, setItemsSize] = useState<number>(-1)
-  const [animation, setAnimation] =
-    useState<TAnimation>("fadeOutDown")
+  const [animation, setAnimation] = useState<TAnimation>("none")
 
   useEffect(() => {
     if (!checkedItems.size) {
-      setItemsSize(0)
-      setAnimation("fadeOutDown")
+      if (itemsSize === -1) {
+        setAnimation("none")
+      } else {
+        setItemsSize(prevSelectedItemsRef.current)
+        setAnimation("fadeOutDown")
+      }
     } else {
       setItemsSize(checkedItems.size)
       setAnimation("fadeInUp")
     }
+
+    prevSelectedItemsRef.current = checkedItems.size
   }, [checkedItems, itemsSize])
 
   return (
     <div
       className={cn(
-        "fixed bottom-1/50 left-1/2 flex transform-[translate(-50%,30px)] gap-4 rounded-md bg-gray-700/25 px-8 py-4 opacity-0 shadow-[0px_0px_20px_0px_rgba(0,0,0,0.25)] backdrop-blur-lg",
-        animation === "fadeInUp"
-          ? "animate-[fadeInUp_0.5s_forwards]"
-          : "animate-[fadeOutDown_0.5s_forwards]",
+        actionRowStyle.actionRow,
+        actionRowStyle[animation] ?? "",
       )}
     >
-      aaaa
+      <span className="font-bold">
+        {itemsSize.toLocaleString("ko-KR")}개 선택
+      </span>
+
+      <div className="h-3.5 w-0.5 rounded-full bg-gray-600" />
+
+      <Button
+        type="button"
+        className="border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
+      >
+        <NewspaperIcon className="size-5 fill-gray-900" />
+        <span className="text-gray-900">지원서 다운로드</span>
+      </Button>
+
+      <Button
+        type="button"
+        className="border-ceruleanBlue-600 bg-ceruleanBlue-600 hover:bg-ceruleanBlue-700 focus:bg-ceruleanBlue-700 focus:outline-ceruleanBlue-700 active:bg-ceruleanBlue-700 disabled:cursor-not-allowed disabled:border-ceruleanBlue-700 disabled:bg-ceruleanBlue-800"
+      >
+        <ChatBubbleOvalLeftEllipsisIcon className="size-5 fill-gray-100" />
+        <span className="text-gray-100">알림톡 발송</span>
+      </Button>
+
+      <Button
+        type="button"
+        className="border-success-400 bg-success-400 hover:bg-success-500 focus:bg-success-500 focus:outline-success-500 active:bg-success-500 disabled:cursor-not-allowed disabled:border-success-500 disabled:bg-success-600"
+      >
+        <CheckIcon className="size-5 stroke-gray-100" />
+        <span className="text-gray-100">합격 처리</span>
+      </Button>
+
+      <Button
+        type="button"
+        className="border-point-500 bg-point-500 hover:bg-point-600 focus:bg-point-600 focus:outline-point-600 active:bg-point-600 disabled:cursor-not-allowed disabled:border-point-600 disabled:bg-point-700"
+      >
+        <XMarkIcon className="size-5 stroke-gray-100" />
+        <span className="text-gray-100">불합격 처리</span>
+      </Button>
     </div>
   )
 }
@@ -178,7 +224,7 @@ export default function List() {
                         ])
                       } else {
                         setSelectedList(selected =>
-                          selected.filter(x => x.id === student.id),
+                          selected.filter(x => x.id !== student.id),
                         )
                       }
                     }}
@@ -216,9 +262,13 @@ export default function List() {
                     </span>
                   </div>
 
-                  <span className="text-2xl font-bold">
-                    {student.name}
-                  </span>
+                  <Link
+                    href={`/dashboard/club/application/list/${student.id}`}
+                  >
+                    <span className="text-2xl font-bold">
+                      {student.name}
+                    </span>
+                  </Link>
                 </div>
               </div>
             ))}
