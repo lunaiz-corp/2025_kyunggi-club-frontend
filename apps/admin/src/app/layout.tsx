@@ -5,6 +5,8 @@ import { Toaster } from "react-hot-toast"
 import ProgressBarProvider from "@packages/ui/components/ProgressBar"
 import ChannelIO from "@packages/channelio"
 
+import OverlayProvider from "@packages/ui/providers/OverlayProvider"
+
 import "react-loading-skeleton/dist/skeleton.css"
 import "@/styles/globals.css"
 
@@ -91,7 +93,9 @@ export default function RootLayout({
         )}
       </head>
       <body className="bg-gray-900 text-gray-100 antialiased">
-        <ProgressBarProvider>{children}</ProgressBarProvider>
+        <ProgressBarProvider>
+          <OverlayProvider>{children}</OverlayProvider>
+        </ProgressBarProvider>
 
         <Toaster />
         <ChannelIO />

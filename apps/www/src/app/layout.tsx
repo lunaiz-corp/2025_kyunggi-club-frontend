@@ -11,7 +11,7 @@ import ChannelIO from "@packages/channelio"
 import "react-loading-skeleton/dist/skeleton.css"
 import "@/styles/globals.css"
 
-import OverlayProvider from "@/providers/OverlayProvider"
+import OverlayProvider from "@packages/ui/providers/OverlayProvider"
 
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"

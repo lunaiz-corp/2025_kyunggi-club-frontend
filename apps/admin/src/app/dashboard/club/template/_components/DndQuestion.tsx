@@ -13,7 +13,7 @@ import { cn } from "@packages/ui/utils/tailwindMerge"
 import DndIcon from "@/assets/icons/dnd.svg"
 import DeleteIcon from "@/assets/icons/delete.svg"
 
-import { Input as FieldSizingInput } from "./lib/react-field-sizing-content"
+import { Input as FieldSizingInput } from "@packages/ui/components/lib/react-field-sizing-content"
 
 import { type QuestionObject, QuestionType } from "./types"
 

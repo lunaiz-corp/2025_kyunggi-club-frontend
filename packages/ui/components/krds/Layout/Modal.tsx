@@ -24,7 +24,7 @@ export default function Modal({
         isOpen && "z-[1010] opacity-100",
       )}
     >
-      <div className="relative z-50 z-[1020] mx-auto flex h-full min-h-64 w-[760px] items-center">
+      <div className="relative z-[1020] mx-auto flex h-full min-h-64 w-[760px] items-center">
         <div className="flex max-h-[80%] w-full flex-col items-center gap-6 rounded-xl border border-gray-900 bg-gray-950 p-10 shadow-sm">
           <div className="w-full">
             <h2 className="truncate text-2xl font-bold">{title}</h2>
