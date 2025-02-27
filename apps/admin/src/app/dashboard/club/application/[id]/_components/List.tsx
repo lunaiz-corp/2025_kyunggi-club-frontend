@@ -19,6 +19,8 @@ import Checkbox from "@packages/ui/components/Checkbox"
 
 import { cn } from "@packages/ui/utils/tailwindMerge"
 
+import * as clubsJson from "@/data/clubs.json"
+
 import {
   CurrentStatus,
   statusInText,
@@ -27,47 +29,76 @@ import {
 
 import actionRowStyle from "./_styles/actionrow.module.css"
 
+const { clubs } = clubsJson
+
 const MOCK_LIST: {
-  [key: string]: SubmittedFormForList["userInfo"][]
+  [key: string]: Pick<
+    SubmittedFormForList,
+    "userInfo" | "applingClubs"
+  >[]
 } = {
   [CurrentStatus.PASSED]: [
     {
-      id: 12345,
-      name: "홍길동",
+      userInfo: {
+        id: 12345,
+        name: "홍길동",
+      },
+      applingClubs: ["list", "cel", "kec"],
     },
     {
-      id: 23456,
-      name: "홍길동",
+      userInfo: {
+        id: 23456,
+        name: "홍길동",
+      },
+      applingClubs: ["list", "cel", "kec"],
     },
   ],
   [CurrentStatus.WAITING]: [
     {
-      id: 34567,
-      name: "홍길동",
+      userInfo: {
+        id: 34567,
+        name: "홍길동",
+      },
+      applingClubs: ["list", "cel", "kec"],
     },
     {
-      id: 45678,
-      name: "홍길동",
+      userInfo: {
+        id: 45678,
+        name: "홍길동",
+      },
+      applingClubs: ["list", "cel", "kec"],
     },
   ],
   [CurrentStatus.REJECTED]: [
     {
-      id: 56789,
-      name: "홍길동",
+      userInfo: {
+        id: 56789,
+        name: "홍길동",
+      },
+      applingClubs: ["list", "cel", "kec"],
     },
     {
-      id: 67890,
-      name: "홍길동",
+      userInfo: {
+        id: 67890,
+        name: "홍길동",
+      },
+      applingClubs: ["list", "cel", "kec"],
     },
   ],
   [CurrentStatus.FINAL_SUBMISSION]: [
     {
-      id: 78901,
-      name: "홍길동",
+      userInfo: {
+        id: 78901,
+        name: "홍길동",
+      },
+      applingClubs: ["list", "cel", "kec"],
     },
     {
-      id: 89012,
-      name: "홍길동",
+      userInfo: {
+        id: 89012,
+        name: "홍길동",
+      },
+      applingClubs: ["list", "cel", "kec"],
     },
   ],
 }
@@ -75,7 +106,9 @@ const MOCK_LIST: {
 function ActionRows({
   checkedItems,
 }: Readonly<{
-  checkedItems: Set<SubmittedFormForList["userInfo"]>
+  checkedItems: Set<
+    Pick<SubmittedFormForList, "userInfo" | "applingClubs">
+  >
 }>) {
   type TAnimation = "fadeInUp" | "fadeOutDown" | "none"
 
@@ -150,10 +183,13 @@ function ActionRows({
 export default function List() {
   const [searchInput, setSearchInput] = useState("")
   const [filteredList, setFilteredList] = useState<{
-    [key: string]: SubmittedFormForList["userInfo"][]
+    [key: string]: Pick<
+      SubmittedFormForList,
+      "userInfo" | "applingClubs"
+    >[]
   }>()
   const [selectedList, setSelectedList] = useState<
-    SubmittedFormForList["userInfo"][]
+    Pick<SubmittedFormForList, "userInfo" | "applingClubs">[]
   >([])
 
   useEffect(() => {
@@ -163,9 +199,11 @@ export default function List() {
   const handleSearch = () => {
     if (searchInput) {
       const result = Object.fromEntries(
-        Object.entries(MOCK_LIST).map(([status, userList]) => [
+        Object.entries(MOCK_LIST).map(([status, list]) => [
           status,
-          userList.filter(user => user.id === Number(searchInput)),
+          list.filter(
+            student => student.userInfo.id === Number(searchInput),
+          ),
         ]),
       )
 
@@ -207,19 +245,19 @@ export default function List() {
 
       {Object.entries(filteredList || {}).map(([status, list]) => (
         <div key={status} className="flex flex-col gap-6">
-          <h3 className="text-2xl font-bold text-gray-100">
+          <h3 className="text-2xl font-bold">
             {statusInText[status as CurrentStatus]}
           </h3>
 
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-4">
             {list.map(student => (
               <div
-                key={student.id}
+                key={student.userInfo.id}
                 className="flex items-center gap-5 rounded-xl bg-gray-800 p-5"
               >
                 <div className="flex size-6 items-center justify-center p-1">
                   <Checkbox
-                    id={student.id.toString()}
+                    id={student.userInfo.id.toString()}
                     onChange={e => {
                       if (e.target.checked) {
                         setSelectedList(selected => [
@@ -228,14 +266,17 @@ export default function List() {
                         ])
                       } else {
                         setSelectedList(selected =>
-                          selected.filter(x => x.id !== student.id),
+                          selected.filter(
+                            x =>
+                              x.userInfo.id !== student.userInfo.id,
+                          ),
                         )
                       }
                     }}
                   />
                 </div>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-3">
                   <div className="inline-flex gap-2">
                     {status === CurrentStatus.PASSED && (
                       <div className="flex size-5 items-center justify-center rounded-sm bg-ceruleanBlue-600">
@@ -267,12 +308,29 @@ export default function List() {
                   </div>
 
                   <Link
-                    href={`/dashboard/club/application/list/${student.id}`}
+                    href={`/dashboard/club/application/list/${student.userInfo.id}`}
                   >
                     <span className="text-2xl font-bold">
-                      {student.name}
+                      {student.userInfo.name}
                     </span>
                   </Link>
+
+                  <div className="inline-flex gap-2">
+                    {student.applingClubs.map(club => (
+                      <div
+                        key={`${student.userInfo.id}-${club}`}
+                        className="rounded-md bg-gray-700 px-2.5 py-0.5"
+                      >
+                        <span className="text-xs">
+                          {
+                            clubs
+                              .find(x => x.id === club)!
+                              .name.split(" ")[1]
+                          }
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}

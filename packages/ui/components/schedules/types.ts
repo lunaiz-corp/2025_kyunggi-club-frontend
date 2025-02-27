@@ -12,14 +12,9 @@ export enum Preset {
   ETC = "ETC",
 }
 
-export const PresetTitle = {
-  // 운영 일정
-  [Preset.OPERATION_START]: "오픈",
-  [Preset.OPERATION_PRESTART]: "가오픈",
-  [Preset.OPERATION_MAINTENANCE_START]: "점검 시작",
-  [Preset.OPERATION_MAINTENANCE_END]: "점검 종료",
+export type Schedule = {
+  title: string
+  type: Preset
 
-  // 모집 일정
-  [Preset.APPLICATION_START]: "모집 시작",
-  [Preset.APPLICATION_END]: "모집 종료",
+  datetime: Date
 }

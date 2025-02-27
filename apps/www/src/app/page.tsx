@@ -6,10 +6,12 @@ import Skeleton from "react-loading-skeleton"
 import { NextLink } from "@packages/ui/components/krds/Action"
 import SelectChances from "@packages/ui/components/select-chances"
 
-import Advertisements from "@/components/Advertisements"
+import Schedules from "@packages/ui/components/schedules"
+import { Preset } from "@packages/ui/components/schedules/types"
 
-import Schedules from "./_components/schedules"
-import NoticesSummary from "./_components/notices/summary"
+import NoticesSummary from "@packages/ui/components/notices/summary"
+
+import Advertisements from "@/components/Advertisements"
 
 export const metadata: Metadata = {
   title: "홈 - 경기고등학교 이공계동아리연합",
@@ -40,7 +42,20 @@ export default function Main() {
                 />
               }
             >
-              <Schedules />
+              <Schedules
+                schedules={[
+                  {
+                    title: "Event Name",
+                    type: Preset.APPLICATION_START,
+                    datetime: new Date("2025-03-11"),
+                  },
+                  {
+                    title: "Event Name",
+                    type: Preset.APPLICATION_END,
+                    datetime: new Date("2025-03-11"),
+                  },
+                ]}
+              />
             </Suspense>
           </div>
         </div>
@@ -97,7 +112,13 @@ export default function Main() {
               ]
                 .sort((a, b) => b.id - a.id)
                 .map(x => {
-                  return <NoticesSummary key={x.id} {...x} />
+                  return (
+                    <NoticesSummary
+                      key={x.id}
+                      baseUrl="/notice"
+                      {...x}
+                    />
+                  )
                 })}
             </Suspense>
           </div>

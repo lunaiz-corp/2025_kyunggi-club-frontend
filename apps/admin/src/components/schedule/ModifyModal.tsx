@@ -6,24 +6,37 @@ import Skeleton from "react-loading-skeleton"
 import { XMarkIcon } from "@heroicons/react/24/solid"
 
 import Select from "@packages/ui/components/krds/Select"
-import SchedulesCalendar from "@packages/ui/components/schedules/Calendar"
+import SchedulesCalendar from "@packages/ui/components/schedules/calendar"
 import { Input as FieldSizingInput } from "@packages/ui/components/lib/react-field-sizing-content"
 
 import { cn } from "@packages/ui/utils/tailwindMerge"
 
-import { Preset, PresetTitle } from "./types"
+import {
+  Preset,
+  type Schedule,
+} from "@packages/ui/components/schedules/types"
+
+export const PresetTitle = {
+  // 운영 일정
+  [Preset.OPERATION_START]: "오픈",
+  [Preset.OPERATION_PRESTART]: "가오픈",
+  [Preset.OPERATION_MAINTENANCE_START]: "점검 시작",
+  [Preset.OPERATION_MAINTENANCE_END]: "점검 종료",
+
+  // 모집 일정
+  [Preset.APPLICATION_START]: "모집 시작",
+  [Preset.APPLICATION_END]: "모집 종료",
+}
 
 export default function ModifyModal({
   isOpen,
   close,
+  prefilled,
   allowedTypes,
 }: Readonly<{
   isOpen: boolean
-  close: (returnValue?: {
-    title: string
-    type: Preset
-    datetime: Date
-  }) => void
+  close: (returnValue?: Schedule) => void
+  prefilled?: Schedule
   allowedTypes: Set<Preset>
 }>) {
   const [title, setTitle] = useState<string>("")
@@ -33,6 +46,14 @@ export default function ModifyModal({
 
   const customHourRef = useRef<HTMLInputElement>(null)
   const customMinuteRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (prefilled) {
+      setTitle(prefilled.title)
+      setType(prefilled.type)
+      setDatetime(prefilled.datetime)
+    }
+  }, [prefilled])
 
   useEffect(() => {
     if (type && type !== Preset.ETC) {
@@ -60,22 +81,7 @@ export default function ModifyModal({
       )}
     >
       <div className="relative z-[1020] mx-auto flex h-full min-h-64 w-full items-center p-5 lg:w-[1100px] lg:p-0">
-        <form
-          className="flex w-full flex-col gap-9 rounded-2xl bg-gray-900 p-8 shadow-2xl lg:rounded-4xl lg:px-16 lg:py-12"
-          onSubmit={e => {
-            e.preventDefault()
-
-            if (!title || !type || !datetime) {
-              close()
-            } else {
-              close({
-                title,
-                type,
-                datetime,
-              })
-            }
-          }}
-        >
+        <div className="flex w-full flex-col gap-9 rounded-2xl bg-gray-900 p-8 shadow-2xl lg:rounded-4xl lg:px-16 lg:py-12">
           <div className="flex items-start justify-between">
             <input
               type="text"
@@ -92,6 +98,17 @@ export default function ModifyModal({
               type="submit"
               title="닫기"
               className="cursor-pointer"
+              onClick={() => {
+                if (!title || !type || !datetime) {
+                  close()
+                } else {
+                  close({
+                    title,
+                    type,
+                    datetime,
+                  })
+                }
+              }}
             >
               <XMarkIcon className="size-7 stroke-gray-300" />
             </button>
@@ -410,7 +427,7 @@ export default function ModifyModal({
               </div>
             </Suspense>
           </div>
-        </form>
+        </div>
       </div>
 
       <div

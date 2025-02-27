@@ -89,7 +89,7 @@ export default function Tiptap({
             )}
             title="굵게"
           >
-            <BoldIcon className="size-4 text-gray-100" />
+            <BoldIcon className="size-4" />
           </button>
 
           <button
@@ -103,7 +103,7 @@ export default function Tiptap({
             )}
             title="기울임꼴"
           >
-            <ItalicIcon className="size-4 text-gray-100" />
+            <ItalicIcon className="size-4" />
           </button>
 
           <button
@@ -117,7 +117,7 @@ export default function Tiptap({
             )}
             title="밑줄"
           >
-            <UnderlineIcon className="size-4 text-gray-100" />
+            <UnderlineIcon className="size-4" />
           </button>
 
           <button
@@ -131,7 +131,7 @@ export default function Tiptap({
             )}
             title="취소선"
           >
-            <StrikethroughIcon className="size-4 text-gray-100" />
+            <StrikethroughIcon className="size-4" />
           </button>
         </BubbleMenu>
       )}
@@ -150,7 +150,7 @@ export default function Tiptap({
             )}
             title="제목 1"
           >
-            <H1Icon className="size-4 text-gray-100" />
+            <H1Icon className="size-4" />
           </button>
 
           <button
@@ -165,7 +165,7 @@ export default function Tiptap({
             )}
             title="제목 2"
           >
-            <H2Icon className="size-4 text-gray-100" />
+            <H2Icon className="size-4" />
           </button>
 
           <button
@@ -180,7 +180,7 @@ export default function Tiptap({
             )}
             title="제목 3"
           >
-            <H3Icon className="size-4 text-gray-100" />
+            <H3Icon className="size-4" />
           </button>
 
           <button
@@ -194,9 +194,7 @@ export default function Tiptap({
             )}
             title="문단"
           >
-            <span className="text-center leading-[normal] text-gray-100">
-              T
-            </span>
+            <span className="text-center leading-[normal]">T</span>
           </button>
 
           <div className="h-3.5 w-0.5 rounded-full bg-gray-600" />
@@ -210,7 +208,7 @@ export default function Tiptap({
             )}
             title="굵게"
           >
-            <BoldIcon className="size-4 text-gray-100" />
+            <BoldIcon className="size-4" />
           </button>
 
           <button
@@ -224,7 +222,7 @@ export default function Tiptap({
             )}
             title="기울임꼴"
           >
-            <ItalicIcon className="size-4 text-gray-100" />
+            <ItalicIcon className="size-4" />
           </button>
 
           <button
@@ -238,7 +236,7 @@ export default function Tiptap({
             )}
             title="밑줄"
           >
-            <UnderlineIcon className="size-4 text-gray-100" />
+            <UnderlineIcon className="size-4" />
           </button>
 
           <button
@@ -252,7 +250,7 @@ export default function Tiptap({
             )}
             title="취소선"
           >
-            <StrikethroughIcon className="size-4 text-gray-100" />
+            <StrikethroughIcon className="size-4" />
           </button>
 
           <div className="h-3.5 w-0.5 rounded-full bg-gray-600" />
@@ -295,9 +293,9 @@ export default function Tiptap({
             title="링크 삽입"
           >
             {!editor.isActive("link") ? (
-              <LinkIcon className="size-4 text-gray-100" />
+              <LinkIcon className="size-4" />
             ) : (
-              <LinkSlashIcon className="size-4 text-gray-100" />
+              <LinkSlashIcon className="size-4" />
             )}
           </button>
 
@@ -306,7 +304,7 @@ export default function Tiptap({
             className="inline-flex size-8 cursor-pointer items-center justify-center gap-3.5 rounded-md bg-gray-700 hover:bg-gray-600"
             title="이미지 삽입"
           >
-            <PhotoIcon className="size-4 text-gray-100" />
+            <PhotoIcon className="size-4" />
           </button>
         </div>
       )}

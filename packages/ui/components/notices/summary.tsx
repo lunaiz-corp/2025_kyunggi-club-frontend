@@ -2,17 +2,19 @@
 
 import { useEffect, useState } from "react"
 
-import { NextLink } from "@packages/ui/components/krds/Action"
+import { NextLink } from "../krds/Action"
 
 export type NoticesSummaryProps = {
   id: number
   title: string
+  baseUrl: string
   date: Date
 }
 
 export default function NoticesSummary({
   id,
   title,
+  baseUrl,
   date,
 }: Readonly<NoticesSummaryProps>) {
   const [currentTime, setCurrentTime] = useState(new Date(0))
@@ -23,7 +25,10 @@ export default function NoticesSummary({
   }, [])
 
   return (
-    <NextLink href={`/notice/${id}`} className="flex justify-between">
+    <NextLink
+      href={`${baseUrl}/${id}`}
+      className="flex justify-between"
+    >
       <div className="inline-flex items-center gap-2.5">
         {currentTime.getTime() - date.getTime() <= IS_NEW_CRITERIA ? (
           <div className="size-1.5 rounded-full bg-ceruleanBlue-700" />

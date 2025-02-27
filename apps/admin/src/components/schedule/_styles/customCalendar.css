@@ -1,0 +1,12 @@
+/* 높이 꽉 차게 */
+.react-calendar,
+.react-calendar__viewContainer,
+.react-calendar__month-view,
+.react-calendar__month-view > div,
+.react-calendar__month-view > div > div {
+  height: 100%;
+}
+
+.react-calendar__month-view__days {
+  height: calc(100% - 1.5rem);
+}

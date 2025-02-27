@@ -53,7 +53,7 @@ export default function SelectChances() {
   ]
 
   return (
-    <div className="flex min-h-full w-full flex-col justify-between">
+    <div className="flex min-h-full w-full flex-col justify-between gap-5 lg:gap-0">
       <Suspense
         fallback={Array.from({ length: 9 }).map((_, i) => (
           <Skeleton

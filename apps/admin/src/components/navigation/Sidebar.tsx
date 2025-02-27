@@ -122,7 +122,7 @@ export default function Sidebar() {
         onClick={() => setIsSidebarOpen(prev => !prev)}
         title="메뉴 열기 / 닫기"
       >
-        <Bars4Icon className="size-5 text-gray-100" />
+        <Bars4Icon className="size-5" />
       </button>
 
       <div
@@ -142,10 +142,10 @@ export default function Sidebar() {
           />
 
           <div className="inline-flex flex-col gap-0.5 text-left select-none">
-            <span className="text-xs leading-[normal] font-bold text-gray-100">
+            <span className="text-xs leading-[normal] font-bold">
               경기고등학교
             </span>
-            <span className="text-xl leading-[normal] font-bold text-gray-100">
+            <span className="text-xl leading-[normal] font-bold">
               이공계동아리연합
             </span>
           </div>
@@ -157,9 +157,7 @@ export default function Sidebar() {
               key={key}
               className="flex flex-col gap-3 select-none"
             >
-              <span className="text-sm font-bold text-gray-100">
-                {key}
-              </span>
+              <span className="text-sm font-bold">{key}</span>
 
               {value.map(route => (
                 <Link
@@ -171,7 +169,7 @@ export default function Sidebar() {
                     className={`inline-flex h-11 w-full items-center gap-3 rounded-md px-4 py-3 ${
                       pathname.startsWith(route.href)
                         ? "bg-gray-100 fill-ceruleanBlue-700 text-ceruleanBlue-700"
-                        : "bg-transparent fill-gray-100 text-gray-100 hover:bg-gray-100/[.05]"
+                        : "bg-transparent fill-gray-100 hover:bg-gray-100/[.05]"
                     }`}
                   >
                     <route.icon className="size-5" />
@@ -184,11 +182,11 @@ export default function Sidebar() {
         </div>
 
         <div className="mt-12 inline-flex w-full flex-col items-start justify-center gap-2 rounded-md border border-[#eff6ff]/75 p-4 select-none">
-          <span className="text-sm font-bold text-gray-100">
+          <span className="text-sm font-bold">
             로그 실시간 기록 중
           </span>
 
-          <span className="text-xs text-gray-100">
+          <span className="text-xs">
             해당 화면에서 진행하는 모든 활동은 내 계정
             (minsu.kim@lunaiz.com)과 현재 접속한 IP
             (255.255.255.255)가 함께 기록되고 있습니다.

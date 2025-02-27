@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-import TitleBarWithButton from "@/components/schedule/TitleBarWithButton"
+import CalendarList from "@/components/schedule/CalendarList"
 
 export const metadata: Metadata = {
   title: "면접 일정 관리",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function ScheduleInterviewDetail() {
   return (
     <div className="flex flex-col gap-10">
-      <TitleBarWithButton type="INTERVIEW" />
+      <CalendarList type="INTERVIEW" />
     </div>
   )
 }

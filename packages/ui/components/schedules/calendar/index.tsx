@@ -9,6 +9,7 @@ import Calendar from "react-calendar"
 import "react-calendar/dist/Calendar.css"
 
 import "./_styles/calendar.css"
+import { Schedule } from "../types"
 
 function getLocaleForIntl(
   type: "year" | "monthyear" | "day",
@@ -63,8 +64,10 @@ function getDaysInMonth(date: Date) {
 }
 
 export default function SchedulesCalendar({
+  schedules = [],
   selectedDateState,
 }: {
+  schedules?: Schedule[]
   selectedDateState: [
     Date | null,
     Dispatch<SetStateAction<Date | null>>,
@@ -84,7 +87,7 @@ export default function SchedulesCalendar({
       highlightColor="var(--color-gray-800)"
     />
   ) : (
-    <div className="flex w-full flex-col items-center gap-4">
+    <div className="flex h-full w-full flex-col items-center gap-4">
       <span className="font-bold text-gray-100">
         {formatDate("monthyear", selectedDate, "ko-KR")}
       </span>
@@ -137,12 +140,27 @@ export default function SchedulesCalendar({
         tileContent={({ date }) => {
           const html = []
 
-          html.push(
-            <div
-              key={date.toISOString()}
-              className="mx-auto mt-1.5 size-1 rounded-full bg-ceruleanBlue-700"
-            />,
-          )
+          if (
+            schedules.some(
+              schedule =>
+                schedule.datetime.toDateString() ===
+                date.toDateString(),
+            )
+          ) {
+            html.push(
+              <div
+                key={date.toISOString()}
+                className="mx-auto mt-1.5 size-1 rounded-full bg-ceruleanBlue-700"
+              />,
+            )
+          } else {
+            html.push(
+              <div
+                key={date.toISOString()}
+                className="mx-auto mt-1.5 size-1 rounded-full bg-transparent"
+              />,
+            )
+          }
 
           return html
         }}
