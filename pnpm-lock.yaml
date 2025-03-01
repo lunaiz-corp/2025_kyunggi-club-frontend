@@ -41,6 +41,9 @@ importers:
       react-loading-skeleton:
         specifier: ^3.5.0
         version: 3.5.0(react@19.0.0)
+      swr:
+        specifier: ^2.3.2
+        version: 2.3.2(react@19.0.0)
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.3.0
@@ -192,12 +195,18 @@ importers:
       '@packages/eslint-config':
         specifier: workspace:^
         version: link:../../packages/eslint-config
+      '@packages/swr':
+        specifier: workspace:^
+        version: link:../../packages/swr
       '@packages/ui':
         specifier: workspace:^
         version: link:../../packages/ui
       '@use-funnel/browser':
         specifier: ^0.0.13
         version: 0.0.13(react@19.0.0)
+      nanoid:
+        specifier: ^5.1.2
+        version: 5.1.2
       swiper:
         specifier: ^11.2.4
         version: 11.2.4
@@ -220,6 +229,12 @@ importers:
         version: link:../eslint-config
 
   packages/eslint-config: {}
+
+  packages/swr:
+    dependencies:
+      '@packages/eslint-config':
+        specifier: workspace:^
+        version: link:../eslint-config
 
   packages/ui:
     dependencies:
@@ -1901,6 +1916,10 @@ packages:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
     engines: {node: '>= 0.4'}
 
+  dequal@2.0.3:
+    resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
+    engines: {node: '>=6'}
+
   detect-libc@1.0.3:
     resolution: {integrity: sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==}
     engines: {node: '>=0.10'}
@@ -3190,6 +3209,11 @@ packages:
   swiper@11.2.4:
     resolution: {integrity: sha512-DTtglrsFfMYytid+oNy4QI3t2N2+XhhwSYbnyOhlwBmvY8Bkoj3ombK1/b80w8vDpQ+Lqlnbm+0737+i32MrcA==}
     engines: {node: '>= 4.7.0'}
+
+  swr@2.3.2:
+    resolution: {integrity: sha512-RosxFpiabojs75IwQ316DGoDRmOqtiAj0tg8wCcbEu4CiLZBs/a9QNtHV7TUfDXmmlgqij/NqzKq/eLelyv9xA==}
+    peerDependencies:
+      react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   synckit@0.9.2:
     resolution: {integrity: sha512-vrozgXDQwYO72vHjUb/HnFbQx1exDjoKzqx23aXEg2a9VIg2TSFZ8FmeZpTjUCFMYw7mpX4BE2SFu8wI7asYsw==}
@@ -5169,6 +5193,8 @@ snapshots:
       has-property-descriptors: 1.0.2
       object-keys: 1.1.1
 
+  dequal@2.0.3: {}
+
   detect-libc@1.0.3: {}
 
   detect-libc@2.0.3:
@@ -6641,6 +6667,12 @@ snapshots:
       picocolors: 1.1.1
 
   swiper@11.2.4: {}
+
+  swr@2.3.2(react@19.0.0):
+    dependencies:
+      dequal: 2.0.3
+      react: 19.0.0
+      use-sync-external-store: 1.4.0(react@19.0.0)
 
   synckit@0.9.2:
     dependencies:

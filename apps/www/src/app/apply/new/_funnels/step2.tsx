@@ -1,6 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useEffect, useRef, useState } from "react"
 
+import { overlay } from "overlay-kit"
+import { customAlphabet } from "nanoid"
+
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline"
 import {
   ArrowLeftIcon,
@@ -10,6 +13,7 @@ import {
 import { TextInput } from "@packages/ui/components/krds/Input"
 import Select from "@packages/ui/components/krds/Select"
 import { Button } from "@packages/ui/components/krds/Action"
+import { Modal } from "@packages/ui/components/krds/Layout"
 
 import * as clubsJson from "@/data/clubs.json"
 
@@ -48,6 +52,7 @@ export default function ApplyNewFunnelStep2({
   } & ApplyBaseContext
 >) {
   const havePrefilled = useRef<boolean>(false)
+  const kcpAuthPop = useRef<WindowProxy | null>(null)
 
   const [studentId, setStudentId] = useState<string>("")
   const [studentName, setStudentName] = useState<string>("")
@@ -93,6 +98,96 @@ export default function ApplyNewFunnelStep2({
       havePrefilled.current = true
     }
   }, [context])
+
+  const requestVerifyPhone = async () => {
+    const nanoid = customAlphabet(
+      "0123456789abcdefghijklmnopqrstuvwxyz",
+      10,
+    )
+
+    const orderId = `KGH${new Date().toISOString().substring(0, 19).replace(/[\D]/g, "")}@${nanoid()}`
+
+    if (window.matchMedia("(max-width: 1200px)").matches) {
+      kcpAuthPop.current = window.open(
+        `/apply/pass/request?orderId=${orderId}`,
+        "auth_popup",
+      )
+    } else {
+      const width = 410
+      // const height = 500
+      const height = 724
+
+      const leftpos = window.screen.width / 2 - width / 2
+      const toppos = window.screen.height / 2 - height / 2
+
+      kcpAuthPop.current = window.open(
+        `/apply/pass/request?orderId=${orderId}`,
+        "auth_popup",
+        `width=${width}, height=${height}, left=${leftpos}, top=${toppos}, toolbar=no, status=no, statusbar=no, menubar=no, scrollbars=no, resizable=no, fullscreen=no, titlebar=no, location=no`,
+      )
+    }
+
+    if (kcpAuthPop.current) {
+      kcpAuthPop.current.focus()
+    } else {
+      overlay.open(({ isOpen, close, unmount }) => {
+        return (
+          <Modal
+            isOpen={isOpen}
+            close={() => {
+              close()
+              setTimeout(unmount, 200)
+            }}
+            title="오류"
+          >
+            팝업 차단을 해제해주세요.
+          </Modal>
+        )
+      })
+    }
+  }
+
+  useEffect(() => {
+    // checkplus message 이벤트를 팝업으로 부터 받아서 처리
+    const receiveMessage = (event: MessageEvent<string>) => {
+      try {
+        const data = JSON.parse(event.data) as {
+          type: "kcpcert:done"
+
+          orderId?: string
+
+          user_name?: string
+          phone_no?: string
+
+          is_parent?: boolean
+        }
+
+        if (data.type === "kcpcert:done") {
+          // eslint-disable-next-line no-console
+          console.log("KCP Cert result =>", data)
+
+          setVerifiedRefId(data.orderId!)
+          if (data.is_parent === true) {
+            setParentName(data.user_name!)
+            setParentPhone(data.phone_no!)
+            setIsVerifiedPhoneIsParent(true)
+          } else {
+            setStudentName(data.user_name!)
+            setStudentPhone(data.phone_no!)
+            setIsVerifiedPhoneIsParent(false)
+          }
+
+          kcpAuthPop.current!.close()
+        }
+      } catch {} // eslint-disable-line no-empty
+    }
+
+    window.addEventListener("message", receiveMessage)
+
+    return () => {
+      window.removeEventListener("message", receiveMessage)
+    }
+  }, [])
 
   return (
     <form
@@ -180,11 +275,11 @@ export default function ApplyNewFunnelStep2({
           >
             학생 전화번호
           </label>
-          <div className="flex w-full items-center gap-4">
+          <div className="flex w-full flex-col items-center gap-4 md:flex-row">
             <TextInput
               id="student-phone"
               type="tel"
-              className="flex-1"
+              className="w-full flex-1 md:w-auto"
               placeholder={
                 !isVerifiedPhoneIsParent
                   ? "실명 인증 후 자동 입력됩니다."
@@ -205,15 +300,8 @@ export default function ApplyNewFunnelStep2({
 
             <Button
               type="button"
-              className="w-fit px-6 py-4"
-              onClick={() => {
-                // TODO: KCP 연동
-
-                setStudentName("홍길동")
-                setStudentPhone("01000000000")
-                setVerifiedRefId("_")
-                setIsVerifiedPhoneIsParent(false)
-              }}
+              className="w-full px-6 py-4 md:w-fit"
+              onClick={() => requestVerifyPhone()}
               disabled={!!verifiedRefId}
             >
               {verifiedRefId ? "인증 완료" : "실명 인증"}

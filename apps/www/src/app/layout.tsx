@@ -117,7 +117,6 @@ export default function RootLayout({
             <A11ySkipLink />
 
             <Navbar />
-
             {children}
             <Footer />
           </OverlayProvider>
