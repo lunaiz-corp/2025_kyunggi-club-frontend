@@ -8,5 +8,4 @@ WORKDIR /usr/src/app
 
 COPY ./.next/standalone /usr/src/app
 
-EXPOSE 3000
 ENTRYPOINT [ "node", "apps/admin/server.js" ]

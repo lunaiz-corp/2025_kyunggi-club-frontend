@@ -9,9 +9,6 @@ on:
   workflow_dispatch:
   workflow_call:
 
-env:
-  IMAGE_NAME: 2025_kyunggi-club-admin
-
 jobs:
   build-nextjs:
     runs-on: ubuntu-latest
@@ -87,7 +84,7 @@ jobs:
           AWS_DEFAULT_REGION: "KR1"
           AWS_REGION: "KR1"
         with:
-          args: s3 cp ./apps/admin/.next/static/ s3://${{ env.S3_BUCKET }}/admin/${{ steps.package-version.outputs.current-version }}/_next/static --debug --recursive
+          args: s3 cp ./apps/admin/.next/static/ s3://${{ env.S3_BUCKET }}/admin/${{ steps.package-version.outputs.current-version }}/_next/static --recursive
 
   docker-push:
     needs: [build-nextjs]
@@ -96,6 +93,9 @@ jobs:
     permissions:
       packages: write
       contents: read
+
+    env:
+      IMAGE_NAME: 2025_kyunggi-club-admin
 
     steps:
       - uses: actions/checkout@v4
@@ -130,3 +130,49 @@ jobs:
 
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+
+  docker-deploy:
+    needs: [docker-push]
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    env:
+      TOAST_NCS_WORKLOAD_ID: 94a9545e-e21b-434b-807e-57853d68c034
+
+    steps:
+      - name: Get Toast Cloud Token
+        id: authorize-toast
+        run: |
+          response=$(curl -s -X POST https://oauth.api.nhncloudservice.com/oauth2/token/create \
+            -u "${{ secrets.TOAST_ACCESS_KEY_ID }}:${{ secrets.TOAST_SECRET_ACCESS_KEY }}" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "grant_type=client_credentials")
+
+          access_token=$(echo "$response" | jq -r '.access_token')
+
+          if [ -n "$access_token" ] && [ "$access_token" != "null" ]; then
+            echo "TOAST_ACCESS_TOKEN=$access_token" >> $GITHUB_OUTPUT
+            echo "✅ Access token retrieved and stored in environment."
+          else
+            echo "❌ Failed to retrieve access token."
+            exit 1
+          fi
+
+      - name: Stop previous Toast NCS deployment
+        run: |
+          curl -X POST https://kr1-ncs.api.nhncloudservice.com/ncs/v1.0/appkeys/${{ secrets.TOAST_NCS_API_KEY }}/workloads/${{ env.TOAST_NCS_WORKLOAD_ID }}/pause \
+            -H "x-nhn-authorization: Bearer ${{ steps.authorize-toast.outputs.TOAST_ACCESS_TOKEN }}"
+
+      - name: Trigger Toast NCS deployment
+        run: |
+          curl -X POST https://kr1-ncs.api.nhncloudservice.com/ncs/v1.0/appkeys/${{ secrets.TOAST_NCS_API_KEY }}/workloads/${{ env.TOAST_NCS_WORKLOAD_ID }}/resume \
+            -H "x-nhn-authorization: Bearer ${{ steps.authorize-toast.outputs.TOAST_ACCESS_TOKEN }}"
+
+      - name: Invalidate (Revoke) used Toast Cloud Token
+        run: |
+          curl -X POST https://oauth.api.nhncloudservice.com/oauth2/token/revoke \
+            -u "${{ secrets.TOAST_ACCESS_KEY_ID }}:${{ secrets.TOAST_SECRET_ACCESS_KEY }}" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "token=${{ steps.authorize-toast.outputs.TOAST_ACCESS_TOKEN }}"
