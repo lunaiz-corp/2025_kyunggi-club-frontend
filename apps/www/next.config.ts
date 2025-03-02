@@ -1,7 +1,15 @@
 import type { NextConfig } from "next"
+import * as packageJson from "./package.json"
 
 const nextConfig: NextConfig = {
   /* config options here */
+  output:
+    process.env.NODE_ENV === "production" ? "standalone" : undefined,
+  assetPrefix:
+    process.env.NODE_ENV === "production"
+      ? `${process.env.NEXT_PUBLIC_CDN_URL}/${packageJson.version}`
+      : undefined,
+
   webpack: config => {
     config.module.rules.push({
       test: /\.svg$/,
@@ -15,11 +23,6 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "cdn.lunaiz.com",
-      },
-      // Only for mock data
-      {
-        protocol: "https",
-        hostname: "cdn.discordapp.com",
       },
     ],
 

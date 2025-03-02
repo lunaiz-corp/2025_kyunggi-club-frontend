@@ -1,0 +1,132 @@
+name: Deploy Admin with Docker Container
+
+on:
+  push:
+    paths:
+      - "apps/admin/**"
+    branches:
+      - main
+  workflow_dispatch:
+  workflow_call:
+
+env:
+  IMAGE_NAME: 2025_kyunggi-club-admin
+
+jobs:
+  build-nextjs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+
+      - name: Install Dependencies
+        working-directory: ./apps/admin
+        run: pnpm install --frozen-lockfile
+
+      - name: Build project
+        working-directory: ./apps/admin
+        env:
+          NEXT_PUBLIC_CDN_URL: https://kg-cdn-toast.schooler.kr/admin
+          NEXT_PUBLIC_API_URL: https://api.kyunggi.club
+        run: pnpm run build
+
+      - name: Upload built result
+        uses: actions/upload-artifact@v4
+        with:
+          name: nextjs-build-admin-${{ github.sha }}
+          retention-days: 5
+          include-hidden-files: true
+          path: |
+            apps/admin/.next/standalone
+            apps/admin/.next/static
+
+  cdn-push:
+    needs: [build-nextjs]
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+
+      - name: Get current frontend version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+        with:
+          path: apps/admin
+
+      - name: Download Next.js built result
+        uses: actions/download-artifact@v4
+        with:
+          name: nextjs-build-admin-${{ github.sha }}
+          path: apps/admin/.next
+
+      - name: Upload static files with Toast CDN (S3-compatible)
+        uses: docker://amazon/aws-cli:2.22.35
+        env:
+          S3_BUCKET: kg-schooler-public-20250302
+
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+          AWS_ENDPOINT_URL: https://kr1-api-object-storage.nhncloudservice.com
+          AWS_DEFAULT_REGION: "KR1"
+          AWS_REGION: "KR1"
+        with:
+          args: s3 cp ./apps/admin/.next/static/ s3://${{ env.S3_BUCKET }}/admin/${{ steps.package-version.outputs.current-version }}/_next/static --debug --recursive
+
+  docker-push:
+    needs: [build-nextjs]
+    runs-on: ubuntu-latest
+
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+
+      - name: Download Next.js built result
+        uses: actions/download-artifact@v4
+        with:
+          name: nextjs-build-admin-${{ github.sha }}
+          path: apps/admin/.next
+
+      - name: Build image
+        run: docker build apps/admin --file apps/admin/Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+
+      - name: Push image
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+
+          [ "$VERSION" == "main" ] && VERSION=latest
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+
+          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION

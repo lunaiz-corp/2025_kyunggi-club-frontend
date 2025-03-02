@@ -1,6 +1,5 @@
 {
   "name": "@lunaiz-corp/kyunggi-club-frontend",
-  "version": "2.0.0",
   "description": "(2025) 경기고등학교 이공계동아리연합 동아리 선발 시스템 - Frontend with Next.js",
   "scripts": {
     "www": "pnpm --filter @apps/www",

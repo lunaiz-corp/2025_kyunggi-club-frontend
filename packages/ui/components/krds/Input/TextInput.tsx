@@ -11,10 +11,15 @@ export const baseClass = [
 
   "rounded-lg",
 
-  "focus:ring",
-  "focus:ring-offset-2",
-  "focus:ring-offset-gray-950",
-  "focus:ring-ceruleanBlue-700",
+  "outline",
+  "outline-transparent",
+
+  "focus:ring-0",
+
+  "focus:outline",
+  "focus:outline-offset-2",
+  "focus:outline-offset-gray-950",
+  "focus:outline-ceruleanBlue-700",
 
   "placeholder:text-gray-500",
 ]
