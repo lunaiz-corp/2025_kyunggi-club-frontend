@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "cdn.lunaiz.com",
+        hostname: "kg-cdn-toast.schooler.kr",
       },
     ],
 

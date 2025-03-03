@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     siteName: "경기고등학교 이공계동아리연합",
     images: [
       {
-        url: "https://cdn.lunaiz.com/kghs/2025/og-image.png",
+        url: "https://kg-cdn-toast.schooler.kr/assets/og-image.png",
       },
     ],
     locale: "ko_KR",
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
       default: "경기고등학교 이공계동아리연합",
     },
     description: "",
-    images: ["https://cdn.lunaiz.com/kghs/2025/og-image.png"],
+    images: ["https://kg-cdn-toast.schooler.kr/assets/og-image.png"],
   },
 
   robots: {
@@ -72,9 +72,11 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "https://cdn.lunaiz.com/kghs/logo_margin.png",
-    shortcut: "https://cdn.lunaiz.com/kghs/logo_margin.png",
-    apple: "https://cdn.lunaiz.com/kghs/logo_margin.png",
+    icon: "https://kg-cdn-toast.schooler.kr/assets/icon/logo_margin.svg",
+    shortcut:
+      "https://kg-cdn-toast.schooler.kr/assets/icon/logo_margin.svg",
+    apple:
+      "https://kg-cdn-toast.schooler.kr/assets/icon/logo_margin@2x.png",
   },
 
   verification: {

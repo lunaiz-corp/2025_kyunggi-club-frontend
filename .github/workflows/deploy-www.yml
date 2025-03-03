@@ -30,7 +30,7 @@ jobs:
       - name: Build project
         working-directory: ./apps/www
         env:
-          NEXT_PUBLIC_CDN_URL: https://kg-cdn-toast.schooler.kr/www
+          NEXT_PUBLIC_CDN_URL: https://kg-cdn-toast.schooler.kr/build/www
           NEXT_PUBLIC_API_URL: https://api.kyunggi.club
         run: pnpm run build
 
@@ -84,7 +84,7 @@ jobs:
           AWS_DEFAULT_REGION: "KR1"
           AWS_REGION: "KR1"
         with:
-          args: s3 cp ./apps/www/.next/static/ s3://${{ env.S3_BUCKET }}/www/${{ steps.package-version.outputs.current-version }}/_next/static --recursive
+          args: s3 cp ./apps/www/.next/static/ s3://${{ env.S3_BUCKET }}/build/www/${{ steps.package-version.outputs.current-version }}/_next/static --recursive
 
   docker-push:
     needs: [build-nextjs]

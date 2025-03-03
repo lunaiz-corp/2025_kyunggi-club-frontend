@@ -21,7 +21,7 @@ export default function ClubSelect({
             {club.name.split(" ")[1]}
           </div>
           <Image
-            src={`https://cdn.lunaiz.com/kghs/badge_${club.id}.png`}
+            src={`hhttps://kg-cdn-toast.schooler.kr/assets/badge/${club.id}.webp`}
             alt={`${club.name} 로고`}
             height={45}
             width={80}

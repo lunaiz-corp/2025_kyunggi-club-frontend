@@ -63,7 +63,7 @@ export default async function ClubDetail({
     alt: "",
     width: 1200,
     height: 675,
-    src: `https://cdn.lunaiz.com/kghs/bg_${id}.png`,
+    src: `https://kg-cdn-toast.schooler.kr/assets/background/${id}.webp`,
   })
 
   // const {
@@ -116,7 +116,7 @@ export default async function ClubDetail({
           </div>
 
           <Image
-            src={`https://cdn.lunaiz.com/kghs/badge_${id}.png`}
+            src={`https://kg-cdn-toast.schooler.kr/assets/badge/${id}.webp`}
             alt={`${currentClub.name} 로고`}
             height={72}
             width={128}
@@ -124,42 +124,48 @@ export default async function ClubDetail({
         </div>
 
         <div className="inline-flex flex-col gap-5">
-          <h2 className="text-4xl font-bold">{detail?.headline}</h2>
-          <span className="text-lg">{detail?.short_description}</span>
+          <h2 className="text-4xl font-bold whitespace-pre-wrap">
+            {detail?.headline}
+          </h2>
+          <span className="text-lg whitespace-pre-wrap">
+            {detail?.short_description}
+          </span>
         </div>
 
         <Advertisements page="club" />
 
-        <div className="flex flex-col gap-8">
-          <h2 className="text-2xl font-bold">임원진</h2>
+        {detail?.members && (
+          <div className="flex flex-col gap-8">
+            <h2 className="text-2xl font-bold">임원진</h2>
 
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
-            {detail?.members?.map((lines, lineIndex) =>
-              // lines의 length가 5보다 작으면, 나머지는 빈 div로 채워줌
-              (lines.length < 5
-                ? [...lines, ...Array(5 - lines.length).fill({})]
-                : lines
-              ).map((member, index) =>
-                member.name ? (
-                  <div
-                    key={`member-${lineIndex.toString()}-${index.toString()}`}
-                    className="flex flex-col justify-center gap-1 rounded-xl bg-ceruleanBlue-900 px-6 py-4"
-                  >
-                    <span>{member.role}</span>
-                    <span className="text-[27px] font-bold">
-                      {member.name}
-                    </span>
-                  </div>
-                ) : (
-                  <div
-                    key={`member-${lineIndex.toString()}-${index.toString()}`}
-                    className="hidden h-[102px] w-[196px] bg-transparent md:block"
-                  />
+            <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
+              {detail?.members.map((lines, lineIndex) =>
+                // lines의 length가 5보다 작으면, 나머지는 빈 div로 채워줌
+                (lines.length < 5
+                  ? [...lines, ...Array(5 - lines.length).fill({})]
+                  : lines
+                ).map((member, index) =>
+                  member.name ? (
+                    <div
+                      key={`member-${lineIndex.toString()}-${index.toString()}`}
+                      className="flex flex-col justify-center gap-1 rounded-xl bg-ceruleanBlue-900 px-6 py-4"
+                    >
+                      <span>{member.role}</span>
+                      <span className="text-[27px] font-bold">
+                        {member.name}
+                      </span>
+                    </div>
+                  ) : (
+                    <div
+                      key={`member-${lineIndex.toString()}-${index.toString()}`}
+                      className="hidden h-[102px] w-[196px] bg-transparent md:block"
+                    />
+                  ),
                 ),
-              ),
-            )}
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {detail?.long_description?.map((long, index) => (
@@ -168,9 +174,13 @@ export default async function ClubDetail({
           className="inline-flex flex-col gap-6"
         >
           {long.headline && (
-            <h2 className="text-3xl font-bold">{long.headline}</h2>
+            <h2 className="text-3xl font-bold whitespace-pre-wrap">
+              {long.headline}
+            </h2>
           )}
-          <span className="text-lg">{long.description}</span>
+          <span className="text-lg whitespace-pre-wrap">
+            {long.description}
+          </span>
         </div>
       ))}
 

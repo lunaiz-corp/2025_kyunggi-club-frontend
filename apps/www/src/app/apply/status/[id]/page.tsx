@@ -67,7 +67,7 @@ export default async function ApplyStatus({
             </div>
 
             <Image
-              src={`https://cdn.lunaiz.com/kghs/badge_${id}.png`}
+              src={`https://kg-cdn-toast.schooler.kr/assets/badge/${id}.webp`}
               alt={`${currentClub.name} 로고`}
               height={72}
               width={128}

@@ -27,7 +27,7 @@ export default function PercentageBar({
       {...props}
     >
       <Image
-        src={`https://cdn.lunaiz.com/kghs/badge_${clubId}.png`}
+        src={`https://kg-cdn-toast.schooler.kr/assets/badge/${clubId}.webp`}
         alt={`${clubId} 동아리 배지`}
         width={32}
         height={18}
