@@ -75,25 +75,6 @@ function UploadSection({
     e.preventDefault()
     onDragLeave(e)
 
-    if (maxFiles && fileList.length >= maxFiles) {
-      overlay.open(({ isOpen, close, unmount }) => {
-        return (
-          <Modal
-            isOpen={isOpen}
-            close={() => {
-              close()
-              setTimeout(unmount, 200)
-            }}
-            title="오류"
-          >
-            최대 파일 개수를 초과했습니다.
-          </Modal>
-        )
-      })
-
-      return
-    }
-
     const filteredDataTransfer = new DataTransfer()
 
     // 신규 spec - 브라우저 호환성을 위해 분기 처리
@@ -104,6 +85,7 @@ function UploadSection({
         .filter(item => item.kind === "file")
         .forEach(item => {
           const entry = item.webkitGetAsEntry()
+
           if (entry && entry.isDirectory) {
             overlay.open(({ isOpen, close, unmount }) => {
               return (
@@ -140,6 +122,25 @@ function UploadSection({
       ...fileList,
       ...Array.from(filteredDataTransfer.files),
     ]
+
+    if (maxFiles && newFileList.length >= maxFiles) {
+      overlay.open(({ isOpen, close, unmount }) => {
+        return (
+          <Modal
+            isOpen={isOpen}
+            close={() => {
+              close()
+              setTimeout(unmount, 200)
+            }}
+            title="오류"
+          >
+            최대 파일 개수를 초과했습니다.
+          </Modal>
+        )
+      })
+
+      return
+    }
 
     setFileList(newFileList)
     if (onFileSelect) onFileSelect(newFileList)

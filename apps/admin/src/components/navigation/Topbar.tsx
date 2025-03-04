@@ -1,6 +1,10 @@
 "use client"
 
+import { useEffect } from "react"
 import { useRouter } from "next-nprogress-bar"
+
+import { useQuery } from "@tanstack/react-query"
+import getProfile from "@/api/getProfile"
 
 // ---
 import { MegaphoneIcon } from "@heroicons/react/20/solid"
@@ -13,6 +17,30 @@ import SignoutIcon from "@/assets/icons/topbar/signout.svg"
 
 export default function Topbar() {
   const router = useRouter()
+
+  const {
+    isLoading: isProfileLoading,
+    error: profileError,
+    data: profile,
+  } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  })
+
+  useEffect(() => {
+    ;(async () => {
+      // Check the token is exist
+      if (!localStorage.getItem("accessToken")) {
+        router.replace("/auth/signin")
+        return
+      }
+
+      // Check the token is valid
+      if ((!isProfileLoading && !profile) || profileError) {
+        router.replace("/auth/signin")
+      }
+    })()
+  }, [isProfileLoading, profile, profileError, router])
 
   return (
     <div className="mb-5 flex w-full flex-col-reverse gap-9 lg:flex-row">
@@ -50,18 +78,21 @@ export default function Topbar() {
               <UserIcon className="size-5" />
             </div>
 
-            <span className="leading-tight font-semibold">User</span>
+            {!isProfileLoading && (
+              <span className="leading-tight font-semibold">
+                {profile.name}
+              </span>
+            )}
           </div>
 
           <button
             type="button"
             className="cursor-pointer"
             onClick={() => {
-              // TODO: Implement signout logic
-
               // eslint-disable-next-line no-alert
               if (window.confirm("정말 로그아웃 하시겠습니까?")) {
-                router.push("/auth/signin")
+                localStorage.removeItem("accessToken")
+                router.push("/")
               }
             }}
             title="로그아웃"

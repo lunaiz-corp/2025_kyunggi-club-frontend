@@ -11,6 +11,10 @@ import Advertisements from "@/components/Advertisements"
 import * as clubsJson from "@/data/clubs.json"
 import * as clubsDetailJson from "@/data/clubs.detail.json"
 
+// ----------------------------------
+import ListCustom from "./_custom/list"
+// ----------------------------------
+
 const { clubs } = clubsJson
 const { detail: clubsDetail } = clubsDetailJson
 
@@ -184,6 +188,8 @@ export default async function ClubDetail({
         </div>
       ))}
 
+      {id === "list" && <ListCustom />}
+
       <div className="inline-flex flex-col gap-6">
         <h2 className="text-3xl font-bold">연혁 (제작 중)</h2>
 
@@ -197,6 +203,39 @@ export default async function ClubDetail({
           />
         </picture> */}
       </div>
+
+      {detail?.members && (
+        <div className="flex flex-col gap-8">
+          <h2 className="text-3xl font-bold">역대 임원진</h2>
+
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
+            {detail?.historic_members.map((lines, lineIndex) =>
+              // lines의 length가 5보다 작으면, 나머지는 빈 div로 채워줌
+              (lines.length < 5
+                ? [...lines, ...Array(5 - lines.length).fill({})]
+                : lines
+              ).map((member, index) =>
+                member.name ? (
+                  <div
+                    key={`historicmember-${lineIndex.toString()}-${index.toString()}`}
+                    className="flex flex-col justify-center gap-1 rounded-xl bg-ceruleanBlue-900 px-6 py-4"
+                  >
+                    <span>{member.year}</span>
+                    <span className="text-[27px] font-bold">
+                      {member.name}
+                    </span>
+                  </div>
+                ) : (
+                  <div
+                    key={`historicmember-${lineIndex.toString()}-${index.toString()}`}
+                    className="hidden h-[102px] w-[196px] bg-transparent md:block"
+                  />
+                ),
+              ),
+            )}
+          </div>
+        </div>
+      )}
     </main>
   )
 }

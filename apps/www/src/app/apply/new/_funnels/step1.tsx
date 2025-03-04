@@ -17,7 +17,7 @@ export type DataNeedsToBeFilled = {
   agreedTerms: number[]
 }
 
-const MOCK_TERMS = [
+const TERMS = [
   {
     id: 1,
     title: "[필수] 서비스 이용약관 동의",
@@ -83,7 +83,7 @@ export default function ApplyNewFunnelStep1({
     >
       <div className="h-0.5 bg-gray-900" />
 
-      {MOCK_TERMS.map(term => (
+      {TERMS.map(term => (
         <div
           key={`agree-terms-${term.id}`}
           className="inline-flex flex-col gap-2.5"

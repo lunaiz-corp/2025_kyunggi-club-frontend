@@ -1,11 +1,13 @@
 import type { Metadata } from "next"
 import Script from "next/script"
+
 import { Toaster } from "react-hot-toast"
 
 import ProgressBarProvider from "@packages/ui/components/ProgressBar"
 import ChannelIO from "@packages/channelio"
 
 import OverlayProvider from "@packages/ui/providers/OverlayProvider"
+import QueryClientProvider from "@/providers/QueryClientProvider"
 
 import "react-loading-skeleton/dist/skeleton.css"
 import "@/styles/globals.css"
@@ -96,7 +98,9 @@ export default function RootLayout({
       </head>
       <body className="bg-gray-900 text-gray-100 antialiased">
         <ProgressBarProvider>
-          <OverlayProvider>{children}</OverlayProvider>
+          <QueryClientProvider>
+            <OverlayProvider>{children}</OverlayProvider>
+          </QueryClientProvider>
         </ProgressBarProvider>
 
         <Toaster />

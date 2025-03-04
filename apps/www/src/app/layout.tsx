@@ -1,8 +1,6 @@
 import type { Metadata } from "next"
 import Script from "next/script"
 
-import { Toaster } from "react-hot-toast"
-
 import ProgressBarProvider from "@packages/ui/components/ProgressBar"
 import { A11ySkipLink } from "@packages/ui/components/krds/Explore"
 
@@ -124,7 +122,6 @@ export default function RootLayout({
           </OverlayProvider>
         </ProgressBarProvider>
 
-        <Toaster />
         <ChannelIO />
       </body>
     </html>

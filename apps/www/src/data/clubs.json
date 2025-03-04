@@ -23,7 +23,7 @@
     {
       "id": "kmoc",
       "name": "KMOC 수학부",
-      "description": "KMOC 수학부 - 경기고등학교 이공계동아리연합"
+      "description": "KMOC 수학부 - 경기고 이공계들의 꿈"
     },
     {
       "id": "kac",
@@ -33,7 +33,7 @@
     {
       "id": "css",
       "name": "CSS 창의융합과학부",
-      "description": "CSS 창의융합과학부 - 경기고등학교 이공계동아리연합"
+      "description": "CSS 창의융합과학부 - 실험과 연구, CSS가 지원해드립니다"
     },
     {
       "id": "cel",
@@ -43,7 +43,7 @@
     {
       "id": "kcc",
       "name": "KCC 화학부",
-      "description": "KCC 화학부 - 경기고등학교 이공계동아리연합"
+      "description": "KCC 화학부 - 경기고의 자랑 화학부"
     }
   ]
 }

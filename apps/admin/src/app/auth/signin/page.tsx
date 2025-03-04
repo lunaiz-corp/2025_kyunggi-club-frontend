@@ -1,20 +1,66 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { useRouter } from "next-nprogress-bar"
 
 import UnionLogo from "@packages/assets/images/union-logo.svg"
+import toast from "react-hot-toast"
 
 export default function Signin() {
   const router = useRouter()
 
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      router.push("/")
+    }
+  }, [router])
+
   return (
     <form
       className="flex h-full flex-col items-center justify-center gap-12 px-10 lg:px-48"
-      onSubmit={e => {
+      onSubmit={async e => {
         e.preventDefault()
 
-        // TODO: Implement login logic
-        router.push("/")
+        try {
+          const loginRequest = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/auth/signin`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ email, password }),
+            },
+          )
+
+          const loginResponse = await loginRequest.json()
+          if (loginRequest.ok) {
+            localStorage.setItem(
+              "accessToken",
+              loginResponse.accessToken,
+            )
+
+            toast.success("로그인에 성공했습니다.")
+
+            router.push("/")
+          } else {
+            toast.error(
+              loginResponse.message ||
+                "서버와의 통신 중 오류가 발생했습니다.",
+            )
+
+            // eslint-disable-next-line no-console
+            console.error(loginResponse)
+          }
+        } catch (error) {
+          toast.error("서버와의 통신 중 오류가 발생했습니다.")
+
+          // eslint-disable-next-line no-console
+          console.error(error)
+        }
       }}
     >
       <div className="flex w-full flex-col gap-5">
@@ -44,6 +90,8 @@ export default function Signin() {
           type="email"
           className="inline-flex items-center justify-start overflow-hidden rounded-[10px] border-0 bg-gray-100/[.05] px-5 py-4 placeholder:text-sm placeholder:font-light placeholder:text-ceruleanBlue-200"
           placeholder="이메일을 입력해 주세요."
+          value={email}
+          onChange={e => setEmail(e.target.value)}
           required
         />
 
@@ -51,6 +99,8 @@ export default function Signin() {
           type="password"
           className="inline-flex items-center justify-start overflow-hidden rounded-[10px] border-0 bg-gray-100/[.05] px-5 py-4 placeholder:text-sm placeholder:font-light placeholder:text-ceruleanBlue-200"
           placeholder="비밀번호를 입력해 주세요."
+          value={password}
+          onChange={e => setPassword(e.target.value)}
           required
         />
       </div>
