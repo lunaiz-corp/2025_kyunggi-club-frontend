@@ -1,12 +1,15 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useRouter } from "next-nprogress-bar"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { cn } from "@packages/ui/utils/tailwindMerge"
+import { useQuery } from "@tanstack/react-query"
+import getProfile from "@/api/getProfile"
 
+import { cn } from "@packages/ui/utils/tailwindMerge"
 import UnionLogo from "@packages/assets/images/union-logo.svg"
 
 // ---
@@ -29,14 +32,15 @@ import ChatIcon from "@/assets/icons/sidebar/chat.svg"
 
 export default function Sidebar() {
   const pathname = usePathname()
+  const router = useRouter()
 
-  const ROUTES: {
+  const [routes, setRoutes] = useState<{
     [key: string]: {
       name: string
       icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
       href: string
     }[]
-  } = {
+  }>({
     "": [
       {
         name: "홈",
@@ -66,20 +70,7 @@ export default function Sidebar() {
         href: "/dashboard/club/application",
       },
     ],
-    // TODO: 저걸 권한 단위로 나눠야 함 (삼항연산자?)
-    "일정 관리A": [
-      {
-        name: "사이트 상태 설정",
-        icon: CogIcon,
-        href: "/dashboard/schedule-manager/service-status",
-      },
-      {
-        name: "운영 일정 관리",
-        icon: ScheduleIcon,
-        href: "/dashboard/schedule-manager/operation",
-      },
-    ],
-    "일정 관리B": [
+    "일정 관리": [
       {
         name: "모집 일정 관리",
         icon: CalendarIcon,
@@ -96,9 +87,101 @@ export default function Sidebar() {
         href: "/dashboard/schedule-club/interview",
       },
     ],
-  }
+  })
 
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false)
+
+  const {
+    isLoading: isProfileLoading,
+    error: profileError,
+    data: profile,
+  } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  })
+
+  useEffect(() => {
+    ;(async () => {
+      // Check the token is exist
+      if (!localStorage.getItem("accessToken")) {
+        router.replace("/auth/signin")
+        return
+      }
+
+      // Check the token is valid
+      if ((!isProfileLoading && !profile) || profileError) {
+        localStorage.removeItem("accessToken")
+        router.replace("/auth/signin")
+        return
+      }
+
+      if (profile) {
+        setRoutes({
+          "": [
+            {
+              name: "홈",
+              icon: HomeIcon,
+              href: "/dashboard/home",
+            },
+            {
+              name: "공지사항 관리",
+              icon: SpeakerphoneIcon,
+              href: "/dashboard/notice",
+            },
+          ],
+          "동아리 관리": [
+            {
+              name: "계정 관리",
+              icon: UserIcon,
+              href: "/dashboard/club/account",
+            },
+            {
+              name: "지원서 양식 관리",
+              icon: NewspaperIcon,
+              href: "/dashboard/club/template",
+            },
+            {
+              name: "접수된 지원서 목록",
+              icon: UserGroupIcon,
+              href: "/dashboard/club/application",
+            },
+          ],
+          "일정 관리 (관리자)":
+            profile.role === "OWNER"
+              ? [
+                  {
+                    name: "사이트 상태 설정",
+                    icon: CogIcon,
+                    href: "/dashboard/schedule-manager/service-status",
+                  },
+                  {
+                    name: "운영 일정 관리",
+                    icon: ScheduleIcon,
+                    href: "/dashboard/schedule-manager/operation",
+                  },
+                ]
+              : [],
+          "일정 관리": [
+            {
+              name: "모집 일정 관리",
+              icon: CalendarIcon,
+              href: "/dashboard/schedule-club/application",
+            },
+            {
+              name: "지필 일정 관리",
+              icon: PencilIcon,
+              href: "/dashboard/schedule-club/examination",
+            },
+            {
+              name: "면접 일정 관리",
+              icon: ChatIcon,
+              href: "/dashboard/schedule-club/interview",
+            },
+          ],
+        })
+      }
+    })()
+  }, [isProfileLoading, profile, profileError, router])
 
   return (
     <>
@@ -152,46 +235,53 @@ export default function Sidebar() {
         </Link>
 
         <div className="mt-12 flex flex-col gap-7">
-          {Object.entries(ROUTES).map(([key, value]) => (
-            <div
-              key={key}
-              className="flex flex-col gap-3 select-none"
-            >
-              <span className="text-sm font-bold">{key}</span>
-
-              {value.map(route => (
-                <Link
-                  key={route.href}
-                  href={route.href}
-                  onClick={() => setIsSidebarOpen(false)}
+          {Object.entries(routes).map(
+            ([key, value]) =>
+              value.length > 0 && (
+                <div
+                  key={key}
+                  className="flex flex-col gap-3 select-none"
                 >
-                  <div
-                    className={`inline-flex h-11 w-full items-center gap-3 rounded-md px-4 py-3 ${
-                      pathname.startsWith(route.href)
-                        ? "bg-gray-100 fill-ceruleanBlue-700 text-ceruleanBlue-700"
-                        : "bg-transparent fill-gray-100 hover:bg-gray-100/[.05]"
-                    }`}
-                  >
-                    <route.icon className="size-5" />
-                    <span className="font-bold">{route.name}</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ))}
+                  <span className="text-sm font-bold">{key}</span>
+
+                  {value.map(route => (
+                    <Link
+                      key={route.href}
+                      href={route.href}
+                      onClick={() => setIsSidebarOpen(false)}
+                    >
+                      <div
+                        className={`inline-flex h-11 w-full items-center gap-3 rounded-md px-4 py-3 ${
+                          pathname.startsWith(route.href)
+                            ? "bg-gray-100 fill-ceruleanBlue-700 text-ceruleanBlue-700"
+                            : "bg-transparent fill-gray-100 hover:bg-gray-100/[.05]"
+                        }`}
+                      >
+                        <route.icon className="size-5" />
+                        <span className="font-bold">
+                          {route.name}
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              ),
+          )}
         </div>
 
-        <div className="mt-12 inline-flex w-full flex-col items-start justify-center gap-2 rounded-md border border-[#eff6ff]/75 p-4 select-none">
-          <span className="text-sm font-bold">
-            로그 실시간 기록 중
-          </span>
+        {profile && (
+          <div className="mt-12 inline-flex w-full flex-col items-start justify-center gap-2 rounded-md border border-[#eff6ff]/75 p-4 select-none">
+            <span className="text-sm font-bold">
+              로그 실시간 기록 중
+            </span>
 
-          <span className="text-xs">
-            해당 화면에서 진행하는 모든 활동은 내 계정
-            (minsu.kim@lunaiz.com)과 현재 접속한 IP
-            (255.255.255.255)가 함께 기록되고 있습니다.
-          </span>
-        </div>
+            <span className="text-xs">
+              해당 화면에서 진행하는 모든 활동은 내 계정 (
+              {profile.email})과 현재 접속한 IP가 함께 기록되고
+              있습니다.
+            </span>
+          </div>
+        )}
       </div>
     </>
   )

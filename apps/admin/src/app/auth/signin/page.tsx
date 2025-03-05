@@ -1,10 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import toast from "react-hot-toast"
 import { useRouter } from "next-nprogress-bar"
 
 import UnionLogo from "@packages/assets/images/union-logo.svg"
-import toast from "react-hot-toast"
+import { Button } from "@packages/ui/components/krds/Action"
 
 export default function Signin() {
   const router = useRouter()
@@ -40,7 +41,7 @@ export default function Signin() {
           if (loginRequest.ok) {
             localStorage.setItem(
               "accessToken",
-              loginResponse.accessToken,
+              loginResponse.data.accessToken,
             )
 
             toast.success("로그인에 성공했습니다.")
@@ -105,12 +106,9 @@ export default function Signin() {
         />
       </div>
 
-      <button
-        type="submit"
-        className="w-full rounded-lg bg-ceruleanBlue-700 py-3"
-      >
+      <Button type="submit" className="w-full py-3">
         <span className="font-semibold">로그인</span>
-      </button>
+      </Button>
     </form>
   )
 }

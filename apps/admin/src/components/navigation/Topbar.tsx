@@ -37,6 +37,7 @@ export default function Topbar() {
 
       // Check the token is valid
       if ((!isProfileLoading && !profile) || profileError) {
+        localStorage.removeItem("accessToken")
         router.replace("/auth/signin")
       }
     })()
@@ -78,7 +79,7 @@ export default function Topbar() {
               <UserIcon className="size-5" />
             </div>
 
-            {!isProfileLoading && (
+            {!isProfileLoading && !profileError && profile && (
               <span className="leading-tight font-semibold">
                 {profile.name}
               </span>

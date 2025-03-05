@@ -43,9 +43,8 @@ export default async function ClubAccountDetail({
         &#8251; 일괄 등록이 필요한 경우, 운영팀에 연락해 주세요.
       </span>
 
-      <RegisterForm />
-
-      <AccountListTable />
+      <RegisterForm id={id} />
+      <AccountListTable id={id} />
     </div>
   )
 }

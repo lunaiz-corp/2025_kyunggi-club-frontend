@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next-nprogress-bar"
+import toast from "react-hot-toast"
 
 import UnionLogo from "@packages/assets/images/union-logo.svg"
 
@@ -14,8 +15,6 @@ import {
   CheckIcon,
   ChevronRightIcon,
 } from "@heroicons/react/20/solid"
-import { useSearchParams } from "next/navigation"
-import toast from "react-hot-toast"
 
 const PASSWORD_RULE_REGEX =
   /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/
@@ -49,7 +48,6 @@ const TERMS = [
 
 export default function Signin() {
   const router = useRouter()
-  const searchParams = useSearchParams()
 
   const [currentStep, setCurrentStep] = useState<
     "AGREE_TERMS" | "SET_PASSWORD" | "DONE"
@@ -64,6 +62,8 @@ export default function Signin() {
   const [accountEmail, setAccountEmail] = useState("")
 
   useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search)
+
     if (
       searchParams.has("pincode") &&
       searchParams.get("pincode")?.length === 6
@@ -75,7 +75,7 @@ export default function Signin() {
 
       router.replace("/")
     }
-  }, [searchParams, router])
+  }, [router])
 
   return (
     <div className="flex h-full flex-col items-center justify-center gap-12 px-10 lg:px-48">

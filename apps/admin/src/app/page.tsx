@@ -30,6 +30,7 @@ export default function Home() {
 
       // Check the token is valid
       if ((!isProfileLoading && !profile) || profileError) {
+        localStorage.removeItem("accessToken")
         router.replace("/auth/signin")
         return
       }
