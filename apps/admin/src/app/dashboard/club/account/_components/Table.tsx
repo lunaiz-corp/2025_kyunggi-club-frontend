@@ -148,7 +148,7 @@ export default function AccountListTable({
             checkedAccounts.forEach(async email => {
               registerRequest.push(
                 await fetch(
-                  `${process.env.NEXT_PUBLIC_API_URL}/${id}/members`,
+                  `${process.env.NEXT_PUBLIC_API_URL}/club/${id}/members`,
                   {
                     method: "DELETE",
                     headers: {

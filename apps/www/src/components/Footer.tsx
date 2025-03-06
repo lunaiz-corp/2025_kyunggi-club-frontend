@@ -27,8 +27,8 @@ export default function Footer() {
         <ul className="flex flex-col gap-1">
           <li className="flex items-center gap-2">
             <strong>대표전화</strong>
-            <ALink href="tel:+827000000000" className="font-bold">
-              010-9212-1267
+            <ALink href="tel:+827041384014" className="font-bold">
+              070-4138-4014
             </ALink>
           </li>
 

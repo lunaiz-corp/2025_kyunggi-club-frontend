@@ -335,7 +335,7 @@ export default function ApplyNewFunnelStep2({
             </span>
 
             <span className="text-gray-300">
-              화면 하단 채널톡 혹은 고객센터 (010-9212-1267)를 통하여,
+              화면 하단 채널톡 혹은 고객센터 (070-4138-4014)를 통하여,
               오류 메시지를 알려주시면 친절히 도와드리겠습니다.
             </span>
             <span className="text-gray-300">
