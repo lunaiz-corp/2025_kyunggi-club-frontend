@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react"
 
-import useSWR from "swr"
-import fetcher from "@packages/swr/fetcher"
+import { useQuery } from "@tanstack/react-query"
+import { encryptPassRequest } from "@/api/apply/pass"
 
 export default function PassRequest({
   orderId,
@@ -14,12 +14,15 @@ export default function PassRequest({
     null | "pc" | "android" | "ios"
   >(null)
 
-  const { data, error, isLoading } = useSWR(
-    orderId && device
-      ? `${process.env.NEXT_PUBLIC_API_URL}/apply/pass/encrypt?orderId=${orderId}&device=${device}`
-      : null,
-    fetcher,
-  )
+  const {
+    isLoading: isPassEncryptLoading,
+    data: passEncrypted,
+    error: passEncryptError,
+  } = useQuery({
+    queryKey: ["pass", orderId],
+    queryFn: () => encryptPassRequest(orderId, device!),
+    enabled: !!orderId && !!device,
+  })
 
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -46,10 +49,11 @@ export default function PassRequest({
       return
     }
 
-    if (error) {
+    if (passEncryptError) {
       // eslint-disable-next-line no-alert
       window.alert(
-        error || "알 수 없는 오류가 발생했습니다. 다시 시도해주세요.",
+        passEncryptError ||
+          "알 수 없는 오류가 발생했습니다. 다시 시도해주세요.",
       )
 
       window.close()
@@ -58,32 +62,27 @@ export default function PassRequest({
       return
     }
 
-    if (data) {
+    if (passEncrypted) {
       formRef.current!.submit()
     }
-  }, [data, error, orderId])
+  }, [passEncrypted, passEncryptError, orderId])
 
   return (
     orderId &&
     device &&
-    !isLoading &&
-    !error &&
-    data && (
+    !isPassEncryptLoading &&
+    !passEncryptError &&
+    passEncrypted && (
       <form
         ref={formRef}
-        action={data.data.url}
+        action={passEncrypted.url}
         acceptCharset="EUC-KR"
         method="POST"
       >
-        {Object.entries(data.data.formData)
+        {Object.entries(passEncrypted.formData)
           .filter(([, value]) => value !== undefined)
           .map(([key, value]) => (
-            <input
-              key={key}
-              type="hidden"
-              name={key}
-              value={value as string}
-            />
+            <input key={key} type="hidden" name={key} value={value} />
           ))}
       </form>
     )

@@ -22,7 +22,7 @@ const TERMS = [
     id: 1,
     title: "[필수] 서비스 이용약관 동의",
     subterms: [],
-    link: "https://kg-support.schooler.kr/legal/tos",
+    link: "https://schooler-kg.rdbl.io/legal/tos",
     isRequired: true,
   },
   {
@@ -32,12 +32,12 @@ const TERMS = [
       {
         id: 1,
         title: "개인정보 수집 및 이용 동의",
-        link: "https://kg-support.schooler.kr/legal/privacy#%EC%A0%9C5%EC%A1%B0-(%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EC%9D%98-%EC%B2%98%EB%A6%AC-%EB%AA%A9%EC%A0%81)",
+        link: "https://schooler-kg.rdbl.io/legal/privacy#%EC%A0%9C5%EC%A1%B0-(%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EC%9D%98-%EC%B2%98%EB%A6%AC-%EB%AA%A9%EC%A0%81)",
       },
       {
         id: 2,
         title: "개인정보 제3자 제공 및 위탁 동의",
-        link: "https://kg-support.schooler.kr/legal/privacy#%EC%A0%9C9%EC%A1%B0-(%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EC%9D%98-%EC%A0%9C3%EC%9E%90-%EC%A0%9C%EA%B3%B5)",
+        link: "https://schooler-kg.rdbl.io/legal/privacy#%EC%A0%9C9%EC%A1%B0-(%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EC%9D%98-%EC%A0%9C3%EC%9E%90-%EC%A0%9C%EA%B3%B5)",
       },
     ],
     isRequired: true,

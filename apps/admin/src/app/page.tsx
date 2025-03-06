@@ -5,7 +5,7 @@ import { useRouter } from "next-nprogress-bar"
 
 import PageInitialLoading from "@/components/PageInitialLoading"
 
-import getProfile from "@/api/getProfile"
+import { getProfile } from "@/api/profile"
 import { useQuery } from "@tanstack/react-query"
 
 export default function Home() {

@@ -7,9 +7,9 @@ import { useState } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay } from "swiper/modules"
 
-// import { ALink } from "@packages/ui/components/krds/Action"
+import { ALink } from "@packages/ui/components/krds/Action"
 
-// import { ArrowRightIcon } from "@heroicons/react/20/solid"
+import { ArrowRightIcon } from "@heroicons/react/20/solid"
 import { SpeakerXMarkIcon } from "@heroicons/react/24/solid"
 import Image from "next/image"
 
@@ -54,22 +54,22 @@ export default function ListCustom() {
         </div>
 
         <div className="inline-flex w-80 flex-col gap-6">
-          <h2 className="text-3xl font-bold">“과기부 소개“</h2>
+          <h2 className="text-3xl font-bold">“과기부 소개”</h2>
           <span className="break-keep">
             레이저 커팅기, 3D프린터 아두이노, 목공 장비, VR 등 다양한
             장비들이 있어 다양한 물건들을 자유롭게 설계하고 제작할 수
             있습니다.
           </span>
 
-          {/* <ALink
-            href=""
+          <ALink
+            href="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/포스터.jpeg"
             target="_blank"
             rel="noopener noreferrer"
             className="w-fit px-4 py-2 font-bold"
           >
             포스터 보기
             <ArrowRightIcon className="size-5" />
-          </ALink> */}
+          </ALink>
         </div>
       </div>
 
@@ -79,8 +79,15 @@ export default function ListCustom() {
             “경기고 최다최빈 연합활동”
           </h2>
           <span className="break-keep">
-            숙명여고/세화여고 등과 함께 물로켓 제작, 친환경 도시 계획
-            프로젝트 등 진행
+            2022 숙명여고 SL, MEGA 동아리와 연합 2회 진행.
+            <br />
+            2023 세화여고 물리실험부와 연합 1회 진행.
+            <br />
+            2023 세화여고 물리실험부, 화학부, 생물부 섭외해 100명 규모
+            연합 주도.
+            <br />
+            <br />
+            연합활동으로 물로켓 제작, 친환경 도시 프로젝트 등 진행.
           </span>
         </div>
 
@@ -119,7 +126,6 @@ export default function ListCustom() {
               className="h-[566px] w-[755px] object-cover"
             />
           </SwiperSlide>
-
           <SwiperSlide>
             <Image
               src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진2.jpg"
@@ -129,7 +135,6 @@ export default function ListCustom() {
               className="h-[566px] w-[755px] object-cover"
             />
           </SwiperSlide>
-
           <SwiperSlide>
             <Image
               src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진3.jpg"
@@ -139,7 +144,6 @@ export default function ListCustom() {
               className="h-[566px] w-[755px] object-cover"
             />
           </SwiperSlide>
-
           <SwiperSlide>
             <Image
               src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진4.jpg"
@@ -149,7 +153,6 @@ export default function ListCustom() {
               className="h-[566px] w-[755px] object-cover"
             />
           </SwiperSlide>
-
           <SwiperSlide>
             <Image
               src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진5.jpg"
@@ -159,10 +162,99 @@ export default function ListCustom() {
               className="h-[566px] w-[755px] object-cover"
             />
           </SwiperSlide>
-
           <SwiperSlide>
             <Image
               src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진6.jpg"
+              alt=""
+              width={755}
+              height={566}
+              className="h-[566px] w-[755px] object-cover"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진7.png"
+              alt=""
+              width={755}
+              height={566}
+              className="h-[566px] w-[755px] object-cover"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진8.png"
+              alt=""
+              width={755}
+              height={566}
+              className="h-[566px] w-[755px] object-cover"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진9.png"
+              alt=""
+              width={755}
+              height={566}
+              className="h-[566px] w-[755px] object-cover"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진10.png"
+              alt=""
+              width={755}
+              height={566}
+              className="h-[566px] w-[755px] object-cover"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진11.png"
+              alt=""
+              width={755}
+              height={566}
+              className="h-[566px] w-[755px] object-cover"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진12.png"
+              alt=""
+              width={755}
+              height={566}
+              className="h-[566px] w-[755px] object-cover"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진13.png"
+              alt=""
+              width={755}
+              height={566}
+              className="h-[566px] w-[755px] object-cover"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진14.png"
+              alt=""
+              width={755}
+              height={566}
+              className="h-[566px] w-[755px] object-cover"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진15.png"
+              alt=""
+              width={755}
+              height={566}
+              className="h-[566px] w-[755px] object-cover"
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부연합사진16.png"
               alt=""
               width={755}
               height={566}
@@ -184,6 +276,16 @@ export default function ListCustom() {
             delay: 5000,
           }}
         >
+          <SwiperSlide>
+            <Image
+              src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부자율프.png"
+              alt=""
+              width={755}
+              height={380}
+              className="h-[380px] w-[755px] object-cover"
+            />
+          </SwiperSlide>
+
           <SwiperSlide>
             <Image
               src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부자율프1.png"
@@ -249,8 +351,8 @@ export default function ListCustom() {
           <h2 className="text-3xl font-bold">“자율 프로젝트”</h2>
           <span className="break-keep">
             분필 보관 통 제작, 스승의 날 명패 제작, 서울시 아이디어
-            공모전 수상 등 자율적으로 다양한 활동 등을 진행할 수
-            있습니다.
+            공모전 수상 등 과기부의 시설 및 지원을 통해 자율적으로
+            다양한 활동 등을 진행할 수 있습니다.
           </span>
         </div>
       </div>
@@ -259,8 +361,20 @@ export default function ListCustom() {
         <div className="inline-flex flex-col gap-6">
           <h2 className="text-3xl font-bold">“과기부 장비”</h2>
           <span className="break-keep">
-            3D 프린터, 3D 펜 레이저 커팅기, 레이저 각인기 VR(오큘러스
-            퀘스트 2) 아두이노 목공 기구 등
+            3D프린터 - 신도리코 3D WOX 1 6대 보유
+            <br />
+            3D프린터 - 신도리코 3D WOX 2 2대 보유
+            <br />
+            레이저 커팅기/각인기 보유
+            <br />
+            DJI NEO 드론, 모션 컨트롤러, 고글 3 1세트 보유(2세트 추가
+            구입 예정)
+            <br />
+            메타 퀘스트 2 5대 보유
+            <br />
+            직소기, 줄톱, 전동 드릴 등 다수의 목공기구 보유
+            <br />
+            기타 다수의 아두이노 제품 및 여러 설비 보유
           </span>
         </div>
 
@@ -452,17 +566,19 @@ export default function ListCustom() {
               className="h-[612px] w-[599px] object-cover"
             />
           </SwiperSlide>
+          {/* <SwiperSlide>
+            <Image
+              src="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/과기부장비19.png"
+              alt=""
+              width={599}
+              height={612}
+              className="h-[612px] w-[599px] object-cover"
+            />
+          </SwiperSlide> */}
         </Swiper>
       </div>
 
       <div className="flex justify-between gap-6">
-        <div className="inline-flex flex-col gap-6">
-          <h2 className="text-3xl font-bold">“과기부 배지”</h2>
-          <span className="break-keep">
-            과기부 부원 시 과기부원 전용 금색 영문 배지 증정
-          </span>
-        </div>
-
         <Swiper
           modules={[Autoplay]}
           className="!m-0 h-[459px] w-[700px] rounded-xl"
@@ -514,14 +630,23 @@ export default function ListCustom() {
             />
           </SwiperSlide>
         </Swiper>
+
+        <div className="inline-flex flex-col gap-6">
+          <h2 className="text-3xl font-bold">“과기부 배지”</h2>
+          <span className="break-keep">
+            과기부 부원 시 과기부원 전용 금색 영문 배지 증정
+          </span>
+        </div>
       </div>
 
       <div className="flex justify-between gap-6">
         <div className="inline-flex flex-col gap-6">
           <h2 className="text-3xl font-bold">“프로젝트 활동”</h2>
           <span className="break-keep">
-            과기부는 ‘경기EV’, ‘KyunggiLife’ 등 그동안 여러 장기
-            프로젝트도 진행해왔습니다.
+            ‘경기EV’ - 전기 자동차 제작
+            <br />
+            ‘KyunggiLife’ - 학교 생활 챗봇 제작 등<br />
+            여러 장기 프로젝트 진행
           </span>
         </div>
 

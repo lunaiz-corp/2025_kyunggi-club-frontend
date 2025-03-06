@@ -1,8 +1,3 @@
-"use client"
-
-import { useEffect } from "react"
-// import { useRouter } from "next-nprogress-bar"
-
 import Sidebar from "@/components/navigation/Sidebar"
 import Topbar from "@/components/navigation/Topbar"
 
@@ -13,15 +8,6 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // TODO: Check if the user is authenticated
-  // If not, redirect to the signin page
-
-  // const router = useRouter()
-
-  useEffect(() => {
-    // router.replace("/auth/signin")
-  })
-
   return (
     <main className="flex">
       <Sidebar />

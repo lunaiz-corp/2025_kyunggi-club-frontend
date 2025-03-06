@@ -7,7 +7,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { useQuery } from "@tanstack/react-query"
-import getProfile from "@/api/getProfile"
+import { getProfile } from "@/api/profile"
 
 import { cn } from "@packages/ui/utils/tailwindMerge"
 import UnionLogo from "@packages/assets/images/union-logo.svg"

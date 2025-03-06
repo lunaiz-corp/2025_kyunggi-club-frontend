@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import LoginBackground from "@/assets/images/login-background.svg"
 
 export const metadata: Metadata = {
-  title: "관리자 로그인 - 경기고등학교 이공계동아리연합",
+  title: "관리자 로그인",
   description: "Welcome to Next.js",
 }
 

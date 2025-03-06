@@ -1,7 +1,0 @@
-{
-  "name": "@packages/swr",
-  "private": "true",
-  "dependencies": {
-    "@packages/eslint-config": "workspace:^"
-  }
-}

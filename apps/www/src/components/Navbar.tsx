@@ -13,7 +13,10 @@ import {
 } from "@heroicons/react/24/outline"
 
 import { NextLink } from "@packages/ui/components/krds/Action"
-import { baseClass as baseLinkClass } from "@packages/ui/components/krds/Action/Link"
+import {
+  ALink,
+  baseClass as baseLinkClass,
+} from "@packages/ui/components/krds/Action/Link"
 
 import UnionLogo from "@packages/assets/images/union-logo.svg"
 
@@ -81,7 +84,7 @@ export default function Navbar() {
 
           {/* PC Navbar Menu */}
           <nav className="hidden gap-3 md:inline-flex">
-            <NextLink
+            {/* <NextLink
               href="/apply/new"
               className={cn(
                 "justify-between px-4 py-2 font-bold",
@@ -99,7 +102,22 @@ export default function Navbar() {
             >
               <InboxIcon className="size-5" />
               지원하기
-            </NextLink>
+            </NextLink> */}
+
+            <ALink
+              href="#"
+              className="justify-between px-4 py-2 font-bold"
+              onClick={e => {
+                e.preventDefault()
+
+                // eslint-disable-next-line no-alert
+                window.alert("지원 기간이 아닙니다.")
+              }}
+              data-prevent-nprogress
+            >
+              <InboxIcon className="size-5" />
+              지원하기
+            </ALink>
 
             <NextLink
               href="/club"
@@ -113,7 +131,7 @@ export default function Navbar() {
               동아리 소개
             </NextLink>
 
-            <NextLink
+            {/* <NextLink
               href="/apply/status"
               className={cn(
                 "justify-between px-4 py-2 font-bold",
@@ -123,7 +141,22 @@ export default function Navbar() {
             >
               <UserIcon className="size-5" />
               결과 확인
-            </NextLink>
+            </NextLink> */}
+
+            <ALink
+              href="#"
+              className="justify-between px-4 py-2 font-bold"
+              onClick={e => {
+                e.preventDefault()
+
+                // eslint-disable-next-line no-alert
+                window.alert("준비 중입니다.")
+              }}
+              data-prevent-nprogress
+            >
+              <UserIcon className="size-5" />
+              결과 확인
+            </ALink>
           </nav>
 
           <div className="md:hidden">

@@ -45,7 +45,7 @@ export default function Footer() {
         <div className="mb-5 inline-flex items-center gap-1.5">
           <span>
             <ALink
-              href="https://kg-support.schooler.kr"
+              href="https://schooler-kg.rdbl.io"
               className="-ml-2"
               target="_blank"
               rel="noopener"
@@ -57,7 +57,7 @@ export default function Footer() {
 
           <span>
             <ALink
-              href="https://kg-support.schooler.kr/legal/tos"
+              href="https://schooler-kg.rdbl.io/legal/tos"
               target="_blank"
               rel="noopener"
             >
@@ -68,7 +68,7 @@ export default function Footer() {
 
           <span>
             <ALink
-              href="https://kg-support.schooler.kr/legal/privacy"
+              href="https://schooler-kg.rdbl.io/legal/privacy"
               className="font-bold"
               target="_blank"
               rel="noopener"

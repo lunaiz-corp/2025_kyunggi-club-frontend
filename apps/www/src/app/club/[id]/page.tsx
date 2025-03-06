@@ -70,25 +70,25 @@ export default async function ClubDetail({
     src: `https://kg-cdn-toast.schooler.kr/assets/background/${id}.webp`,
   })
 
-  // const {
-  //   props: { srcSet: historyPc },
-  // } = getImageProps({
-  //   alt: "연혁 이미지",
-  //   width: 1200,
-  //   height: 857,
-  //   sizes: "100vw",
-  //   src: "https://cdn.discordapp.com/attachments/1335292116712034304/1335486997048983552/history_list.svg?ex=67a64770&is=67a4f5f0&hm=cdd16bc00d003a50a347f55513ed8ecaa6c001e4d8345a9c8b32e2636058b130&",
-  // })
+  const {
+    props: { srcSet: historyPc },
+  } = getImageProps({
+    alt: "연혁 이미지",
+    width: 1200,
+    height: 857,
+    sizes: "100vw",
+    src: `https://kg-cdn-toast.schooler.kr/assets/history/${id}.svg`,
+  })
 
-  // const {
-  //   props: { srcSet: historyMob, ...rest },
-  // } = getImageProps({
-  //   alt: "연혁 이미지",
-  //   width: 339,
-  //   height: 1174,
-  //   sizes: "100vw",
-  //   src: "https://cdn.discordapp.com/attachments/1335292116712034304/1335486997397114900/history_list_m.svg?ex=67a64770&is=67a4f5f0&hm=cdfdef3e60f4bfaa65b95e0d5f1d4993d42e403ad914a3a2d613afdf3e7baf90&",
-  // })
+  const {
+    props: { srcSet: historyMob, ...rest },
+  } = getImageProps({
+    alt: "연혁 이미지",
+    width: 339,
+    height: 1174,
+    sizes: "100vw",
+    src: `https://kg-cdn-toast.schooler.kr/assets/history/${id}_m.svg`,
+  })
 
   return (
     <main className="mx-auto mb-12 flex max-w-[1200px] flex-col gap-24 px-6 pt-8 pb-12 lg:px-0">
@@ -120,7 +120,11 @@ export default async function ClubDetail({
           </div>
 
           <Image
-            src={`https://kg-cdn-toast.schooler.kr/assets/badge/${id}.webp`}
+            src={
+              detail?.custom_logo
+                ? (detail?.custom_logo as string)
+                : `https://kg-cdn-toast.schooler.kr/assets/badge/${id}.webp`
+            }
             alt={`${currentClub.name} 로고`}
             height={72}
             width={128}
@@ -138,7 +142,7 @@ export default async function ClubDetail({
 
         <Advertisements page="club" />
 
-        {detail?.members && (
+        {detail?.members.length > 0 && (
           <div className="flex flex-col gap-8">
             <h2 className="text-2xl font-bold">임원진</h2>
 
@@ -172,39 +176,42 @@ export default async function ClubDetail({
         )}
       </div>
 
-      {detail?.long_description?.map((long, index) => (
-        <div
-          key={`long_description-${index.toString()}`}
-          className="inline-flex flex-col gap-6"
-        >
-          {long.headline && (
-            <h2 className="text-3xl font-bold whitespace-pre-wrap">
-              {long.headline}
-            </h2>
-          )}
-          <span className="text-lg whitespace-pre-wrap">
-            {long.description}
-          </span>
-        </div>
-      ))}
+      {detail?.long_description.length > 0 &&
+        detail?.long_description?.map((long, index) => (
+          <div
+            key={`long_description-${index.toString()}`}
+            className="inline-flex flex-col gap-6"
+          >
+            {long.headline && (
+              <h2 className="text-3xl font-bold whitespace-pre-wrap">
+                {long.headline}
+              </h2>
+            )}
+            <span className="text-lg whitespace-pre-wrap">
+              {long.description}
+            </span>
+          </div>
+        ))}
 
       {id === "list" && <ListCustom />}
 
-      <div className="inline-flex flex-col gap-6">
-        <h2 className="text-3xl font-bold">연혁 (제작 중)</h2>
+      {detail?.history && (
+        <div className="inline-flex flex-col gap-6">
+          <h2 className="text-3xl font-bold">연혁</h2>
 
-        {/* <picture>
-          <source media="(min-width: 768px)" srcSet={historyPc} />
-          <source media="(max-width: 767px)" srcSet={historyMob} />
-          <img
-            {...rest}
-            alt="연혁 이미지"
-            className="h-auto w-full"
-          />
-        </picture> */}
-      </div>
+          <picture>
+            <source media="(min-width: 768px)" srcSet={historyPc} />
+            <source media="(max-width: 767px)" srcSet={historyMob} />
+            <img
+              {...rest}
+              alt="연혁 이미지"
+              className="h-auto w-full"
+            />
+          </picture>
+        </div>
+      )}
 
-      {detail?.members && (
+      {detail?.historic_members.length > 0 && (
         <div className="flex flex-col gap-8">
           <h2 className="text-3xl font-bold">역대 임원진</h2>
 

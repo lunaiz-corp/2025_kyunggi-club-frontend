@@ -6,7 +6,7 @@ import toast from "react-hot-toast"
 import { TrashIcon } from "@heroicons/react/24/outline"
 
 import { useQuery } from "@tanstack/react-query"
-import getList from "@/api/getList"
+import { getList } from "@/api/list"
 
 import { Button } from "@packages/ui/components/krds/Action"
 import Checkbox from "@packages/ui/components/Checkbox"

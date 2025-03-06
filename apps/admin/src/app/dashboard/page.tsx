@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import { useRouter } from "next-nprogress-bar"
 
 import { useQuery } from "@tanstack/react-query"
-import getProfile from "@/api/getProfile"
+import { getProfile } from "@/api/profile"
 
 import PageInitialLoading from "@/components/PageInitialLoading"
 

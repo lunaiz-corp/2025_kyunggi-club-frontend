@@ -16,7 +16,7 @@ function SchedulesList({
         {new Intl.DateTimeFormat("ko-KR", {
           month: "long",
           day: "numeric",
-        }).format(schedule.datetime)}
+        }).format(new Date(schedule.start_at))}
       </span>
 
       <div className="inline-flex items-center gap-2">

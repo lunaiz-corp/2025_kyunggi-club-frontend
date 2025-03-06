@@ -1,6 +1,6 @@
 {
   "name": "@apps/www",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -13,7 +13,6 @@
     "@packages/assets": "workspace:^",
     "@packages/channelio": "workspace:^",
     "@packages/eslint-config": "workspace:^",
-    "@packages/swr": "workspace:^",
     "@packages/ui": "workspace:^",
     "@use-funnel/browser": "^0.0.13",
     "nanoid": "^5.1.2",

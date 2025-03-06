@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 
-import { NextLink } from "@packages/ui/components/krds/Action"
 import Advertisements from "@/components/Advertisements"
+
+import NoticeLinks from "./_components/Links"
 
 export const metadata: Metadata = {
   title: "공지사항",
@@ -23,32 +24,7 @@ export default function NoticeList() {
       <Advertisements page="notice" />
 
       <div className="flex flex-col gap-8">
-        <NextLink
-          href="/notice/1"
-          className="flex-col items-start gap-4 px-4 py-3"
-        >
-          <div className="inline-flex items-center gap-2.5">
-            <div className="size-2 rounded-full bg-ceruleanBlue-600" />
-            <h2 className="text-2xl font-bold md:text-3xl">Title</h2>
-          </div>
-
-          <span className="text-gray-300">
-            2025년 1월 21일 00:05:08
-          </span>
-        </NextLink>
-
-        <NextLink
-          href="/notice/2"
-          className="flex-col items-start gap-4 px-4 py-3"
-        >
-          <div className="inline-flex items-center gap-2.5">
-            <h2 className="text-2xl font-bold md:text-3xl">Title</h2>
-          </div>
-
-          <span className="text-gray-300">
-            2025년 1월 21일 00:05:08
-          </span>
-        </NextLink>
+        <NoticeLinks />
       </div>
     </main>
   )

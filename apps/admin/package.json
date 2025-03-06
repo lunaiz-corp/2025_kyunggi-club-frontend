@@ -1,6 +1,6 @@
 {
   "name": "@apps/admin",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -16,7 +16,6 @@
     "@packages/channelio": "workspace:^",
     "@packages/eslint-config": "workspace:^",
     "@packages/ui": "workspace:^",
-    "@tanstack/react-query": "^5.67.1",
     "@tiptap/extension-color": "^2.11.5",
     "@tiptap/extension-highlight": "^2.11.5",
     "@tiptap/extension-image": "^2.11.5",

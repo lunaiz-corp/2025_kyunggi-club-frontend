@@ -29,13 +29,13 @@ const TERMS = [
   {
     id: 1,
     title: "[필수] 서비스 이용약관 동의",
-    link: "https://kg-support.schooler.kr/legal/tos",
+    link: "https://schooler-kg.rdbl.io/legal/tos",
     isRequired: true,
   },
   {
     id: 2,
     title: "[필수] 개인정보 처리 동의",
-    link: "https://kg-support.schooler.kr/legal/privacy",
+    link: "https://schooler-kg.rdbl.io/legal/privacy",
     isRequired: true,
   },
   {
