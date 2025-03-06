@@ -48,9 +48,9 @@ export default function Sidebar() {
         href: "/dashboard/home",
       },
       {
-        name: "공지사항 관리",
+        name: "관리자 공지사항",
         icon: SpeakerphoneIcon,
-        href: "/dashboard/notice",
+        href: "/dashboard/common-notice",
       },
     ],
     "동아리 관리": [
@@ -124,10 +124,22 @@ export default function Sidebar() {
               href: "/dashboard/home",
             },
             {
-              name: "공지사항 관리",
+              name:
+                profile.role === "OWNER"
+                  ? "관리자 공지사항 관리"
+                  : "관리자 공지사항",
               icon: SpeakerphoneIcon,
-              href: "/dashboard/notice",
+              href: "/dashboard/common-notice",
             },
+            ...(profile.role === "OWNER"
+              ? [
+                  {
+                    name: "공지사항 관리",
+                    icon: SpeakerphoneIcon,
+                    href: "/dashboard/notice",
+                  },
+                ]
+              : []),
           ],
           "동아리 관리": [
             {
@@ -146,7 +158,7 @@ export default function Sidebar() {
               href: "/dashboard/club/application",
             },
           ],
-          "일정 관리 (관리자)":
+          "일정 관리 (운영진)":
             profile.role === "OWNER"
               ? [
                   {
