@@ -62,7 +62,7 @@ export default function ListCustom() {
           </span>
 
           <ALink
-            href="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/포스터.jpeg"
+            href="https://kg-cdn-toast.schooler.kr/assets/diy/list/images/포스터.jpeg"
             target="_blank"
             rel="noopener noreferrer"
             className="w-fit px-4 py-2 font-bold"
