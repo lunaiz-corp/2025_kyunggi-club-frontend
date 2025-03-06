@@ -10,6 +10,7 @@ import { getProfile } from "@/api/profile"
 import { NextLink } from "@packages/ui/components/krds/Action"
 
 import * as clubsJson from "@/data/clubs.json"
+import { Member } from "@/api/types/member"
 
 const { clubs } = clubsJson
 
@@ -24,7 +25,8 @@ export default function ClubSelect({
     data: profile,
   } = useQuery({
     queryKey: ["profile"],
-    queryFn: getProfile,
+    queryFn: () =>
+      getProfile() as Promise<Member & { club: string[] }>,
   })
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export default function ClubSelect({
         return
       }
 
-      if (profile.club.length === 1) {
+      if (profile && profile.club.length === 1) {
         router.push(`${nextUrl}/${profile.club[0]}`)
       }
     })()
