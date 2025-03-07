@@ -19,7 +19,7 @@ export default function ListCustom() {
 
   return (
     <div className="flex flex-col gap-24">
-      <div className="flex justify-between gap-6">
+      <div className="flex flex-col justify-between gap-6 md:flex-row">
         <div className="relative w-full flex-1">
           <video
             loop
@@ -73,7 +73,7 @@ export default function ListCustom() {
         </div>
       </div>
 
-      <div className="flex justify-between gap-6">
+      <div className="flex flex-col justify-between gap-6 md:flex-row">
         <div className="inline-flex flex-col gap-6">
           <h2 className="text-3xl font-bold">
             “경기고 최다최빈 연합활동”
@@ -264,7 +264,7 @@ export default function ListCustom() {
         </Swiper>
       </div>
 
-      <div className="flex justify-between gap-6">
+      <div className="flex flex-col justify-between gap-6 md:flex-row">
         <Swiper
           modules={[Autoplay]}
           className="!m-0 h-[380px] w-[755px] rounded-xl"
@@ -357,7 +357,7 @@ export default function ListCustom() {
         </div>
       </div>
 
-      <div className="flex justify-between gap-6">
+      <div className="flex flex-col justify-between gap-6 md:flex-row">
         <div className="inline-flex flex-col gap-6">
           <h2 className="text-3xl font-bold">“과기부 장비”</h2>
           <span className="break-keep">
@@ -578,7 +578,7 @@ export default function ListCustom() {
         </Swiper>
       </div>
 
-      <div className="flex justify-between gap-6">
+      <div className="flex flex-col justify-between gap-6 md:flex-row">
         <Swiper
           modules={[Autoplay]}
           className="!m-0 h-[459px] w-[700px] rounded-xl"
@@ -639,7 +639,7 @@ export default function ListCustom() {
         </div>
       </div>
 
-      <div className="flex justify-between gap-6">
+      <div className="flex flex-col justify-between gap-6 md:flex-row">
         <div className="inline-flex flex-col gap-6">
           <h2 className="text-3xl font-bold">“프로젝트 활동”</h2>
           <span className="break-keep">
