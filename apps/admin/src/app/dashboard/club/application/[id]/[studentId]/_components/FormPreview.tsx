@@ -9,8 +9,8 @@ import {
   type UploadedFile,
 } from "@packages/ui/components/krds/Input/FileUpload"
 
+import { QuestionType } from "@/api/types/form"
 import type { SubmittedForm } from "../../_components/types"
-import { QuestionType } from "../../../../template/_components/types"
 
 const MOCK_QUESTION = [
   {

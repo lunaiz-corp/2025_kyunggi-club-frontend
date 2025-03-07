@@ -1,5 +1,7 @@
 "use client"
 
+import { useEffect } from "react"
+import type { Dispatch, SetStateAction } from "react"
 import { useEditor, EditorContent, BubbleMenu } from "@tiptap/react"
 
 import StarterKit from "@tiptap/starter-kit"
@@ -31,8 +33,12 @@ import {
 import { PhotoIcon } from "@heroicons/react/24/outline"
 
 export default function Tiptap({
-  content,
-}: Readonly<{ content?: string }>) {
+  contentState,
+}: Readonly<{
+  contentState: [string | undefined, Dispatch<SetStateAction<string>>]
+}>) {
+  const [content, setContent] = contentState
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -60,7 +66,10 @@ export default function Tiptap({
         defaultProtocol: "https",
         protocols: ["http", "https"],
       }),
-      Image,
+      Image.configure({
+        allowBase64: true,
+        inline: true,
+      }),
     ],
     editorProps: {
       attributes: {
@@ -69,8 +78,24 @@ export default function Tiptap({
       },
     },
     content,
+    onUpdate({ editor: _editor }) {
+      setContent(_editor.getHTML())
+    },
+
     immediatelyRender: false,
   })
+
+  useEffect(() => {
+    const preventLeave = (e: BeforeUnloadEvent) => {
+      e.preventDefault()
+    }
+
+    window.addEventListener("beforeunload", preventLeave)
+
+    return () => {
+      window.removeEventListener("beforeunload", preventLeave)
+    }
+  }, [])
 
   return (
     <div className="min-h-[540px] rounded-lg bg-gray-800 p-6">
@@ -301,6 +326,32 @@ export default function Tiptap({
 
           <button
             type="button"
+            onClick={() => {
+              const input = document.createElement("input")
+              input.type = "file"
+              input.accept = "image/*"
+
+              input.addEventListener("change", () => {
+                if (!input.files) return
+
+                const file = input.files[0]
+                if (file) {
+                  const reader = new FileReader()
+
+                  reader.onload = () => {
+                    editor
+                      .chain()
+                      .focus()
+                      .setImage({ src: reader.result as string })
+                      .run()
+                  }
+
+                  reader.readAsDataURL(file)
+                }
+              })
+
+              input.click()
+            }}
             className="inline-flex size-8 cursor-pointer items-center justify-center gap-3.5 rounded-md bg-gray-700 hover:bg-gray-600"
             title="이미지 삽입"
           >

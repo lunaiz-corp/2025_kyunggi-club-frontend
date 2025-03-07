@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation"
 
 import { useQuery } from "@tanstack/react-query"
 import { getProfile } from "@/api/profile"
+import { getIp } from "@/api/external/ip"
 
 import { cn } from "@packages/ui/utils/tailwindMerge"
 import UnionLogo from "@packages/assets/images/union-logo.svg"
@@ -100,6 +101,15 @@ export default function Sidebar() {
     queryFn: getProfile,
   })
 
+  const {
+    isLoading: isIpLoading,
+    error: ipError,
+    data: ip,
+  } = useQuery({
+    queryKey: ["ip"],
+    queryFn: getIp,
+  })
+
   useEffect(() => {
     ;(async () => {
       // Check the token is exist
@@ -123,14 +133,6 @@ export default function Sidebar() {
               icon: HomeIcon,
               href: "/dashboard/home",
             },
-            {
-              name:
-                profile.role === "OWNER"
-                  ? "관리자 공지사항 관리"
-                  : "관리자 공지사항",
-              icon: SpeakerphoneIcon,
-              href: "/dashboard/common-notice",
-            },
             ...(profile.role === "OWNER"
               ? [
                   {
@@ -140,6 +142,14 @@ export default function Sidebar() {
                   },
                 ]
               : []),
+            {
+              name:
+                profile.role === "OWNER"
+                  ? "관리자 공지사항 관리"
+                  : "관리자 공지사항",
+              icon: SpeakerphoneIcon,
+              href: "/dashboard/common-notice",
+            },
           ],
           "동아리 관리": [
             {
@@ -281,19 +291,24 @@ export default function Sidebar() {
           )}
         </div>
 
-        {profile && (
-          <div className="mt-12 inline-flex w-full flex-col items-start justify-center gap-2 rounded-md border border-[#eff6ff]/75 p-4 select-none">
-            <span className="text-sm font-bold">
-              로그 실시간 기록 중
-            </span>
+        {!isProfileLoading &&
+          !profileError &&
+          profile &&
+          !isIpLoading &&
+          !ipError &&
+          ip && (
+            <div className="mt-12 inline-flex w-full flex-col items-start justify-center gap-2 rounded-md border border-[#eff6ff]/75 p-4 select-none">
+              <span className="text-sm font-bold">
+                로그 실시간 기록 중
+              </span>
 
-            <span className="text-xs">
-              해당 화면에서 진행하는 모든 활동은 내 계정 (
-              {profile.email})과 현재 접속한 IP가 함께 기록되고
-              있습니다.
-            </span>
-          </div>
-        )}
+              <span className="text-xs">
+                해당 화면에서 진행하는 모든 활동은 내 계정 (
+                {profile.email})과, 현재 접속한 IP ({ip})가 함께
+                기록되고 있습니다.
+              </span>
+            </div>
+          )}
       </div>
     </>
   )

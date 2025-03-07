@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 
 import { useQuery } from "@tanstack/react-query"
@@ -9,7 +10,6 @@ import { ChevronLeftIcon } from "@heroicons/react/24/solid"
 import { NextLink } from "@packages/ui/components/krds/Action"
 
 import Advertisements from "@/components/Advertisements"
-import { useEffect } from "react"
 
 export default function NoticeDetail() {
   const { id } = useParams<{ id: string }>()
@@ -59,19 +59,20 @@ export default function NoticeDetail() {
           </div>
 
           <div className="text-gray-300">
-            {new Date(notice?.created_at ?? 0).toLocaleString(
-              "ko-KR",
-              {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
+            {new Date(
+              notice?.created_at ?? "1970-01-01T00:00:00Z",
+            ).toLocaleString("ko-KR", {
+              timeZone: "Asia/Seoul",
 
-                hourCycle: "h24",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-              },
-            )}
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+
+              hourCycle: "h24",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            })}
           </div>
         </div>
 

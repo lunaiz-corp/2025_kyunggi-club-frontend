@@ -1,8 +1,6 @@
-export enum ServiceStatus {
-  OPEN = "OPEN",
-  QA = "QA",
-  MAINTENANCE = "MAINTENANCE",
-}
+/* eslint-disable import/prefer-default-export */
+
+import { ServiceStatus } from "@/api/types/schedule"
 
 export const statusInText = {
   [ServiceStatus.OPEN]: "오픈",

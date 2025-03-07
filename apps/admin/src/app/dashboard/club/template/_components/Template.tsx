@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import toast from "react-hot-toast"
 
 import {
   DndContext,
@@ -16,13 +17,15 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
 
+import { getForm } from "@/api/club"
+import { useQuery } from "@tanstack/react-query"
+
 import { PencilIcon } from "@heroicons/react/24/solid"
 
 import { Button } from "@packages/ui/components/krds/Action"
-
 import TitleBar from "@/components/common/TitleBar"
 
-import { type QuestionObject, QuestionType } from "./types"
+import { type Question, QuestionType } from "@/api/types/form"
 import DndQuestion from "./DndQuestion"
 
 export default function Template({
@@ -30,43 +33,29 @@ export default function Template({
 }: Readonly<{
   club: { id: string; name: string }
 }>) {
-  const [questions, setQuestions] = useState<QuestionObject[]>([
-    {
-      id: 1,
-      question: "무임승차를 하실건가요?1",
-      type: QuestionType.SHORT_INPUT,
-      required: false,
-    },
-    {
-      id: 2,
-      question: "무임승차를 하실건가요?2",
-      type: QuestionType.LONG_INPUT,
-      required: false,
-    },
-    {
-      id: 3,
-      question: "무임승차를 하실건가요?3",
-      type: QuestionType.MULTIPLE_CHOICE,
-      options: ["옵션 1", "옵션 2"],
-      required: false,
-    },
-    {
-      id: 4,
-      question: "무임승차를 하실건가요?4",
-      type: QuestionType.DROPDOWN,
-      options: ["옵션 1", "옵션 2"],
-      required: false,
-    },
-    {
-      id: 5,
-      question: "무임승차를 하실건가요?5",
-      type: QuestionType.FILE_UPLOAD,
-      maxFiles: 10,
-      required: false,
-    },
-  ])
+  const {
+    isLoading: isSavedLoading,
+    error: savedError,
+    data: saved,
+  } = useQuery({
+    queryKey: ["templates", club.id],
+    queryFn: () => getForm({ club: club.id }),
+  })
 
+  const [questions, setQuestions] = useState<Question[]>([])
   const sensors = useSensors(useSensor(PointerSensor))
+
+  useEffect(() => {
+    if (savedError) {
+      toast.error(
+        savedError.message || "서버와의 통신 중 오류가 발생했습니다.",
+      )
+    }
+
+    if (saved) {
+      setQuestions(saved)
+    }
+  }, [savedError, saved])
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
@@ -181,140 +170,172 @@ export default function Template({
         <Button
           type="button"
           className="mt-5 border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
+          onClick={async () => {
+            const saveRequest = await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/club/${club.id}/forms`,
+              {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem(
+                    "accessToken",
+                  )}`,
+                },
+                body: JSON.stringify(questions),
+              },
+            )
+
+            const saveResponse = await saveRequest.json()
+            if (saveRequest.ok) {
+              toast.success("양식을 저장했습니다.")
+            } else {
+              toast.error(
+                saveResponse.message ||
+                  "서버와의 통신 중 오류가 발생했습니다.",
+              )
+
+              // eslint-disable-next-line no-console
+              console.error(saveResponse)
+            }
+          }}
         >
           <PencilIcon className="size-4 fill-gray-900" />
           <span className="text-gray-900">저장하기</span>
         </Button>
       </div>
 
-      <div className="flex flex-col gap-12">
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
-        >
-          <SortableContext
-            items={questions}
-            strategy={verticalListSortingStrategy}
+      {!isSavedLoading && !savedError && saved && (
+        <div className="flex flex-col gap-12">
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
           >
-            {questions.map(question => (
-              <DndQuestion
-                key={question.id}
-                question={question}
-                onDelete={handleDelete}
-                onQuestionNameChange={handleQuestionNameChange}
-                onQuestionOptionAdded={handleQuestionOptionAdded}
-                onQuestionOptionDeleted={handleQuestionOptionDeleted}
-                onQuestionOptionChange={handleQuestionOptionChange}
-                onQuestionRequiredChange={
-                  handleQuestionRequiredChange
-                }
-                onFileLimitChange={handleFileLimitChange}
-              />
-            ))}
-          </SortableContext>
-        </DndContext>
+            <SortableContext
+              items={questions}
+              strategy={verticalListSortingStrategy}
+            >
+              {questions.map(question => (
+                <DndQuestion
+                  key={question.id}
+                  question={question}
+                  onDelete={handleDelete}
+                  onQuestionNameChange={handleQuestionNameChange}
+                  onQuestionOptionAdded={handleQuestionOptionAdded}
+                  onQuestionOptionDeleted={
+                    handleQuestionOptionDeleted
+                  }
+                  onQuestionOptionChange={handleQuestionOptionChange}
+                  onQuestionRequiredChange={
+                    handleQuestionRequiredChange
+                  }
+                  onFileLimitChange={handleFileLimitChange}
+                />
+              ))}
+            </SortableContext>
+          </DndContext>
 
-        <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-5">
-          <Button
-            type="button"
-            className="w-full border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
-            onClick={() => {
-              setQuestions(qs => [
-                ...qs,
-                {
-                  id: qs.length + 1,
-                  question: "질문을 입력하세요.",
-                  type: QuestionType.SHORT_INPUT,
-                  required: false,
-                },
-              ])
-            }}
-          >
-            <PencilIcon className="size-4 fill-gray-900" />
-            <span className="text-gray-900">단답형</span>
-          </Button>
+          <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-5">
+            <Button
+              type="button"
+              className="w-full border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
+              onClick={() => {
+                setQuestions(qs => [
+                  ...qs,
+                  {
+                    id: qs.length + 1,
+                    question: "질문을 입력하세요.",
+                    type: QuestionType.SHORT_INPUT,
+                    required: false,
+                  },
+                ])
+              }}
+            >
+              <PencilIcon className="size-4 fill-gray-900" />
+              <span className="text-gray-900">단답형</span>
+            </Button>
 
-          <Button
-            type="button"
-            className="w-full border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
-            onClick={() => {
-              setQuestions(qs => [
-                ...qs,
-                {
-                  id: qs.length + 1,
-                  question: "질문을 입력하세요.",
-                  type: QuestionType.LONG_INPUT,
-                  required: false,
-                },
-              ])
-            }}
-          >
-            <PencilIcon className="size-4 fill-gray-900" />
-            <span className="text-gray-900">장문형</span>
-          </Button>
+            <Button
+              type="button"
+              className="w-full border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
+              onClick={() => {
+                setQuestions(qs => [
+                  ...qs,
+                  {
+                    id: qs.length + 1,
+                    question: "질문을 입력하세요.",
+                    type: QuestionType.LONG_INPUT,
+                    required: false,
+                  },
+                ])
+              }}
+            >
+              <PencilIcon className="size-4 fill-gray-900" />
+              <span className="text-gray-900">장문형</span>
+            </Button>
 
-          <Button
-            type="button"
-            className="w-full border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
-            onClick={() => {
-              setQuestions(qs => [
-                ...qs,
-                {
-                  id: qs.length + 1,
-                  question: "질문을 입력하세요.",
-                  type: QuestionType.DROPDOWN,
-                  options: [""],
-                  required: false,
-                },
-              ])
-            }}
-          >
-            <PencilIcon className="size-4 fill-gray-900" />
-            <span className="text-gray-900">드롭다운</span>
-          </Button>
+            <Button
+              type="button"
+              className="w-full border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
+              onClick={() => {
+                setQuestions(qs => [
+                  ...qs,
+                  {
+                    id: qs.length + 1,
+                    question: "질문을 입력하세요.",
+                    type: QuestionType.DROPDOWN,
+                    options: ["선택지를 입력하세요."],
+                    required: false,
+                  },
+                ])
+              }}
+            >
+              <PencilIcon className="size-4 fill-gray-900" />
+              <span className="text-gray-900">드롭다운</span>
+            </Button>
 
-          <Button
-            type="button"
-            className="w-full border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
-            onClick={() => {
-              setQuestions(qs => [
-                ...qs,
-                {
-                  id: qs.length + 1,
-                  question: "질문을 입력하세요.",
-                  type: QuestionType.MULTIPLE_CHOICE,
-                  options: [""],
-                  required: false,
-                },
-              ])
-            }}
-          >
-            <PencilIcon className="size-4 fill-gray-900" />
-            <span className="text-gray-900">객관식</span>
-          </Button>
+            <Button
+              type="button"
+              className="w-full border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
+              onClick={() => {
+                setQuestions(qs => [
+                  ...qs,
+                  {
+                    id: qs.length + 1,
+                    question: "질문을 입력하세요.",
+                    type: QuestionType.MULTIPLE_CHOICE,
+                    options: ["선택지를 입력하세요."],
+                    required: false,
+                  },
+                ])
+              }}
+            >
+              <PencilIcon className="size-4 fill-gray-900" />
+              <span className="text-gray-900">객관식</span>
+            </Button>
 
-          <Button
-            type="button"
-            className="w-full border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
-            onClick={() => {
-              setQuestions(qs => [
-                ...qs,
-                {
-                  id: qs.length + 1,
-                  question: "질문을 입력하세요.",
-                  type: QuestionType.FILE_UPLOAD,
-                  maxFiles: 10,
-                  required: false,
-                },
-              ])
-            }}
-          >
-            <PencilIcon className="size-4 fill-gray-900" />
-            <span className="text-gray-900">파일 업로드 </span>
-          </Button>
+            <Button
+              type="button"
+              className="w-full border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
+              onClick={() => {
+                setQuestions(qs => [
+                  ...qs,
+                  {
+                    id: qs.length + 1,
+                    question: "질문을 입력하세요.",
+                    type: QuestionType.FILE_UPLOAD,
+                    maxFiles: 10,
+                    required: false,
+                  },
+                ])
+              }}
+            >
+              <PencilIcon className="size-4 fill-gray-900" />
+              <span className="text-gray-900">파일 업로드 </span>
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
     </>
   )
 }

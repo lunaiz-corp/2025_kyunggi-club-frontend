@@ -31,47 +31,56 @@ export const PresetTitle = {
 export default function ModifyModal({
   isOpen,
   close,
-  prefilled,
+  defaultClub,
   allowedTypes,
 }: Readonly<{
   isOpen: boolean
-  close: (returnValue?: Schedule) => void
-  prefilled?: Schedule
+  close: (
+    returnValue?: Omit<Schedule, "id" | "club"> & {
+      club?: string
+    },
+  ) => void
+  defaultClub?: string
   allowedTypes: Set<Preset>
 }>) {
   const [title, setTitle] = useState<string>("")
-  const [type, setType] = useState<Preset>(Preset.ETC)
 
-  const [datetime, setDatetime] = useState<Date | null>(null)
+  const [category, setCategory] = useState<Preset>(Preset.ETC)
+  const [club, setClub] = useState<string | undefined>()
+
+  const [startAt, setStartAt] = useState<Date | null>(null)
 
   const customHourRef = useRef<HTMLInputElement>(null)
   const customMinuteRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (prefilled) {
-      setTitle(prefilled.title)
-      setType(prefilled.type)
-      setDatetime(prefilled.datetime)
+    if (defaultClub) {
+      setClub(defaultClub)
     }
-  }, [prefilled])
+  }, [defaultClub])
 
   useEffect(() => {
-    if (type && type !== Preset.ETC) {
-      setTitle(PresetTitle[type])
+    if (
+      category &&
+      category !== Preset.EXAMINATION &&
+      category !== Preset.INTERVIEW &&
+      category !== Preset.ETC
+    ) {
+      setTitle(PresetTitle[category])
     }
-  }, [type])
+  }, [category])
 
   useEffect(() => {
     customHourRef.current!.value = String(
-      !datetime || datetime.getHours() % 12 === 0
+      !startAt || startAt.getHours() % 12 === 0
         ? 12
-        : datetime.getHours() % 12,
+        : startAt.getHours() % 12,
     ).padStart(2, "0")
 
     customMinuteRef.current!.value = String(
-      datetime ? datetime.getMinutes() : 0,
+      startAt ? startAt.getMinutes() : 0,
     ).padStart(2, "0")
-  }, [datetime])
+  }, [startAt])
 
   return (
     <div
@@ -99,13 +108,14 @@ export default function ModifyModal({
               title="닫기"
               className="cursor-pointer"
               onClick={() => {
-                if (!title || !type || !datetime) {
+                if (!title || !category || !startAt) {
                   close()
                 } else {
                   close({
                     title,
-                    type,
-                    datetime,
+                    category,
+                    club,
+                    start_at: startAt.toISOString(),
                   })
                 }
               }}
@@ -116,8 +126,8 @@ export default function ModifyModal({
 
           {allowedTypes.size > 1 && (
             <Select
-              value={type}
-              onChange={e => setType(e.target.value as Preset)}
+              value={category}
+              onChange={e => setCategory(e.target.value as Preset)}
             >
               <option value={Preset.ETC} hidden disabled>
                 일정 종류 선택
@@ -125,7 +135,12 @@ export default function ModifyModal({
 
               {Object.values(Preset)
                 .filter(x => allowedTypes.has(x))
-                .filter(x => x !== Preset.ETC)
+                .filter(
+                  x =>
+                    x !== Preset.EXAMINATION &&
+                    x !== Preset.INTERVIEW &&
+                    x !== Preset.ETC,
+                )
                 .map(preset => (
                   <option key={preset} value={preset}>
                     {PresetTitle[preset]}
@@ -146,7 +161,7 @@ export default function ModifyModal({
             >
               <div className="rounded-xl border border-[#eff6ff]/10 px-3 py-5 md:w-1/2">
                 <SchedulesCalendar
-                  selectedDateState={[datetime, setDatetime]}
+                  selectedDateState={[startAt, setStartAt]}
                 />
               </div>
             </Suspense>
@@ -168,14 +183,14 @@ export default function ModifyModal({
                     type="button"
                     className={cn(
                       "inline-flex h-[60px] cursor-pointer items-center text-center text-3xl font-bold",
-                      (datetime?.getHours() ?? 0) >= 12 &&
+                      (startAt?.getHours() ?? 0) >= 12 &&
                         "text-gray-100/30",
                     )}
                     onClick={() => {
-                      if (!datetime) return
+                      if (!startAt) return
 
                       // 현재 시간은 두고, 오전으로 설정 (12보다 크면 12를 빼고, 작으면 아무것도 안함)
-                      setDatetime(
+                      setStartAt(
                         time =>
                           new Date(
                             time!.setHours(
@@ -197,14 +212,14 @@ export default function ModifyModal({
                     type="button"
                     className={cn(
                       "inline-flex h-[60px] cursor-pointer items-center text-center text-3xl font-bold",
-                      (datetime?.getHours() ?? 0) < 12 &&
+                      (startAt?.getHours() ?? 0) < 12 &&
                         "text-gray-100/30",
                     )}
                     onClick={() => {
-                      if (!datetime) return
+                      if (!startAt) return
 
                       // 현재 시간은 두고, 오후으로 설정 (12보다 작으면 12를 더하고, 크면 아무것도 안함)
-                      setDatetime(
+                      setStartAt(
                         time =>
                           new Date(
                             time!.setHours(
@@ -229,30 +244,30 @@ export default function ModifyModal({
                       type="button"
                       className="cursor-pointer text-center text-6xl font-bold text-gray-100/30"
                       onClick={() => {
-                        if (!datetime) return
+                        if (!startAt) return
 
                         // 1시간 전으로 설정
                         // 0시면 23시로 설정
-                        setDatetime(
+                        setStartAt(
                           new Date(
-                            datetime.setHours(
-                              datetime.getHours() === 0
+                            startAt.setHours(
+                              startAt.getHours() === 0
                                 ? 23
-                                : datetime.getHours() - 1,
-                              datetime.getMinutes(),
-                              datetime.getSeconds(),
-                              datetime.getMilliseconds(),
+                                : startAt.getHours() - 1,
+                              startAt.getMinutes(),
+                              startAt.getSeconds(),
+                              startAt.getMilliseconds(),
                             ),
                           ),
                         )
                       }}
                     >
                       {String(
-                        !datetime || datetime?.getHours() === 0
+                        !startAt || startAt?.getHours() === 0
                           ? 11
-                          : (datetime.getHours() - 1) % 12 === 0
+                          : (startAt.getHours() - 1) % 12 === 0
                             ? 12
-                            : (datetime.getHours() - 1) % 12,
+                            : (startAt.getHours() - 1) % 12,
                       ).padStart(2, "0")}
                     </button>
 
@@ -262,12 +277,12 @@ export default function ModifyModal({
                       className="cursor-pointer border-0 bg-inherit p-0 text-center text-6xl font-bold select-all focus:ring-0"
                       fieldSizing="content"
                       defaultValue={String(
-                        !datetime || datetime.getHours() % 12 === 0
+                        !startAt || startAt.getHours() % 12 === 0
                           ? 12
-                          : datetime.getHours() % 12,
+                          : startAt.getHours() % 12,
                       ).padStart(2, "0")}
                       onKeyDown={e => {
-                        if (!datetime || e.key !== "Enter") return
+                        if (!startAt || e.key !== "Enter") return
 
                         if (Number(e.currentTarget.value) < 0) {
                           e.currentTarget.value = "0"
@@ -277,13 +292,13 @@ export default function ModifyModal({
                           e.currentTarget.value = "23"
                         }
 
-                        setDatetime(
+                        setStartAt(
                           new Date(
-                            datetime.setHours(
+                            startAt.setHours(
                               Number(e.currentTarget.value),
-                              datetime.getMinutes(),
-                              datetime.getSeconds(),
-                              datetime.getMilliseconds(),
+                              startAt.getMinutes(),
+                              startAt.getSeconds(),
+                              startAt.getMilliseconds(),
                             ),
                           ),
                         )
@@ -298,29 +313,29 @@ export default function ModifyModal({
                       type="button"
                       className="cursor-pointer text-center text-6xl font-bold text-gray-100/30"
                       onClick={() => {
-                        if (!datetime) return
+                        if (!startAt) return
 
                         // 1시간 뒤으로 설정
                         // 23시면 0시로 설정
-                        setDatetime(
+                        setStartAt(
                           new Date(
-                            datetime.setHours(
-                              datetime.getHours() === 23
+                            startAt.setHours(
+                              startAt.getHours() === 23
                                 ? 0
-                                : datetime.getHours() + 1,
-                              datetime.getMinutes(),
-                              datetime.getSeconds(),
-                              datetime.getMilliseconds(),
+                                : startAt.getHours() + 1,
+                              startAt.getMinutes(),
+                              startAt.getSeconds(),
+                              startAt.getMilliseconds(),
                             ),
                           ),
                         )
                       }}
                     >
                       {String(
-                        !datetime ||
-                          (datetime.getHours() + 1) % 12 === 0
+                        !startAt ||
+                          (startAt.getHours() + 1) % 12 === 0
                           ? 12
-                          : (datetime.getHours() + 1) % 12,
+                          : (startAt.getHours() + 1) % 12,
                       ).padStart(2, "0")}
                     </button>
                   </div>
@@ -334,27 +349,27 @@ export default function ModifyModal({
                       type="button"
                       className="cursor-pointer text-center text-6xl font-bold text-gray-100/30"
                       onClick={() => {
-                        if (!datetime) return
+                        if (!startAt) return
 
                         // 1분 전으로 설정
                         // 0분이면 59분으로 설정
-                        setDatetime(
+                        setStartAt(
                           new Date(
-                            datetime.setMinutes(
-                              datetime.getMinutes() === 0
+                            startAt.setMinutes(
+                              startAt.getMinutes() === 0
                                 ? 59
-                                : datetime.getMinutes() - 1,
-                              datetime.getSeconds(),
-                              datetime.getMilliseconds(),
+                                : startAt.getMinutes() - 1,
+                              startAt.getSeconds(),
+                              startAt.getMilliseconds(),
                             ),
                           ),
                         )
                       }}
                     >
                       {String(
-                        !datetime || datetime?.getMinutes() === 0
+                        !startAt || startAt?.getMinutes() === 0
                           ? 59
-                          : (datetime.getMinutes() - 1) % 60,
+                          : (startAt.getMinutes() - 1) % 60,
                       ).padStart(2, "0")}
                     </button>
 
@@ -364,10 +379,10 @@ export default function ModifyModal({
                       className="cursor-pointer border-0 bg-inherit p-0 text-center text-6xl font-bold select-all focus:ring-0"
                       fieldSizing="content"
                       defaultValue={String(
-                        datetime ? datetime.getMinutes() : 0,
+                        startAt ? startAt.getMinutes() : 0,
                       ).padStart(2, "0")}
                       onKeyDown={e => {
-                        if (!datetime || e.key !== "Enter") return
+                        if (!startAt || e.key !== "Enter") return
 
                         if (Number(e.currentTarget.value) < 0) {
                           e.currentTarget.value = "0"
@@ -379,12 +394,12 @@ export default function ModifyModal({
                           )
                         }
 
-                        setDatetime(
+                        setStartAt(
                           new Date(
-                            datetime.setMinutes(
+                            startAt.setMinutes(
                               Number(e.currentTarget.value),
-                              datetime.getSeconds(),
-                              datetime.getMilliseconds(),
+                              startAt.getSeconds(),
+                              startAt.getMilliseconds(),
                             ),
                           ),
                         )
@@ -399,27 +414,27 @@ export default function ModifyModal({
                       type="button"
                       className="cursor-pointer text-center text-6xl font-bold text-gray-100/30"
                       onClick={() => {
-                        if (!datetime) return
+                        if (!startAt) return
 
                         // 1분 뒤로 설정
                         // 59분이면 0분으로 설정
-                        setDatetime(
+                        setStartAt(
                           new Date(
-                            datetime.setMinutes(
-                              datetime.getMinutes() === 59
+                            startAt.setMinutes(
+                              startAt.getMinutes() === 59
                                 ? 0
-                                : datetime.getMinutes() + 1,
-                              datetime.getSeconds(),
-                              datetime.getMilliseconds(),
+                                : startAt.getMinutes() + 1,
+                              startAt.getSeconds(),
+                              startAt.getMilliseconds(),
                             ),
                           ),
                         )
                       }}
                     >
                       {String(
-                        !datetime || datetime?.getMinutes() === 0
+                        !startAt || startAt?.getMinutes() === 0
                           ? 1
-                          : (datetime.getMinutes() + 1) % 60,
+                          : (startAt.getMinutes() + 1) % 60,
                       ).padStart(2, "0")}
                     </button>
                   </div>

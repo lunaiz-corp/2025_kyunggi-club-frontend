@@ -9,16 +9,21 @@ export enum Preset {
   APPLICATION_START = "APPLICATION_START",
   APPLICATION_END = "APPLICATION_END",
 
+  // 지필 일정
+  EXAMINATION = "EXAMINATION",
+
+  // 면접 일정
+  INTERVIEW = "INTERVIEW",
+
   ETC = "ETC",
 }
 
 export type Schedule = {
-  id: number
+  id: string
   title: string
 
   category: Preset
   club: string
 
   start_at: string
-  created_at: string
 }

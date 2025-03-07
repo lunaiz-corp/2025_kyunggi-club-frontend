@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 type Notice = {
   id: number
   title: string

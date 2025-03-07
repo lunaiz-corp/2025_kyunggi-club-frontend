@@ -6,7 +6,7 @@ import toast from "react-hot-toast"
 import { TrashIcon } from "@heroicons/react/24/outline"
 
 import { useQuery } from "@tanstack/react-query"
-import { getList } from "@/api/list"
+import { getMemberList } from "@/api/club"
 
 import { Button } from "@packages/ui/components/krds/Action"
 import Checkbox from "@packages/ui/components/Checkbox"
@@ -26,7 +26,7 @@ export default function AccountListTable({
     data: list,
   } = useQuery({
     queryKey: ["members", id],
-    queryFn: () => getList({ club: id }),
+    queryFn: () => getMemberList({ club: id }),
   })
 
   const [checkedAccounts, setCheckedAccounts] = useState<string[]>([])
@@ -40,11 +40,9 @@ export default function AccountListTable({
   }, [listError])
 
   return (
-    !isListLoading &&
-    !listError &&
-    list && (
-      <div className="flex flex-col gap-12">
-        <div className="w-full overflow-x-auto">
+    <div className="flex flex-col gap-12">
+      <div className="w-full overflow-x-auto">
+        {!isListLoading && !listError && list && (
           <table className="w-max border-collapse border-spacing-x-12 border-b border-gray-700 lg:w-full">
             <thead className="h-10 border-b border-gray-500 align-top">
               <tr>
@@ -143,58 +141,58 @@ export default function AccountListTable({
               ))}
             </tbody>
           </table>
-        </div>
-
-        <Button
-          type="button"
-          className="w-fit border-point-500 bg-point-500 hover:bg-point-400 focus:bg-point-400 focus:outline-point-500 active:bg-point-400 disabled:cursor-not-allowed disabled:border-point-700 disabled:bg-point-700"
-          onClick={async e => {
-            e.preventDefault()
-
-            const registerRequest: Response[] = []
-
-            checkedAccounts.forEach(async email => {
-              registerRequest.push(
-                await fetch(
-                  `${process.env.NEXT_PUBLIC_API_URL}/club/${id}/members`,
-                  {
-                    method: "DELETE",
-                    headers: {
-                      "Content-Type": "application/json",
-                      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-                    },
-                    body: JSON.stringify({
-                      email,
-                    }),
-                  },
-                ),
-              )
-            })
-
-            const errored = registerRequest.filter(r => !r.ok).length
-
-            if (errored === registerRequest.length) {
-              toast.error("서버와의 통신 중 오류가 발생했습니다.")
-
-              return
-            }
-
-            if (errored > 0) {
-              toast.error(
-                `${errored} 명의 정보를 제외하고 계정 비활성화를 완료했습니다.`,
-              )
-
-              return
-            }
-
-            toast.success("선택한 계정을 비활성화했습니다.")
-          }}
-          disabled={checkedAccounts.length <= 0}
-        >
-          <TrashIcon className="size-5 stroke-gray-100 stroke-2" />
-          <span className="text-gray-100">선택한 계정 비활성화</span>
-        </Button>
+        )}
       </div>
-    )
+
+      <Button
+        type="button"
+        className="w-fit border-point-500 bg-point-500 hover:bg-point-400 focus:bg-point-400 focus:outline-point-500 active:bg-point-400 disabled:cursor-not-allowed disabled:border-point-700 disabled:bg-point-700"
+        onClick={async e => {
+          e.preventDefault()
+
+          const registerRequest: Response[] = []
+
+          checkedAccounts.forEach(async email => {
+            registerRequest.push(
+              await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/club/${id}/members`,
+                {
+                  method: "DELETE",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                  },
+                  body: JSON.stringify({
+                    email,
+                  }),
+                },
+              ),
+            )
+          })
+
+          const errored = registerRequest.filter(r => !r.ok).length
+
+          if (errored === registerRequest.length) {
+            toast.error("서버와의 통신 중 오류가 발생했습니다.")
+
+            return
+          }
+
+          if (errored > 0) {
+            toast.error(
+              `${errored} 명의 정보를 제외하고 계정 비활성화를 완료했습니다.`,
+            )
+
+            return
+          }
+
+          toast.success("선택한 계정을 비활성화했습니다.")
+        }}
+        disabled={checkedAccounts.length <= 0}
+      >
+        <TrashIcon className="size-5 stroke-gray-100 stroke-2" />
+        <span className="text-gray-100">선택한 계정 비활성화</span>
+      </Button>
+    </div>
   )
 }

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function NoticeWrite() {
   return (
     <div className="my-10">
-      <NoticeForm />
+      <NoticeForm board="www" />
     </div>
   )
 }

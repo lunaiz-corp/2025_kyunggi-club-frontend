@@ -6,7 +6,7 @@ export enum QuestionType {
   FILE_UPLOAD = "FILE_UPLOAD",
 }
 
-export type QuestionObject = {
+export type Question = {
   id: number
   question: string
 

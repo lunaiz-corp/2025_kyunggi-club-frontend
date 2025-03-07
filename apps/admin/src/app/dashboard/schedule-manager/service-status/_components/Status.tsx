@@ -1,20 +1,37 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import toast from "react-hot-toast"
+
+import { useQuery } from "@tanstack/react-query"
+import { getCurrentStatus } from "@/api/schedule"
 
 import { cn } from "@packages/ui/utils/tailwindMerge"
 
-import { ServiceStatus, statusInText } from "../types"
+import { ServiceStatus } from "@/api/types/schedule"
+import { statusInText } from "../types"
 
 export default function Status() {
   const [serviceStatus, setServiceStatus] = useState<ServiceStatus>(
     ServiceStatus.OPEN,
   )
 
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["status"],
+    queryFn: getCurrentStatus,
+  })
+
   useEffect(() => {
-    // fetch service status
-    setServiceStatus(ServiceStatus.OPEN)
-  }, [])
+    if (error) {
+      toast.error(
+        error.message || "서버와의 통신 중 오류가 발생했습니다.",
+      )
+    }
+
+    if (data) {
+      setServiceStatus(data.status)
+    }
+  }, [data, error])
 
   return (
     <div className="flex flex-col gap-9">
@@ -22,9 +39,11 @@ export default function Status() {
         <div className="inline-flex flex-col gap-1">
           <div className="flex flex-col gap-2">
             <span className="text-xl">현재 사이트 상태는</span>
-            <span className="text-4xl font-bold">
-              {statusInText[serviceStatus]}입니다.
-            </span>
+            {!isLoading && !error && data && (
+              <span className="text-4xl font-bold">
+                {statusInText[serviceStatus]}입니다.
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -38,7 +57,35 @@ export default function Status() {
               "inline-flex w-full cursor-pointer items-center justify-center rounded-xl bg-gray-700 px-4 py-1.5 hover:bg-gray-600",
               serviceStatus === id && "bg-gray-600",
             )}
-            onClick={() => setServiceStatus(id as ServiceStatus)}
+            onClick={async () => {
+              const saveRequest = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/status`,
+                {
+                  method: "PATCH",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                  },
+                  body: JSON.stringify({
+                    status: serviceStatus,
+                  }),
+                },
+              )
+
+              const saveResponse = await saveRequest.json()
+              if (saveRequest.ok) {
+                toast.success("운영 상태를 변경했습니다.")
+                setServiceStatus(id as ServiceStatus)
+              } else {
+                toast.error(
+                  saveResponse.message ||
+                    "서버와의 통신 중 오류가 발생했습니다.",
+                )
+
+                // eslint-disable-next-line no-console
+                console.error(saveResponse)
+              }
+            }}
           >
             <span className="font-bold">{value}</span>
           </button>

@@ -35,8 +35,9 @@ export default function NoticeLinks() {
             </div>
 
             <span className="text-gray-300">
-              {/* 2025년 1월 21일 00:05:08 */}
               {new Date(x.created_at).toLocaleString("ko-KR", {
+                timeZone: "Asia/Seoul",
+
                 year: "numeric",
                 month: "long",
                 day: "numeric",

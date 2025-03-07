@@ -15,7 +15,7 @@ import DeleteIcon from "@/assets/icons/delete.svg"
 
 import { Input as FieldSizingInput } from "@packages/ui/components/lib/react-field-sizing-content"
 
-import { type QuestionObject, QuestionType } from "./types"
+import { type Question, QuestionType } from "@/api/types/form"
 
 export default function DndQuestion({
   question,
@@ -27,7 +27,7 @@ export default function DndQuestion({
   onQuestionRequiredChange,
   onFileLimitChange,
 }: Readonly<{
-  question: QuestionObject
+  question: Question
   onDelete: (id: number) => void
   onQuestionNameChange: (id: number, name: string) => void
   onQuestionOptionAdded: (id: number) => void

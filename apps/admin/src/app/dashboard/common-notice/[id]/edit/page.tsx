@@ -8,7 +8,7 @@ import { useParams, useRouter } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
 import { getNotice } from "@/api/notice"
 
-import NoticeForm from "../../_components/editor/Form"
+import NoticeForm from "../../../notice/_components/editor/Form"
 
 export default function NoticeEdit() {
   const { id } = useParams<{ id: string }>()
@@ -19,8 +19,8 @@ export default function NoticeEdit() {
     error,
     data: notice,
   } = useQuery({
-    queryKey: ["notice", "www", id],
-    queryFn: () => getNotice({ id, board: "www" }),
+    queryKey: ["notice", "admin", id],
+    queryFn: () => getNotice({ id, board: "admin" }),
   })
 
   useEffect(() => {
@@ -34,14 +34,16 @@ export default function NoticeEdit() {
 
   return (
     <>
-      <title>공지사항 관리 - 경기고등학교 이공계동아리연합</title>
+      <title>
+        관리자 공지사항 관리 - 경기고등학교 이공계동아리연합
+      </title>
       <meta
         property="og:title"
-        content="공지사항 관리 - 경기고등학교 이공계동아리연합"
+        content="관리자 공지사항 관리 - 경기고등학교 이공계동아리연합"
       />
       <meta
         name="twitter:title"
-        content="공지사항 관리 - 경기고등학교 이공계동아리연합"
+        content="관리자 공지사항 관리 - 경기고등학교 이공계동아리연합"
       />
 
       <div className="my-10">
@@ -49,7 +51,7 @@ export default function NoticeEdit() {
           <NoticeForm
             title={notice.title}
             content={notice.content}
-            board="www"
+            board="admin"
           />
         )}
       </div>
