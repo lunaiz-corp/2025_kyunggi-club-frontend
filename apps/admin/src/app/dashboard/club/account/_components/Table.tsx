@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
 import { TrashIcon } from "@heroicons/react/24/outline"
@@ -30,6 +30,14 @@ export default function AccountListTable({
   })
 
   const [checkedAccounts, setCheckedAccounts] = useState<string[]>([])
+
+  useEffect(() => {
+    if (listError) {
+      toast.error(
+        listError.message || "서버와의 통신 중 오류가 발생했습니다.",
+      )
+    }
+  }, [listError])
 
   return (
     !isListLoading &&

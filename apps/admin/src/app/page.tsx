@@ -7,6 +7,7 @@ import PageInitialLoading from "@/components/PageInitialLoading"
 
 import { getProfile } from "@/api/profile"
 import { useQuery } from "@tanstack/react-query"
+import toast from "react-hot-toast"
 
 export default function Home() {
   const router = useRouter()
@@ -31,6 +32,14 @@ export default function Home() {
       // Check the token is valid
       if ((!isProfileLoading && !profile) || profileError) {
         localStorage.removeItem("accessToken")
+
+        if (profileError) {
+          toast.error(
+            profileError.message ||
+              "서버와의 통신 중 오류가 발생했습니다.",
+          )
+        }
+
         router.replace("/auth/signin")
         return
       }
