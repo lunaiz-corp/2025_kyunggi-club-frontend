@@ -89,16 +89,21 @@ export default function Tiptap({
   })
 
   useEffect(() => {
-    const preventLeave = (e: BeforeUnloadEvent) => {
-      e.preventDefault()
+    if (editable) {
+      const preventLeave = (e: BeforeUnloadEvent) => {
+        e.preventDefault()
+      }
+
+      window.addEventListener("beforeunload", preventLeave)
+
+      return () => {
+        window.removeEventListener("beforeunload", preventLeave)
+      }
     }
 
-    window.addEventListener("beforeunload", preventLeave)
-
-    return () => {
-      window.removeEventListener("beforeunload", preventLeave)
-    }
-  }, [])
+    window.removeEventListener("beforeunload", () => {})
+    return () => {}
+  }, [editable])
 
   return (
     <div

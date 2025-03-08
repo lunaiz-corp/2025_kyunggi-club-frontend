@@ -31,7 +31,7 @@ export default function SummaryList() {
       <div className="flex flex-col gap-4">
         {isListLoading || noticeListError || !noticeList ? (
           <Skeleton
-            height={352}
+            height={304}
             baseColor="var(--color-gray-900)"
             highlightColor="var(--color-gray-800)"
           />

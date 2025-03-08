@@ -24,7 +24,7 @@ export default function NoticeForm({
   content,
   board,
 }: Readonly<{
-  id?: string
+  id?: number
   title?: string
   content?: string
   board: "www" | "admin"
@@ -89,7 +89,7 @@ export default function NoticeForm({
               },
               body: JSON.stringify({
                 title: titleInput,
-                content,
+                content: contentInput,
               }),
             },
           )
@@ -113,6 +113,11 @@ export default function NoticeForm({
         const saveResponse = await saveRequest.json()
         if (saveRequest.ok) {
           toast.success("공지사항을 등록했습니다.")
+          router.push(
+            board === "www"
+              ? "/dashboard/notice"
+              : "/dashboard/common-notice",
+          )
         } else {
           toast.error(
             saveResponse.message ||
