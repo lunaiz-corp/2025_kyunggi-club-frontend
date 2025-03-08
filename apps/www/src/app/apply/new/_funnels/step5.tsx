@@ -20,14 +20,11 @@ export default function ApplyNewFunnelStep5({
     submittedState: [boolean, Dispatch<SetStateAction<boolean>>]
   } & ApplyBaseContext
 >) {
-  const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = submittedState
 
   useEffect(() => {
-    if (context && submitting && !submitted) {
+    if (context && !submitted) {
       ;(async () => {
-        setSubmitting(true)
-
         const submitRequest = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/apply/new`,
           {
