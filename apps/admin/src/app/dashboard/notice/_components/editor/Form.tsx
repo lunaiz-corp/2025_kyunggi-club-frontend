@@ -65,7 +65,7 @@ export default function NoticeForm({
               },
               body: JSON.stringify({
                 title: titleInput,
-                content,
+                content: contentInput,
               }),
             },
           )

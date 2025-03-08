@@ -77,7 +77,7 @@ export default function NoticeDetail() {
         </div>
 
         <article
-          className="inline-flex flex-col gap-11"
+          className="prose prose-base inline-flex flex-col gap-11 prose-gray prose-invert"
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: notice?.content ?? "" }}
         />
