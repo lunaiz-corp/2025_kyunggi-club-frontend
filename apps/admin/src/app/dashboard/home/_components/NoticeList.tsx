@@ -15,25 +15,25 @@ export default function SummaryList() {
     data: noticeList,
   } = useQuery({
     queryKey: ["noticeList"],
-    queryFn: getNoticeList,
+    queryFn: () => getNoticeList({ board: "admin" }),
   })
 
   return (
-    <div className="flex w-full flex-1 flex-col gap-5">
+    <div className="flex h-full w-full flex-1 flex-col gap-5 lg:w-1/2 2xl:w-lg">
       <div className="inline-flex items-center justify-between">
-        <h2 className="text-lg font-bold">공지사항</h2>
+        <h2 className="text-lg font-bold">관리자 공지사항</h2>
 
-        <NextLink href="/notice">
+        <NextLink href="/dashboard/common-notice">
           <span className="text-sm">더보기</span>
         </NextLink>
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex h-full w-full flex-col gap-4 rounded-xl border border-[#eff6ff]/10 p-5">
         {isListLoading || noticeListError || !noticeList ? (
           <Skeleton
             height={352}
-            baseColor="var(--color-gray-900)"
-            highlightColor="var(--color-gray-800)"
+            baseColor="var(--color-gray-800)"
+            highlightColor="var(--color-gray-700)"
           />
         ) : (
           noticeList
@@ -45,7 +45,7 @@ export default function SummaryList() {
                   key={x.id}
                   id={x.id}
                   title={x.title}
-                  baseUrl="/notice"
+                  baseUrl="/dashboard/common-notice"
                   date={new Date(x.created_at)}
                 />
               )

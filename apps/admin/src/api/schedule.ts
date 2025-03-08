@@ -30,7 +30,7 @@ export async function getCurrentStatus() {
 export async function getSchedules({
   category,
 }: {
-  category: "OPERATION" | "APPLICATION" | "EXAMINATION" | "INTERVIEW"
+  category?: "OPERATION" | "APPLICATION" | "EXAMINATION" | "INTERVIEW"
 }) {
   const accessToken = localStorage.getItem("accessToken")
 
@@ -39,7 +39,7 @@ export async function getSchedules({
   }
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/schedule?type=${category}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/schedule${category ? `?type=${category}` : ""}`,
     {
       method: "GET",
       headers: {
