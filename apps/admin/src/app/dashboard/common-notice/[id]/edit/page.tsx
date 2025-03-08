@@ -49,6 +49,7 @@ export default function NoticeEdit() {
       <div className="my-10">
         {!isLoading && !error && notice && (
           <NoticeForm
+            id={notice.id}
             title={notice.title}
             content={notice.content}
             board="admin"

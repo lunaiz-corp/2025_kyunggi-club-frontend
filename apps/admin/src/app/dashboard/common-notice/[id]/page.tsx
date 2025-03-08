@@ -152,7 +152,7 @@ export default function Notice() {
               <span className="text-gray-100">삭제</span>
             </Button>
 
-            <Link href={`/dashboard/notice/${id}/edit`}>
+            <Link href={`/dashboard/common-notice/${id}/edit`}>
               <Button
                 type="button"
                 className="border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"

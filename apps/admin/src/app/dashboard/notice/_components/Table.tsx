@@ -175,7 +175,6 @@ export default function NoticeListTable({
         className="w-fit border-point-500 bg-point-500 hover:bg-point-400 focus:bg-point-400 focus:outline-point-500 active:bg-point-400 disabled:cursor-not-allowed disabled:border-point-700 disabled:bg-point-700"
         disabled={checkedNotices.length <= 0}
         onClick={async () => {
-          let deleted = 0
           let failed = 0
 
           checkedNotices.forEach(async id => {
@@ -190,9 +189,7 @@ export default function NoticeListTable({
             )
 
             const deleteResponse = await deleteRequest.json()
-            if (deleteRequest.ok) {
-              deleted += 1
-            } else {
+            if (!deleteRequest.ok) {
               failed += 1
 
               // eslint-disable-next-line no-console
@@ -200,7 +197,7 @@ export default function NoticeListTable({
             }
           })
 
-          if (deleted === checkedNotices.length) {
+          if (failed === 0) {
             toast.success("선택한 항목을 모두 삭제했습니다.")
           } else {
             toast.error(
