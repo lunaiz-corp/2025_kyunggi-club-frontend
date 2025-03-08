@@ -132,15 +132,10 @@ function RetrieveRequestForm({
         <TextInput
           id="password"
           type="password"
-          placeholder="예) 123456"
+          placeholder="예) a1b2c3"
           maxLength={6}
-          pattern="\d{6}"
           value={password}
-          onChange={e => {
-            // Non-number characters are not allowed
-            if (!/^\d*$/.test(e.target.value)) return
-            setPassword(e.target.value)
-          }}
+          onChange={e => setPassword(e.target.value)}
           required
         />
       </div>

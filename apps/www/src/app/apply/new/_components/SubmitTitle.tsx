@@ -42,8 +42,8 @@ export default function SubmitTitle({
 
           <div className="inline-flex flex-col justify-center gap-3">
             <span className="text-lg">
-              접수 번호 등 추후 단계 진행을 위한 정보를 알림톡으로
-              발송해 드렸습니다.
+              접수 번호 등 추후 단계 진행을 위한 정보를 순차적으로
+              알림톡으로 발송해 드립니다.
             </span>
             <span className="text-lg">
               알림톡 수신을 못하셨거나, 문의 사항이 있으시면
