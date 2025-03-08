@@ -108,8 +108,8 @@ export default function Tiptap({
   return (
     <div
       className={cn(
-        "min-h-[540px] rounded-lg p-6",
-        editable && "bg-gray-800",
+        "rounded-lg bg-gray-800 p-6",
+        editable && "min-h-[540px]",
       )}
     >
       {editor && editable && (

@@ -207,7 +207,7 @@ export default function ApplyNewFunnelStep3({
             club => club === currentStep,
           ) + 1
 
-        if (nextClubIndex < context.applingClubs!.length) {
+        if (context.applingClubs![nextClubIndex]) {
           setFormAnswersByStep([])
           setCurrentStep(context.applingClubs![nextClubIndex])
         } else {

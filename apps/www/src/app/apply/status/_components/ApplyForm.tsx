@@ -36,6 +36,7 @@ import {
   RetrieveKnownError,
   RetrieveNotKnownError,
 } from "../_exceptions/RetrieveExceptions"
+
 import FormPreview from "../../_components/FormPreview"
 
 const { clubs } = clubsJson
@@ -155,7 +156,9 @@ function Status({ form }: Readonly<{ form: SubmittedForm }>) {
       {form.currentStatus.map((status, index) => (
         <div key={status.club} className="flex flex-col gap-7">
           <div className="flex items-center justify-between">
-            <Link href={`/apply/status/${status.club}`}>
+            <Link
+              href={`/apply/status/${status.club}?status=${status.status}`}
+            >
               <div className="inline-flex flex-col gap-2.5">
                 <span className="text-2xl">
                   {
@@ -171,25 +174,37 @@ function Status({ form }: Readonly<{ form: SubmittedForm }>) {
               </div>
             </Link>
 
-            {status.status === CurrentStatus.PASSED && (
+            {[
+              CurrentStatus.DOCUMENT_PASSED,
+              CurrentStatus.EXAM_PASSED,
+              CurrentStatus.INTERVIEW_PASSED,
+            ].includes(status.status) && (
               <div className="flex size-16 items-center justify-center rounded-xl bg-ceruleanBlue-600">
                 <CheckIcon className="size-8" />
               </div>
             )}
 
-            {status.status === CurrentStatus.WAITING && (
+            {[
+              CurrentStatus.WAITING,
+              CurrentStatus.FINAL_SUBMISSION,
+            ].includes(status.status) && (
               <div className="flex size-16 items-center justify-center rounded-xl bg-warning-300">
                 <ClockIcon className="size-8" />
               </div>
             )}
 
-            {status.status === CurrentStatus.REJECTED && (
+            {[
+              CurrentStatus.DOCUMENT_REJECTED,
+              CurrentStatus.EXAM_REJECTED,
+              CurrentStatus.INTERVIEW_REJECTED,
+              CurrentStatus.FINAL_REJECTED,
+            ].includes(status.status) && (
               <div className="flex size-16 items-center justify-center rounded-xl bg-point-500">
                 <XMarkIcon className="size-8" />
               </div>
             )}
 
-            {status.status === CurrentStatus.FINAL_SUBMISSION && (
+            {status.status === CurrentStatus.FINAL_REJECTED && (
               <div className="flex size-16 items-center justify-center rounded-xl bg-success-400">
                 <CheckIcon className="size-8" />
               </div>
@@ -291,9 +306,6 @@ export default function ApplyForm() {
         <RetrieveRequestForm
           onSubmit={async (e, props) => {
             try {
-              // const { result, data, error } =
-              //   await retrieveSubmittedForm(props)
-
               const retrieveRequest = await fetch(
                 `${process.env.NEXT_PUBLIC_API_URL}/apply/student/${props.studentId}`,
                 {

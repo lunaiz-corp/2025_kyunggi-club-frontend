@@ -113,7 +113,11 @@ export default function ApplyNewFunnelStep4({
 
         {/* 페이지 1, 2 -> 다음 버튼으로 */}
         {/* 페이지 3 -> 제출 버튼으로 */}
-        {currentStep !== context.applingClubs![2] ? (
+        {context.applingClubs![
+          context.applingClubs!.findIndex(
+            club => club === currentStep,
+          ) + 1
+        ] ? (
           <Button
             type="button"
             className="w-full font-bold"

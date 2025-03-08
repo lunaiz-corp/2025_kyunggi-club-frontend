@@ -58,7 +58,7 @@ export default function Tiptap({
   })
 
   return (
-    <div className="min-h-[540px] rounded-lg p-6">
+    <div className="rounded-lg p-6">
       {editor && <EditorContent editor={editor} />}
     </div>
   )
