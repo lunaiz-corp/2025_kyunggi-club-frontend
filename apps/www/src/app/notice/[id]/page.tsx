@@ -10,6 +10,7 @@ import { ChevronLeftIcon } from "@heroicons/react/24/solid"
 import { NextLink } from "@packages/ui/components/krds/Action"
 
 import Advertisements from "@/components/Advertisements"
+import Tiptap from "../_components/Tiptap"
 
 export default function NoticeDetail() {
   const { id } = useParams<{ id: string }>()
@@ -76,11 +77,7 @@ export default function NoticeDetail() {
           </div>
         </div>
 
-        <article
-          className="prose prose-base inline-flex flex-col gap-11 prose-gray prose-invert"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: notice?.content ?? "" }}
-        />
+        {notice?.content && <Tiptap content={notice.content} />}
       </main>
     </>
   )

@@ -17,6 +17,8 @@ import { TrashIcon } from "@heroicons/react/24/outline"
 
 import { NextLink, Button } from "@packages/ui/components/krds/Action"
 
+import Tiptap from "../_components/editor/Tiptap"
+
 export default function Notice() {
   const { id } = useParams<{ id: string }>()
   const router = useRouter()
@@ -77,11 +79,12 @@ export default function Notice() {
           </div>
         </div>
 
-        <article
-          className="inline-flex flex-col gap-11"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: notice?.content ?? "" }}
-        />
+        {notice?.content && (
+          <Tiptap
+            editable={false}
+            contentState={[notice.content ?? "", () => {}]}
+          />
+        )}
 
         <div className="flex gap-6">
           <Button

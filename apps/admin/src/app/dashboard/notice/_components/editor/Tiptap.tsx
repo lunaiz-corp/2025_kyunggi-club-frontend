@@ -34,8 +34,10 @@ import { PhotoIcon } from "@heroicons/react/24/outline"
 
 export default function Tiptap({
   contentState,
+  editable,
 }: Readonly<{
   contentState: [string | undefined, Dispatch<SetStateAction<string>>]
+  editable: boolean
 }>) {
   const [content, setContent] = contentState
 
@@ -82,6 +84,7 @@ export default function Tiptap({
       setContent(_editor.getHTML())
     },
 
+    editable,
     immediatelyRender: false,
   })
 
@@ -98,8 +101,13 @@ export default function Tiptap({
   }, [])
 
   return (
-    <div className="min-h-[540px] rounded-lg bg-gray-800 p-6">
-      {editor && (
+    <div
+      className={cn(
+        "min-h-[540px] rounded-lg p-6",
+        editable && "bg-gray-800",
+      )}
+    >
+      {editor && editable && (
         <BubbleMenu
           className="bubble-menu flex gap-3.5 rounded-md bg-gray-800 p-2"
           tippyOptions={{ duration: 100 }}
@@ -161,7 +169,7 @@ export default function Tiptap({
         </BubbleMenu>
       )}
 
-      {editor && (
+      {editor && editable && (
         <div className="mb-5 flex items-center gap-3.5 rounded-md bg-gray-700 p-2">
           <button
             type="button"

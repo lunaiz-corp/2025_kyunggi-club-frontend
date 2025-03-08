@@ -119,7 +119,10 @@ export default function NoticeForm({
         </Button>
       </div>
 
-      <Tiptap contentState={[contentInput, setContentInput]} />
+      <Tiptap
+        editable
+        contentState={[contentInput, setContentInput]}
+      />
     </form>
   )
 }
