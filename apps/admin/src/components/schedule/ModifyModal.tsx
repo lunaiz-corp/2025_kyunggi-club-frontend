@@ -62,6 +62,12 @@ export default function ModifyModal({
   }, [category])
 
   useEffect(() => {
+    if (allowedTypes.size === 1) {
+      setCategory([...allowedTypes][0])
+    }
+  }, [allowedTypes])
+
+  useEffect(() => {
     customHourRef.current!.value = String(
       !startAt || startAt.getHours() % 12 === 0
         ? 12
@@ -125,16 +131,15 @@ export default function ModifyModal({
 
               {Object.values(Preset)
                 .filter(x => allowedTypes.has(x))
-                .filter(x => x !== Preset.ETC)
+                .filter(
+                  x =>
+                    x !== Preset.EXAMINATION &&
+                    x !== Preset.INTERVIEW &&
+                    x !== Preset.ETC,
+                )
                 .map(preset => (
-                  <option
-                    key={preset}
-                    value={preset}
-                    selected={preset === Array.from(allowedTypes)[0]}
-                  >
-                    {preset !== Preset.EXAMINATION &&
-                      preset !== Preset.INTERVIEW &&
-                      PresetTitle[preset]}
+                  <option key={preset} value={preset}>
+                    {PresetTitle[preset]}
                   </option>
                 ))}
             </Select>
