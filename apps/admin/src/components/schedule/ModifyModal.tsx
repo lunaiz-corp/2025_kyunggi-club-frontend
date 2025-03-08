@@ -125,15 +125,16 @@ export default function ModifyModal({
 
               {Object.values(Preset)
                 .filter(x => allowedTypes.has(x))
-                .filter(
-                  x =>
-                    x !== Preset.EXAMINATION &&
-                    x !== Preset.INTERVIEW &&
-                    x !== Preset.ETC,
-                )
+                .filter(x => x !== Preset.ETC)
                 .map(preset => (
-                  <option key={preset} value={preset}>
-                    {PresetTitle[preset]}
+                  <option
+                    key={preset}
+                    value={preset}
+                    selected={preset === Array.from(allowedTypes)[0]}
+                  >
+                    {preset !== Preset.EXAMINATION &&
+                      preset !== Preset.INTERVIEW &&
+                      PresetTitle[preset]}
                   </option>
                 ))}
             </Select>
