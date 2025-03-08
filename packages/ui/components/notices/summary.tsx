@@ -34,7 +34,7 @@ export default function NoticesSummary({
           <div className="size-1.5 rounded-full bg-ceruleanBlue-700" />
         ) : null}
 
-        <span className="w-56 truncate text-lg">{title}</span>
+        <span className="w-56 truncate text-lg md:w-96">{title}</span>
       </div>
 
       <span className="text-right text-sm">

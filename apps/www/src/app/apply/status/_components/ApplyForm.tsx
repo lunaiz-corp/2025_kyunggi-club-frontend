@@ -26,7 +26,6 @@ import Advertisements from "@/components/Advertisements"
 
 import * as clubsJson from "@/data/clubs.json"
 
-import { retrieveSubmittedForm } from "../actions"
 import {
   CurrentStatus,
   statusInText,
@@ -226,7 +225,7 @@ function Status({ form }: Readonly<{ form: SubmittedForm }>) {
             알림톡을 통한 접속만 가능하므로 본 페이지에서는 진행이
             어려울 수 있습니다.
             <br />
-            자세한 사항은 화면 하단 채널톡 혹은 고객센터
+            자세한 사항은 화면 하단 채팅 상담 혹은 고객센터
             (070-4138-4014)으로 문의 부탁드립니다.
           </span>
         </div>
@@ -297,26 +296,31 @@ export default function ApplyForm() {
         <RetrieveRequestForm
           onSubmit={async (e, props) => {
             try {
-              const { result, data, error } =
-                await retrieveSubmittedForm(props)
+              // const { result, data, error } =
+              //   await retrieveSubmittedForm(props)
 
-              if (result === "ERROR" && error) {
-                throw new RetrieveKnownError(
-                  error.code,
-                  error.message,
-                )
-              } else if (result === "ERROR") {
+              const retrieveRequest = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/apply/student/${props.studentId}`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    studentName: props.studentName,
+                    password: props.password,
+                  }),
+                },
+              )
+
+              if (!retrieveRequest.ok) {
                 throw new RetrieveNotKnownError(
                   "FORMDATA_RETRIEVE_SERVER_ERROR",
-                  "An unknown error occurred while retrieving data.",
-                )
-              } else if (result === "SUCCESS" && !data) {
-                throw new RetrieveNotKnownError(
-                  "FORMDATA_RETRIEVE_CLIENT_ERROR",
-                  "Data given from the server is null.",
+                  "서버와의 통신 중 오류가 발생했습니다.",
                 )
               }
 
+              const { data } = await retrieveRequest.json()
               setFormData(data)
             } catch (error) {
               if (!(error instanceof RetrieveKnownError)) {

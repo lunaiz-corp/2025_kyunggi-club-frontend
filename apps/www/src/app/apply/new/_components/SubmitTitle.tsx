@@ -46,8 +46,8 @@ export default function SubmitTitle({
               발송해 드렸습니다.
             </span>
             <span className="text-lg">
-              알림톡 수신을 못하셨거나, 문의 사항이 있으시면 하단
-              채널톡으로 언제든지 문의해 주세요.
+              알림톡 수신을 못하셨거나, 문의 사항이 있으시면
+              고객센터로 언제든지 문의해 주세요.
             </span>
           </div>
         </div>

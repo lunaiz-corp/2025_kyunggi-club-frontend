@@ -46,7 +46,7 @@ export default function PercentageBar({
 
       <div>
         <span className="text-right text-sm text-gray-100">
-          {selectChance}:1
+          {selectChance.toFixed(2)}:1
         </span>
       </div>
     </div>

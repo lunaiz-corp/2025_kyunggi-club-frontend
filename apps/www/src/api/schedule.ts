@@ -4,7 +4,7 @@ import { Schedule } from "@packages/ui/components/schedules/types"
 
 export async function getScheduleList() {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/schedule?type=APPLICATION&club=list`,
+    `${process.env.NEXT_PUBLIC_API_URL}/schedule`,
     {
       method: "GET",
       headers: {

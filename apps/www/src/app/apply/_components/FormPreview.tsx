@@ -1,5 +1,11 @@
 import type { Dispatch, SetStateAction } from "react"
 
+import { getForm } from "@/api/apply/form"
+import { QuestionType } from "@/api/types/form"
+import { useQuery } from "@tanstack/react-query"
+
+import ScreenLoading from "@/components/ScreenLoading"
+
 import {
   TextInput,
   Textarea,
@@ -16,9 +22,6 @@ import { cn } from "@packages/ui/utils/tailwindMerge"
 import * as clubsJson from "@/data/clubs.json"
 
 import type { SubmittedForm } from "../status/types"
-import { MOCK_QUESTIONS } from "../new/_funnels/step3"
-
-import { QuestionType } from "../new/_funnels/_questions/types"
 
 const { clubs } = clubsJson
 
@@ -31,9 +34,14 @@ export default function FormPreview({
 }>) {
   const [step, setStep] = stepState
 
-  const { questions } = MOCK_QUESTIONS.find(
-    question => question.club === step,
-  )!
+  const {
+    isLoading,
+    error,
+    data: questions,
+  } = useQuery({
+    queryKey: ["questions", step],
+    queryFn: () => getForm({ club: step }),
+  })
 
   const { answers } = form.formAnswers.find(
     answer => answer.club === step,
@@ -69,98 +77,102 @@ export default function FormPreview({
 
       <div className="h-0.5 bg-gray-900" />
 
-      {questions.map(question => {
-        const answer = answers.find(a => a.id === question.id)!
+      {isLoading || error || !questions ? (
+        <ScreenLoading />
+      ) : (
+        questions.map(question => {
+          const answer = answers.find(a => a.id === question.id)!
 
-        return (
-          <div key={question.id} className="flex flex-col gap-5">
-            <label
-              htmlFor={`q-${question.id}`}
-              className="cursor-pointer text-2xl font-bold"
-            >
-              Q. {question.question}
-            </label>
+          return (
+            <div key={question.id} className="flex flex-col gap-5">
+              <label
+                htmlFor={`q-${question.id}`}
+                className="cursor-pointer text-2xl font-bold"
+              >
+                Q. {question.question}
+              </label>
 
-            {question.type === QuestionType.SHORT_INPUT && (
-              <TextInput
-                key={question.id}
-                id={`q-${question.id}`}
-                type="text"
-                placeholder=""
-                value={(answer?.answer as string) || ""}
-                disabled
-              />
-            )}
+              {question.type === QuestionType.SHORT_INPUT && (
+                <TextInput
+                  key={question.id}
+                  id={`q-${question.id}`}
+                  type="text"
+                  placeholder=""
+                  value={(answer?.answer as string) || ""}
+                  disabled
+                />
+              )}
 
-            {question.type === QuestionType.LONG_INPUT && (
-              <Textarea
-                key={question.id}
-                id={`q-${question.id}`}
-                placeholder=""
-                className="h-40"
-                value={(answer?.answer as string) || ""}
-                disabled
-              />
-            )}
+              {question.type === QuestionType.LONG_INPUT && (
+                <Textarea
+                  key={question.id}
+                  id={`q-${question.id}`}
+                  placeholder=""
+                  className="h-40"
+                  value={(answer?.answer as string) || ""}
+                  disabled
+                />
+              )}
 
-            {question.type === QuestionType.MULTIPLE_CHOICE && (
-              <>
-                {question.options!.map((option, index) => (
-                  <div
-                    key={`q-${question.id}-${index.toString()}`}
-                    className="inline-flex items-center gap-3"
-                  >
-                    <Checkbox
-                      id={`q-${question.id}-${index.toString()}`}
-                      checked={(
-                        (answer?.answer as string) || ""
-                      ).includes(option)}
-                      disabled
-                    />
+              {question.type === QuestionType.MULTIPLE_CHOICE && (
+                <>
+                  {question.options!.map((option, index) => (
+                    <div
+                      key={`q-${question.id}-${index.toString()}`}
+                      className="inline-flex items-center gap-3"
+                    >
+                      <Checkbox
+                        id={`q-${question.id}-${index.toString()}`}
+                        checked={(
+                          (answer?.answer as string) || ""
+                        ).includes(option)}
+                        disabled
+                      />
 
-                    <label
-                      htmlFor={`q-${question.id}-${index.toString()}`}
-                      className="inline-flex cursor-pointer items-center gap-2 text-lg"
+                      <label
+                        htmlFor={`q-${question.id}-${index.toString()}`}
+                        className="inline-flex cursor-pointer items-center gap-2 text-lg"
+                      >
+                        {option}
+                      </label>
+                    </div>
+                  ))}
+                </>
+              )}
+
+              {question.type === QuestionType.DROPDOWN && (
+                <Select
+                  key={question.id}
+                  id={`q-${question.id}`}
+                  value={(answer?.answer as string) || ""}
+                  disabled
+                >
+                  {question.options!.map((option, index) => (
+                    <option
+                      key={`q-${question.id}-${index.toString()}`}
+                      value={option}
                     >
                       {option}
-                    </label>
-                  </div>
-                ))}
-              </>
-            )}
+                    </option>
+                  ))}
+                </Select>
+              )}
 
-            {question.type === QuestionType.DROPDOWN && (
-              <Select
-                key={question.id}
-                id={`q-${question.id}`}
-                value={(answer?.answer as string) || ""}
-                disabled
-              >
-                {question.options!.map((option, index) => (
-                  <option
-                    key={`q-${question.id}-${index.toString()}`}
-                    value={option}
-                  >
-                    {option}
-                  </option>
-                ))}
-              </Select>
-            )}
-
-            {question.type === QuestionType.FILE_UPLOAD && (
-              <ReadOnlyFileList
-                key={question.id}
-                fileList={(answer?.answer as UploadedFile[]) || []}
-                maxFiles={
-                  question.maxFiles === -1
-                    ? Infinity
-                    : question.maxFiles!
-                }
-              />
-            )}
-          </div>
-        )
-      })}
+              {question.type === QuestionType.FILE_UPLOAD && (
+                <ReadOnlyFileList
+                  key={question.id}
+                  fileList={(answer?.answer as UploadedFile[]) || []}
+                  maxFiles={
+                    question.maxFiles === -1
+                      ? Infinity
+                      : question.maxFiles!
+                  }
+                />
+              )}
+            </div>
+          )
+        })
+      )}
     </div>
   )
 }

@@ -31,9 +31,7 @@ export default function Main() {
 
         <div className="flex flex-col gap-5 md:w-[414px]">
           <div className="inline-flex items-center justify-between">
-            <h2 className="text-lg font-bold">
-              동아리 경쟁률 현황 (준비 중)
-            </h2>
+            <h2 className="text-lg font-bold">동아리 경쟁률 현황</h2>
           </div>
 
           <div className="flex size-full min-h-[407px] gap-8 rounded-xl border border-[#eff6ff]/10 px-6 py-4">

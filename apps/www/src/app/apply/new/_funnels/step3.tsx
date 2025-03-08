@@ -1,13 +1,19 @@
 import type { Dispatch, SetStateAction } from "react"
 import { useEffect, useRef, useState } from "react"
 
+import { getForm } from "@/api/apply/form"
+import { QuestionType } from "@/api/types/form"
+import { useQuery } from "@tanstack/react-query"
+
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
 } from "@heroicons/react/20/solid"
 
 import { Button } from "@packages/ui/components/krds/Action"
+
 import * as clubsJson from "@/data/clubs.json"
+import type { FormAnswers } from "./_questions/types"
 
 import type { ApplyBaseContext } from "."
 
@@ -22,12 +28,6 @@ import {
   FileUpload,
 } from "./_questions"
 
-import {
-  type FormAnswers,
-  type QuestionObject,
-  QuestionType,
-} from "./_questions/types"
-
 const { clubs } = clubsJson
 
 // 3. 인적 사항 입력 완료 - 지원서 작성 중
@@ -41,126 +41,6 @@ export type DataNeedsToBeFilled = {
   }[]
 }
 
-export const MOCK_QUESTIONS: {
-  club: string
-  questions: QuestionObject[]
-}[] = [
-  {
-    club: "list",
-    questions: [
-      {
-        id: 1,
-        question: "무임승차를 하실건가요?1",
-        type: QuestionType.SHORT_INPUT,
-        required: false,
-      },
-      {
-        id: 2,
-        question: "무임승차를 하실건가요?2",
-        type: QuestionType.LONG_INPUT,
-        required: false,
-      },
-      {
-        id: 3,
-        question: "무임승차를 하실건가요?3",
-        type: QuestionType.MULTIPLE_CHOICE,
-        options: ["옵션 1", "옵션 2"],
-        required: false,
-      },
-      {
-        id: 4,
-        question: "무임승차를 하실건가요?4",
-        type: QuestionType.DROPDOWN,
-        options: ["옵션 1", "옵션 2"],
-        required: false,
-      },
-      {
-        id: 5,
-        question: "무임승차를 하실건가요?5",
-        type: QuestionType.FILE_UPLOAD,
-        maxFiles: 10,
-        required: false,
-      },
-    ],
-  },
-  {
-    club: "kec",
-    questions: [
-      {
-        id: 1,
-        question: "무임승차를 하실건가요?6",
-        type: QuestionType.SHORT_INPUT,
-        required: false,
-      },
-      {
-        id: 2,
-        question: "무임승차를 하실건가요?7",
-        type: QuestionType.LONG_INPUT,
-        required: false,
-      },
-      {
-        id: 3,
-        question: "무임승차를 하실건가요?8",
-        type: QuestionType.MULTIPLE_CHOICE,
-        options: ["옵션 1", "옵션 2"],
-        required: false,
-      },
-      {
-        id: 4,
-        question: "무임승차를 하실건가요?9",
-        type: QuestionType.DROPDOWN,
-        options: ["옵션 1", "옵션 2"],
-        required: false,
-      },
-      {
-        id: 5,
-        question: "무임승차를 하실건가요?10",
-        type: QuestionType.FILE_UPLOAD,
-        maxFiles: 10,
-        required: false,
-      },
-    ],
-  },
-  {
-    club: "kphc",
-    questions: [
-      {
-        id: 1,
-        question: "무임승차를 하실건가요?11",
-        type: QuestionType.SHORT_INPUT,
-        required: false,
-      },
-      {
-        id: 2,
-        question: "무임승차를 하실건가요?12",
-        type: QuestionType.LONG_INPUT,
-        required: false,
-      },
-      {
-        id: 3,
-        question: "무임승차를 하실건가요?13",
-        type: QuestionType.MULTIPLE_CHOICE,
-        options: ["옵션 1", "옵션 2"],
-        required: false,
-      },
-      {
-        id: 4,
-        question: "무임승차를 하실건가요?14",
-        type: QuestionType.DROPDOWN,
-        options: ["옵션 1", "옵션 2"],
-        required: false,
-      },
-      {
-        id: 5,
-        question: "무임승차를 하실건가요?15",
-        type: QuestionType.FILE_UPLOAD,
-        maxFiles: 10,
-        required: false,
-      },
-    ],
-  },
-]
-
 function Questions({
   club,
   formAnswersState,
@@ -171,57 +51,66 @@ function Questions({
     Dispatch<SetStateAction<FormAnswers[]>>,
   ]
 }>) {
-  const { questions } = MOCK_QUESTIONS.find(
-    mock => mock.club === club,
-  )!
+  const {
+    isLoading,
+    error,
+    data: questions,
+  } = useQuery({
+    queryKey: ["questions", club],
+    queryFn: () => getForm({ club }),
+  })
 
   return (
-    <div className="flex flex-col gap-8">
-      {questions.map(question => {
-        const QuestionComponent = (() => {
-          switch (question.type) {
-            case QuestionType.SHORT_INPUT:
-              return ShortInput
+    !isLoading &&
+    !error &&
+    questions && (
+      <div className="flex flex-col gap-8">
+        {questions.map(question => {
+          const QuestionComponent = (() => {
+            switch (question.type) {
+              case QuestionType.SHORT_INPUT:
+                return ShortInput
 
-            case QuestionType.LONG_INPUT:
-              return LongInput
+              case QuestionType.LONG_INPUT:
+                return LongInput
 
-            case QuestionType.MULTIPLE_CHOICE:
-              return MultipleChoice
+              case QuestionType.MULTIPLE_CHOICE:
+                return MultipleChoice
 
-            case QuestionType.DROPDOWN:
-              return Dropdown
+              case QuestionType.DROPDOWN:
+                return Dropdown
 
-            case QuestionType.FILE_UPLOAD:
-              return FileUpload
+              case QuestionType.FILE_UPLOAD:
+                return FileUpload
 
-            default:
-              return ShortInput
-          }
-        })()
-
-        return (
-          <QuestionComponent
-            key={`${club}-${question.id}`}
-            id={question.id}
-            question={question.question}
-            options={
-              question.type === QuestionType.MULTIPLE_CHOICE ||
-              question.type === QuestionType.DROPDOWN
-                ? (question.options ?? [])
-                : []
+              default:
+                return ShortInput
             }
-            maxFiles={
-              question.type === QuestionType.FILE_UPLOAD
-                ? (question.maxFiles ?? 1)
-                : -1
-            }
-            required={question.required ?? false}
-            formAnswersState={formAnswersState}
-          />
-        )
-      })}
-    </div>
+          })()
+
+          return (
+            <QuestionComponent
+              key={`${club}-${question.id}`}
+              id={question.id}
+              question={question.question}
+              options={
+                question.type === QuestionType.MULTIPLE_CHOICE ||
+                question.type === QuestionType.DROPDOWN
+                  ? (question.options ?? [])
+                  : []
+              }
+              maxFiles={
+                question.type === QuestionType.FILE_UPLOAD
+                  ? (question.maxFiles ?? 1)
+                  : -1
+              }
+              required={question.required ?? false}
+              formAnswersState={formAnswersState}
+            />
+          )
+        })}
+      </div>
+    )
   )
 }
 

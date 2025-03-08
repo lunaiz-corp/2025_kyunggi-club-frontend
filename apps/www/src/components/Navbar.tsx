@@ -14,7 +14,7 @@ import {
 
 import { NextLink } from "@packages/ui/components/krds/Action"
 import {
-  ALink,
+  // ALink,
   baseClass as baseLinkClass,
 } from "@packages/ui/components/krds/Action/Link"
 
@@ -84,7 +84,7 @@ export default function Navbar() {
 
           {/* PC Navbar Menu */}
           <nav className="hidden gap-3 md:inline-flex">
-            {/* <NextLink
+            <NextLink
               href="/apply/new"
               className={cn(
                 "justify-between px-4 py-2 font-bold",
@@ -102,9 +102,9 @@ export default function Navbar() {
             >
               <InboxIcon className="size-5" />
               지원하기
-            </NextLink> */}
+            </NextLink>
 
-            <ALink
+            {/* <ALink
               href="#"
               className="justify-between px-4 py-2 font-bold"
               onClick={e => {
@@ -117,7 +117,7 @@ export default function Navbar() {
             >
               <InboxIcon className="size-5" />
               지원하기
-            </ALink>
+            </ALink> */}
 
             <NextLink
               href="/club"
@@ -131,7 +131,7 @@ export default function Navbar() {
               동아리 소개
             </NextLink>
 
-            {/* <NextLink
+            <NextLink
               href="/apply/status"
               className={cn(
                 "justify-between px-4 py-2 font-bold",
@@ -141,9 +141,9 @@ export default function Navbar() {
             >
               <UserIcon className="size-5" />
               결과 확인
-            </NextLink> */}
+            </NextLink>
 
-            <ALink
+            {/* <ALink
               href="#"
               className="justify-between px-4 py-2 font-bold"
               onClick={e => {
@@ -156,7 +156,7 @@ export default function Navbar() {
             >
               <UserIcon className="size-5" />
               결과 확인
-            </ALink>
+            </ALink> */}
           </nav>
 
           <div className="md:hidden">
@@ -181,7 +181,7 @@ export default function Navbar() {
           )}
         >
           <nav className="flex flex-col gap-4 px-8 pt-8 pb-4">
-            {/* <NextLink
+            <NextLink
               href="/apply/new"
               className="inline-flex items-center justify-between gap-2 px-4 py-2 font-bold"
               onClick={e => {
@@ -197,9 +197,9 @@ export default function Navbar() {
             >
               지원하기
               <InboxIcon className="size-5" />
-            </NextLink> */}
+            </NextLink>
 
-            <ALink
+            {/* <ALink
               href="#"
               className="inline-flex items-center justify-between gap-2 px-4 py-2 font-bold"
               onClick={e => {
@@ -212,7 +212,7 @@ export default function Navbar() {
             >
               <InboxIcon className="size-5" />
               지원하기
-            </ALink>
+            </ALink> */}
 
             <NextLink
               href="/club"
@@ -223,16 +223,16 @@ export default function Navbar() {
               <AcademicCapIcon className="size-5" />
             </NextLink>
 
-            {/* <NextLink
+            <NextLink
               href="/apply/status"
               className="inline-flex items-center justify-between gap-2 px-4 py-2 font-bold"
               onClick={() => setIsMobileNavOpen(false)}
             >
               결과 확인
               <UserIcon className="size-5" />
-            </NextLink> */}
+            </NextLink>
 
-            <ALink
+            {/* <ALink
               href="#"
               className="inline-flex items-center justify-between gap-2 px-4 py-2 font-bold"
               onClick={e => {
@@ -245,7 +245,7 @@ export default function Navbar() {
             >
               <UserIcon className="size-5" />
               결과 확인
-            </ALink>
+            </ALink> */}
           </nav>
         </div>
       </header>

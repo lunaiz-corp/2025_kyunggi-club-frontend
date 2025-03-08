@@ -112,18 +112,36 @@ export default function Schedules({
       </div>
 
       <div className="flex flex-col gap-5 py-4 md:w-1/2">
-        {schedules.map((schedule, i) => (
-          <div
-            className="flex flex-col gap-5"
-            key={`schedules-${i.toString()}`}
-          >
-            <SchedulesList schedule={schedule} />
+        {schedules
+          .filter(schedule => {
+            // selectedDate 중에 있는 일정만 보여줌
+            if (!selectedDate) return true
 
-            {i !== schedules.length - 1 && (
-              <div className="h-0.5 bg-gray-800" />
-            )}
-          </div>
-        ))}
+            const selectedDateStart = new Date(selectedDate)
+            selectedDateStart.setHours(0, 0, 0, 0)
+
+            const selectedDateEnd = new Date(selectedDate)
+            selectedDateEnd.setHours(23, 59, 59, 999)
+
+            const scheduleStart = new Date(schedule.start_at)
+
+            return (
+              scheduleStart >= selectedDateStart &&
+              scheduleStart <= selectedDateEnd
+            )
+          })
+          .map((schedule, i) => (
+            <div
+              className="flex flex-col gap-5"
+              key={`schedules-${i.toString()}`}
+            >
+              <SchedulesList schedule={schedule} />
+
+              {i !== schedules.length - 1 && (
+                <div className="h-0.5 bg-gray-800" />
+              )}
+            </div>
+          ))}
       </div>
     </>
   )

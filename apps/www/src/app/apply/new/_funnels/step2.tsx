@@ -107,7 +107,7 @@ export default function ApplyNewFunnelStep2({
 
     const orderId = `KGH${new Date().toISOString().substring(0, 19).replace(/[\D]/g, "")}@${nanoid()}`
 
-    if (window.matchMedia("(max-width: 1200px)").matches) {
+    if (window.matchMedia("(max-width: 768px)").matches) {
       kcpAuthPop.current = window.open(
         `/apply/pass/request?orderId=${orderId}`,
         "auth_popup",
@@ -335,8 +335,9 @@ export default function ApplyNewFunnelStep2({
             </span>
 
             <span className="text-gray-300">
-              화면 하단 채널톡 혹은 고객센터 (070-4138-4014)를 통하여,
-              오류 메시지를 알려주시면 친절히 도와드리겠습니다.
+              화면 하단 채팅 상담 혹은 고객센터 (070-4138-4014)를
+              통하여, 오류 메시지를 알려주시면 친절히
+              도와드리겠습니다.
             </span>
             <span className="text-gray-300">
               실명인증은 최초 접수 시 1회 진행되며, 이후에는 진행하지
