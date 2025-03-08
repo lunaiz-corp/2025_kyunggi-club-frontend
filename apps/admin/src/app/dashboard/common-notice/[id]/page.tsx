@@ -122,6 +122,31 @@ export default function Notice() {
             <Button
               type="button"
               className="disabled:bg-point-970 border-point-500 bg-point-500 hover:bg-point-400 focus:bg-point-400 focus:outline-point-500 active:bg-point-400 disabled:cursor-not-allowed disabled:border-point-700"
+              onClick={async () => {
+                const deleteRequest = await fetch(
+                  `${process.env.NEXT_PUBLIC_API_URL}/notice/admin/${id}`,
+                  {
+                    method: "DELETE",
+                    headers: {
+                      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                    },
+                  },
+                )
+
+                const deleteResponse = await deleteRequest.json()
+                if (deleteRequest.ok) {
+                  toast.success("공지사항을 삭제했습니다.")
+                  router.push("/dashboard/common-notice")
+                } else {
+                  toast.error(
+                    deleteResponse.message ||
+                      "서버와의 통신 중 오류가 발생했습니다.",
+                  )
+
+                  // eslint-disable-next-line no-console
+                  console.error(deleteResponse)
+                }
+              }}
             >
               <TrashIcon className="size-5 stroke-gray-100 stroke-2" />
               <span className="text-gray-100">삭제</span>

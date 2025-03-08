@@ -174,6 +174,40 @@ export default function NoticeListTable({
         type="button"
         className="w-fit border-point-500 bg-point-500 hover:bg-point-400 focus:bg-point-400 focus:outline-point-500 active:bg-point-400 disabled:cursor-not-allowed disabled:border-point-700 disabled:bg-point-700"
         disabled={checkedNotices.length <= 0}
+        onClick={async () => {
+          let deleted = 0
+          let failed = 0
+
+          checkedNotices.forEach(async id => {
+            const deleteRequest = await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/notice/${board}/${id}`,
+              {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                },
+              },
+            )
+
+            const deleteResponse = await deleteRequest.json()
+            if (deleteRequest.ok) {
+              deleted += 1
+            } else {
+              failed += 1
+
+              // eslint-disable-next-line no-console
+              console.error(deleteResponse)
+            }
+          })
+
+          if (deleted === checkedNotices.length) {
+            toast.success("선택한 항목을 모두 삭제했습니다.")
+          } else {
+            toast.error(
+              `선택한 항목 중 ${failed}개를 삭제하지 못했습니다.`,
+            )
+          }
+        }}
       >
         <TrashIcon className="size-5 stroke-gray-100 stroke-2" />
         <span className="text-gray-100">선택한 항목 삭제</span>
