@@ -12,16 +12,10 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function ScheduleApplicationDetail({
-  params,
-}: Readonly<{
-  params: Promise<{ id: string }>
-}>) {
-  const { id } = await params
-
+export default async function ScheduleApplicationDetail() {
   return (
     <div className="flex flex-col gap-10">
-      <CalendarList club={id} category="APPLICATION" />
+      <CalendarList category="APPLICATION" />
     </div>
   )
 }

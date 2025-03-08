@@ -29,10 +29,8 @@ export async function getCurrentStatus() {
 
 export async function getSchedules({
   category,
-  club,
 }: {
   category: "OPERATION" | "APPLICATION" | "EXAMINATION" | "INTERVIEW"
-  club?: string
 }) {
   const accessToken = localStorage.getItem("accessToken")
 
@@ -40,13 +38,8 @@ export async function getSchedules({
     throw new Error("로그인을 해 주세요.")
   }
 
-  const searchParams = new URLSearchParams()
-
-  searchParams.set("type", category)
-  if (club) searchParams.set("club", club)
-
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/schedule?${searchParams.toString()}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/schedule?type=${category}`,
     {
       method: "GET",
       headers: {

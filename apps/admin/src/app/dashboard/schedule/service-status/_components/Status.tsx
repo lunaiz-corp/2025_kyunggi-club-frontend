@@ -1,9 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next-nprogress-bar"
+
 import toast from "react-hot-toast"
 
 import { useQuery } from "@tanstack/react-query"
+import { getProfile } from "@/api/profile"
 import { getCurrentStatus } from "@/api/schedule"
 
 import { cn } from "@packages/ui/utils/tailwindMerge"
@@ -12,13 +15,48 @@ import { ServiceStatus } from "@/api/types/schedule"
 import { statusInText } from "../types"
 
 export default function Status() {
+  const router = useRouter()
+
   const [serviceStatus, setServiceStatus] = useState<ServiceStatus>(
     ServiceStatus.OPEN,
   )
 
+  const {
+    isLoading: isProfileLoading,
+    error: profileError,
+    data: profile,
+  } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  })
+
+  useEffect(() => {
+    ;(async () => {
+      // Check the token is exist
+      if (!localStorage.getItem("accessToken")) {
+        router.replace("/auth/signin")
+        return
+      }
+
+      // Check the token is valid
+      if ((!isProfileLoading && !profile) || profileError) {
+        localStorage.removeItem("accessToken")
+        router.replace("/auth/signin")
+        return
+      }
+
+      // Check the role is not OWNER
+      if (profile && profile.role !== "OWNER") {
+        toast.error("권한이 없습니다.")
+        router.replace("/dashboard/home")
+      }
+    })()
+  }, [isProfileLoading, profile, profileError, router])
+
   const { isLoading, error, data } = useQuery({
     queryKey: ["status"],
     queryFn: getCurrentStatus,
+    enabled: profile?.role === "OWNER",
   })
 
   useEffect(() => {

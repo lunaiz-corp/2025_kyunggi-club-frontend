@@ -7,6 +7,7 @@ import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 
 import { useQuery } from "@tanstack/react-query"
+import { getProfile } from "@/api/profile"
 import { getNotice } from "@/api/notice"
 
 import {
@@ -23,9 +24,41 @@ export default function Notice() {
   const { id } = useParams<{ id: string }>()
   const router = useRouter()
 
+  const {
+    isLoading: isProfileLoading,
+    error: profileError,
+    data: profile,
+  } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  })
+
+  useEffect(() => {
+    ;(async () => {
+      // Check the token is exist
+      if (!localStorage.getItem("accessToken")) {
+        router.replace("/auth/signin")
+        return
+      }
+
+      // Check the token is valid
+      if ((!isProfileLoading && !profile) || profileError) {
+        localStorage.removeItem("accessToken")
+        router.replace("/auth/signin")
+      }
+
+      // Check the role is not OWNER
+      if (profile && profile.role !== "OWNER") {
+        toast.error("권한이 없습니다.")
+        router.replace("/dashboard/common-notice")
+      }
+    })()
+  }, [isProfileLoading, profile, profileError, router])
+
   const { error, data: notice } = useQuery({
     queryKey: ["notice", "www", id],
     queryFn: () => getNotice({ id, board: "www" }),
+    enabled: profile?.role === "OWNER",
   })
 
   useEffect(() => {

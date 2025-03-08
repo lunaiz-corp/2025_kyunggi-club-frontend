@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next-nprogress-bar"
+
 import toast from "react-hot-toast"
 
 import { overlay } from "overlay-kit"
@@ -12,6 +14,7 @@ import {
 } from "@packages/ui/components/schedules/types"
 
 import { useQuery } from "@tanstack/react-query"
+import { getProfile } from "@/api/profile"
 import { getSchedules } from "@/api/schedule"
 
 import TitleBarWithButton from "./TitleBarWithButton"
@@ -35,17 +38,49 @@ const allowedTypes = {
 }
 
 export default function CalendarList({
-  club,
   category,
 }: Readonly<{
-  club?: string
   category: "OPERATION" | "APPLICATION" | "EXAMINATION" | "INTERVIEW"
 }>) {
+  const router = useRouter()
   const [schedules, setSchedules] = useState<Schedule[]>([])
 
+  const {
+    isLoading: isProfileLoading,
+    error: profileError,
+    data: profile,
+  } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  })
+
+  useEffect(() => {
+    ;(async () => {
+      // Check the token is exist
+      if (!localStorage.getItem("accessToken")) {
+        router.replace("/auth/signin")
+        return
+      }
+
+      // Check the token is valid
+      if ((!isProfileLoading && !profile) || profileError) {
+        localStorage.removeItem("accessToken")
+        router.replace("/auth/signin")
+        return
+      }
+
+      // Check the role is not OWNER
+      if (profile && profile.role !== "OWNER") {
+        toast.error("권한이 없습니다.")
+        router.replace("/dashboard/home")
+      }
+    })()
+  }, [isProfileLoading, profile, profileError, router])
+
   const { isLoading, error, data } = useQuery({
-    queryKey: ["schedule", category, club ?? "global"],
-    queryFn: () => getSchedules({ category, club }),
+    queryKey: ["schedule", category],
+    queryFn: () => getSchedules({ category }),
+    enabled: profile?.role === "OWNER",
   })
 
   useEffect(() => {
@@ -62,10 +97,7 @@ export default function CalendarList({
 
   const createOrModify = async () => {
     const result = await overlay.openAsync<
-      | (Omit<Schedule, "id" | "club"> & {
-          club?: string
-        })
-      | undefined
+      Omit<Schedule, "id"> | undefined
     >(({ isOpen, close, unmount }) => {
       return (
         <ModifyModal
@@ -74,7 +106,6 @@ export default function CalendarList({
             close(props)
             setTimeout(unmount, 200)
           }}
-          defaultClub={club}
           allowedTypes={allowedTypes[category]}
         />
       )

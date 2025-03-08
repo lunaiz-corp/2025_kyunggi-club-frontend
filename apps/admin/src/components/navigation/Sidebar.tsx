@@ -71,23 +71,6 @@ export default function Sidebar() {
         href: "/dashboard/club/application",
       },
     ],
-    "일정 관리": [
-      {
-        name: "모집 일정 관리",
-        icon: CalendarIcon,
-        href: "/dashboard/schedule-club/application",
-      },
-      {
-        name: "지필 일정 관리",
-        icon: PencilIcon,
-        href: "/dashboard/schedule-club/examination",
-      },
-      {
-        name: "면접 일정 관리",
-        icon: ChatIcon,
-        href: "/dashboard/schedule-club/interview",
-      },
-    ],
   })
 
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false)
@@ -168,38 +151,36 @@ export default function Sidebar() {
               href: "/dashboard/club/application",
             },
           ],
-          "일정 관리 (운영진)":
+          "일정 관리":
             profile.role === "OWNER"
               ? [
                   {
                     name: "사이트 상태 설정",
                     icon: CogIcon,
-                    href: "/dashboard/schedule-manager/service-status",
+                    href: "/dashboard/schedule/service-status",
                   },
                   {
                     name: "운영 일정 관리",
                     icon: ScheduleIcon,
-                    href: "/dashboard/schedule-manager/operation",
+                    href: "/dashboard/schedule/operation",
+                  },
+                  {
+                    name: "모집 일정 관리",
+                    icon: CalendarIcon,
+                    href: "/dashboard/schedule/application",
+                  },
+                  {
+                    name: "지필 일정 관리",
+                    icon: PencilIcon,
+                    href: "/dashboard/schedule/examination",
+                  },
+                  {
+                    name: "면접 일정 관리",
+                    icon: ChatIcon,
+                    href: "/dashboard/schedule/interview",
                   },
                 ]
               : [],
-          "일정 관리": [
-            {
-              name: "모집 일정 관리",
-              icon: CalendarIcon,
-              href: "/dashboard/schedule-club/application",
-            },
-            {
-              name: "지필 일정 관리",
-              icon: PencilIcon,
-              href: "/dashboard/schedule-club/examination",
-            },
-            {
-              name: "면접 일정 관리",
-              icon: ChatIcon,
-              href: "/dashboard/schedule-club/interview",
-            },
-          ],
         })
       }
     })()

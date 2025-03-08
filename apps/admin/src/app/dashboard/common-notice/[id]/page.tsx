@@ -7,6 +7,7 @@ import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 
 import { useQuery } from "@tanstack/react-query"
+import { getProfile } from "@/api/profile"
 import { getNotice } from "@/api/notice"
 
 import {
@@ -17,9 +18,36 @@ import { TrashIcon } from "@heroicons/react/24/outline"
 
 import { NextLink, Button } from "@packages/ui/components/krds/Action"
 
+import Tiptap from "../../notice/_components/editor/Tiptap"
+
 export default function Notice() {
   const { id } = useParams<{ id: string }>()
   const router = useRouter()
+
+  const {
+    isLoading: isProfileLoading,
+    error: profileError,
+    data: profile,
+  } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  })
+
+  useEffect(() => {
+    ;(async () => {
+      // Check the token is exist
+      if (!localStorage.getItem("accessToken")) {
+        router.replace("/auth/signin")
+        return
+      }
+
+      // Check the token is valid
+      if ((!isProfileLoading && !profile) || profileError) {
+        localStorage.removeItem("accessToken")
+        router.replace("/auth/signin")
+      }
+    })()
+  }, [isProfileLoading, profile, profileError, router])
 
   const { error, data: notice } = useQuery({
     queryKey: ["notice", "admin", id],
@@ -38,15 +66,15 @@ export default function Notice() {
   return (
     <>
       <title>
-        관리자 공지사항 관리 - 경기고등학교 이공계동아리연합
+        {`${profile?.role === "OWNER" ? "관리자 공지사항 관리" : "관리자 공지사항"} - 경기고등학교 이공계동아리연합`}
       </title>
       <meta
         property="og:title"
-        content="관리자 공지사항 관리 - 경기고등학교 이공계동아리연합"
+        content={`${profile?.role === "OWNER" ? "관리자 공지사항 관리" : "관리자 공지사항"} - 경기고등학교 이공계동아리연합`}
       />
       <meta
         name="twitter:title"
-        content="관리자 공지사항 관리 - 경기고등학교 이공계동아리연합"
+        content={`${profile?.role === "OWNER" ? "관리자 공지사항 관리" : "관리자 공지사항"} - 경기고등학교 이공계동아리연합`}
       />
 
       <div className="my-10 flex flex-col gap-12">
@@ -82,31 +110,34 @@ export default function Notice() {
           </div>
         </div>
 
-        <article
-          className="inline-flex flex-col gap-11"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: notice?.content ?? "" }}
-        />
+        {notice?.content && (
+          <Tiptap
+            editable={false}
+            contentState={[notice.content ?? "", () => {}]}
+          />
+        )}
 
-        <div className="flex gap-6">
-          <Button
-            type="button"
-            className="disabled:bg-point-970 border-point-500 bg-point-500 hover:bg-point-400 focus:bg-point-400 focus:outline-point-500 active:bg-point-400 disabled:cursor-not-allowed disabled:border-point-700"
-          >
-            <TrashIcon className="size-5 stroke-gray-100 stroke-2" />
-            <span className="text-gray-100">삭제</span>
-          </Button>
-
-          <Link href={`/dashboard/notice/${id}/edit`}>
+        {profile?.role === "OWNER" && (
+          <div className="flex gap-6">
             <Button
               type="button"
-              className="border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
+              className="disabled:bg-point-970 border-point-500 bg-point-500 hover:bg-point-400 focus:bg-point-400 focus:outline-point-500 active:bg-point-400 disabled:cursor-not-allowed disabled:border-point-700"
             >
-              <PencilIcon className="size-4 fill-gray-900" />
-              <span className="text-gray-900">수정</span>
+              <TrashIcon className="size-5 stroke-gray-100 stroke-2" />
+              <span className="text-gray-100">삭제</span>
             </Button>
-          </Link>
-        </div>
+
+            <Link href={`/dashboard/notice/${id}/edit`}>
+              <Button
+                type="button"
+                className="border-gray-100 bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 focus:outline-gray-100 active:bg-gray-200 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-300"
+              >
+                <PencilIcon className="size-4 fill-gray-900" />
+                <span className="text-gray-900">수정</span>
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </>
   )

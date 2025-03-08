@@ -31,7 +31,6 @@ export const PresetTitle = {
 export default function ModifyModal({
   isOpen,
   close,
-  defaultClub,
   allowedTypes,
 }: Readonly<{
   isOpen: boolean
@@ -40,24 +39,16 @@ export default function ModifyModal({
       club?: string
     },
   ) => void
-  defaultClub?: string
   allowedTypes: Set<Preset>
 }>) {
   const [title, setTitle] = useState<string>("")
 
   const [category, setCategory] = useState<Preset>(Preset.ETC)
-  const [club, setClub] = useState<string | undefined>()
 
   const [startAt, setStartAt] = useState<Date | null>(null)
 
   const customHourRef = useRef<HTMLInputElement>(null)
   const customMinuteRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    if (defaultClub) {
-      setClub(defaultClub)
-    }
-  }, [defaultClub])
 
   useEffect(() => {
     if (
@@ -114,7 +105,6 @@ export default function ModifyModal({
                   close({
                     title,
                     category,
-                    club,
                     start_at: startAt.toISOString(),
                   })
                 }

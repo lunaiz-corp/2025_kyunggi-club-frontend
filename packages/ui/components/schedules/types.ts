@@ -21,9 +21,6 @@ export enum Preset {
 export type Schedule = {
   id: string
   title: string
-
   category: Preset
-  club: string
-
   start_at: string
 }

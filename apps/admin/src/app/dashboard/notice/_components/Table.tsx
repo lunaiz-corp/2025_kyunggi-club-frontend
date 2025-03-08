@@ -1,12 +1,15 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next-nprogress-bar"
+
 import toast from "react-hot-toast"
 
 import { TrashIcon } from "@heroicons/react/24/outline"
 
 import { useQuery } from "@tanstack/react-query"
 import { getNoticeList } from "@/api/notice"
+import { getProfile } from "@/api/profile"
 
 import { Button, NextLink } from "@packages/ui/components/krds/Action"
 import Checkbox from "@packages/ui/components/Checkbox"
@@ -16,6 +19,39 @@ export default function NoticeListTable({
 }: Readonly<{
   board: "www" | "admin"
 }>) {
+  const router = useRouter()
+
+  const {
+    isLoading: isProfileLoading,
+    error: profileError,
+    data: profile,
+  } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  })
+
+  useEffect(() => {
+    ;(async () => {
+      // Check the token is exist
+      if (!localStorage.getItem("accessToken")) {
+        router.replace("/auth/signin")
+        return
+      }
+
+      // Check the token is valid
+      if ((!isProfileLoading && !profile) || profileError) {
+        localStorage.removeItem("accessToken")
+        router.replace("/auth/signin")
+      }
+
+      // Check the role is not OWNER
+      if (profile && profile.role !== "OWNER") {
+        toast.error("권한이 없습니다.")
+        router.replace("/dashboard/common-notice")
+      }
+    })()
+  }, [isProfileLoading, profile, profileError, router])
+
   const {
     isLoading: isListLoading,
     error: listError,
@@ -23,6 +59,7 @@ export default function NoticeListTable({
   } = useQuery({
     queryKey: ["notice", board],
     queryFn: () => getNoticeList({ board }),
+    enabled: profile?.role === "OWNER",
   })
 
   useEffect(() => {

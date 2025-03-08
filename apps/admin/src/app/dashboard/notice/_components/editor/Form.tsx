@@ -1,9 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useRouter } from "next-nprogress-bar"
+
 import toast from "react-hot-toast"
 
-import { useRouter } from "next-nprogress-bar"
+import { useQuery } from "@tanstack/react-query"
+import { getProfile } from "@/api/profile"
 
 import {
   ChevronLeftIcon,
@@ -27,6 +30,42 @@ export default function NoticeForm({
   board: "www" | "admin"
 }>) {
   const router = useRouter()
+  const {
+    isLoading: isProfileLoading,
+    error: profileError,
+    data: profile,
+  } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  })
+
+  useEffect(() => {
+    ;(async () => {
+      // Check the token is exist
+      if (!localStorage.getItem("accessToken")) {
+        router.replace("/auth/signin")
+        return
+      }
+
+      // Check the token is valid
+      if ((!isProfileLoading && !profile) || profileError) {
+        localStorage.removeItem("accessToken")
+        router.replace("/auth/signin")
+        return
+      }
+
+      // Check the role is not OWNER
+      if (profile && profile.role !== "OWNER") {
+        toast.error("권한이 없습니다.")
+
+        if (board === "www") {
+          router.replace("/dashboard/notice")
+        } else {
+          router.replace("/dashboard/common-notice")
+        }
+      }
+    })()
+  }, [board, isProfileLoading, profile, profileError, router])
 
   const [titleInput, setTitleInput] = useState(title ?? "")
   const [contentInput, setContentInput] = useState(content ?? "")
