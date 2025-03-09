@@ -9,6 +9,7 @@ import { overlay } from "overlay-kit"
 import {
   ClipboardDocumentCheckIcon,
   NewspaperIcon,
+  PencilIcon,
 } from "@heroicons/react/20/solid"
 
 import {
@@ -33,6 +34,7 @@ import {
 } from "../types"
 
 import FormPreview from "../../_components/FormPreview"
+import RedoPass from "./RedoPass"
 
 const { clubs } = clubsJson
 
@@ -148,7 +150,7 @@ function RetrieveRequestForm({
 function Status({ form }: Readonly<{ form: SubmittedForm }>) {
   return (
     <div className="flex flex-col gap-7">
-      {form.currentStatus.map((status, index) => (
+      {form.currentStatus.map(status => (
         <div key={status.club} className="flex flex-col gap-7">
           <div className="flex items-center justify-between">
             <Link
@@ -160,8 +162,7 @@ function Status({ form }: Readonly<{ form: SubmittedForm }>) {
                     clubs
                       .find(x => x.id === status.club)!
                       .name.split(" ")[1]
-                  }{" "}
-                  ({index + 1}지망)
+                  }
                 </span>
                 <span className="text-[45px] font-bold">
                   {statusInText[status.status]}
@@ -274,14 +275,75 @@ export default function ApplyForm() {
 
         {formData &&
           (mode === "preview" ? (
-            <Button
-              type="button"
-              className="w-fit"
-              onClick={() => setMode("status")}
-            >
-              <ClipboardDocumentCheckIcon className="size-5" />
-              지원 결과 보기
-            </Button>
+            <div className="flex gap-5">
+              <Button
+                type="button"
+                className="w-fit"
+                onClick={() => setMode("status")}
+              >
+                <ClipboardDocumentCheckIcon className="size-5" />
+                지원 결과 보기
+              </Button>
+
+              <Button
+                type="button"
+                className="w-fit"
+                onClick={() => {
+                  // TODO: Implement PDF Download
+
+                  overlay.open(({ isOpen, close, unmount }) => {
+                    return (
+                      <Modal
+                        isOpen={isOpen}
+                        close={() => {
+                          close()
+                          setTimeout(unmount, 200)
+                        }}
+                        title="지원서 다운로드 안내"
+                      >
+                        지원서 다운로드는 준비 중입니다.
+                      </Modal>
+                    )
+                  })
+                }}
+              >
+                <NewspaperIcon className="size-5" />
+                지원서 다운로드
+              </Button>
+
+              <Button
+                type="button"
+                className="w-fit"
+                onClick={() => {
+                  // TODO: (2026) Implement editing
+
+                  overlay.open(({ isOpen, close, unmount }) => {
+                    return (
+                      <Modal
+                        isOpen={isOpen}
+                        close={() => {
+                          close()
+                          setTimeout(unmount, 200)
+                        }}
+                        title="지원서 수정 안내"
+                      >
+                        지원서 수정은 서버 부하 등 문제로 제공이
+                        중단되었습니다.
+                        <br />
+                        <br />
+                        수정이 필요한 경우, 고객센터 채팅 상담/이메일
+                        (support@kyunggi.club)로 문의해주세요.
+                        <br />
+                        (지원서 수정 문의는 유선 접수 불가)
+                      </Modal>
+                    )
+                  })
+                }}
+              >
+                <PencilIcon className="size-5" />
+                지원서 수정하기
+              </Button>
+            </div>
           ) : (
             <Button
               type="button"
@@ -316,21 +378,32 @@ export default function ApplyForm() {
             const retrieveResponse = await retrieveRequest.json()
 
             if (!retrieveRequest.ok) {
-              overlay.open(({ isOpen, close, unmount }) => {
-                return (
-                  <Modal
-                    isOpen={isOpen}
-                    close={() => {
-                      close()
-                      setTimeout(unmount, 200)
-                    }}
-                    title="오류"
-                  >
-                    {retrieveResponse.message ||
-                      "서버와의 통신 중 오류가 발생했습니다."}
-                  </Modal>
-                )
-              })
+              if (retrieveResponse.status === 423) {
+                overlay.open(controller => (
+                  <RedoPass
+                    id={props.studentId}
+                    name={props.studentName}
+                    password={props.password}
+                    controller={controller}
+                  />
+                ))
+              } else {
+                overlay.open(({ isOpen, close, unmount }) => {
+                  return (
+                    <Modal
+                      isOpen={isOpen}
+                      close={() => {
+                        close()
+                        setTimeout(unmount, 200)
+                      }}
+                      title="오류"
+                    >
+                      {retrieveResponse.message ||
+                        "서버와의 통신 중 오류가 발생했습니다."}
+                    </Modal>
+                  )
+                })
+              }
             }
 
             setFormData(retrieveResponse.data)

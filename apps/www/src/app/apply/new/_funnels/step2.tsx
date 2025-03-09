@@ -420,10 +420,10 @@ export default function ApplyNewFunnelStep2({
         <div className="flex flex-col gap-5">
           <div className="inline-flex flex-col gap-3">
             <span className="text-2xl font-bold">
-              학생 지망 동아리
+              학생 지원 동아리
             </span>
             <span className="text-sm text-gray-500">
-              지망하는 동아리를 1개 이상 선택하여 주세요.
+              지원하고자 하는 동아리를 1개 이상 선택하여 주세요.
             </span>
           </div>
 
@@ -441,7 +441,7 @@ export default function ApplyNewFunnelStep2({
               required
             >
               <option value="" disabled hidden>
-                1지망
+                지원 동아리 1
               </option>
 
               {clubs
@@ -470,7 +470,7 @@ export default function ApplyNewFunnelStep2({
             >
               {applingClubs[1] === "" ? (
                 <option value="" disabled hidden>
-                  2지망
+                  지원 동아리 2
                 </option>
               ) : (
                 <option value="">지원 안함</option>
@@ -502,7 +502,7 @@ export default function ApplyNewFunnelStep2({
             >
               {applingClubs[2] === "" ? (
                 <option value="" disabled hidden>
-                  3지망
+                  지원 동아리 3
                 </option>
               ) : (
                 <option value="">지원 안함</option>
@@ -526,17 +526,17 @@ export default function ApplyNewFunnelStep2({
         <div className="flex flex-col gap-6 rounded-lg bg-gray-900 px-4 py-5 text-gray-200">
           <span className="inline-flex items-center gap-3 font-bold">
             <ExclamationCircleIcon className="size-5" />
-            잠깐! 2지망/3지망을 선택하고 싶지 않으신가요?
+            잠깐! 지원 동아리 2/3을 선택하고 싶지 않으신가요?
           </span>
 
           <div className="inline-flex flex-col gap-2">
             <span className="text-sm font-bold">
-              아직 2지망/3지망을 선택하지 않으셨다면,
+              아직 지원 동아리 1/2을 선택하지 않으셨다면,
             </span>
 
             <span className="text-gray-300">
-              2지망/3지망을 선택하지 않고 바로 다음 단계로 넘어갈 수
-              있습니다.
+              지원 동아리 1/2을 선택하지 않고 바로 다음 단계로 넘어갈
+              수 있습니다.
             </span>
           </div>
 
@@ -544,12 +544,12 @@ export default function ApplyNewFunnelStep2({
 
           <div className="inline-flex flex-col gap-2">
             <span className="text-sm font-bold">
-              이미 2지망/3지망을 선택하셨다면,
+              이미 지원 동아리 1/2을 선택하셨다면,
             </span>
 
             <span className="text-gray-300">
-              다시 2지망/3지망 옵션에서 &apos;지원 안함&apos;를 선택해
-              주세요.
+              다시 지원 동아리 1/2 옵션에서 &apos;지원 안함&apos;를
+              선택해 주세요.
             </span>
           </div>
         </div>
