@@ -96,6 +96,7 @@ const findCurrentBadgeStatus = (
       [
         CurrentStatus.WAITING,
         CurrentStatus.DOCUMENT_PASSED,
+        CurrentStatus.EXAM_PASSED,
         CurrentStatus.INTERVIEW_PASSED,
         CurrentStatus.FINAL_SUBMISSION,
       ].includes(status)

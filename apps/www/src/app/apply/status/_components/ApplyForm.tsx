@@ -32,11 +32,6 @@ import {
   type SubmittedForm,
 } from "../types"
 
-import {
-  RetrieveKnownError,
-  RetrieveNotKnownError,
-} from "../_exceptions/RetrieveExceptions"
-
 import FormPreview from "../../_components/FormPreview"
 
 const { clubs } = clubsJson
@@ -304,35 +299,23 @@ export default function ApplyForm() {
       {!formData ? (
         <RetrieveRequestForm
           onSubmit={async (e, props) => {
-            try {
-              const retrieveRequest = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/apply/student/${props.studentId}`,
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    studentName: props.studentName,
-                    password: props.password,
-                  }),
+            const retrieveRequest = await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/apply/student/${props.studentId}`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
                 },
-              )
+                body: JSON.stringify({
+                  studentName: props.studentName,
+                  password: props.password,
+                }),
+              },
+            )
 
-              if (!retrieveRequest.ok) {
-                throw new RetrieveNotKnownError(
-                  "FORMDATA_RETRIEVE_SERVER_ERROR",
-                  "서버와의 통신 중 오류가 발생했습니다.",
-                )
-              }
+            const retrieveResponse = await retrieveRequest.json()
 
-              const { data } = await retrieveRequest.json()
-              setFormData(data)
-            } catch (error) {
-              if (!(error instanceof RetrieveKnownError)) {
-                throw error
-              }
-
+            if (!retrieveRequest.ok) {
               overlay.open(({ isOpen, close, unmount }) => {
                 return (
                   <Modal
@@ -343,11 +326,14 @@ export default function ApplyForm() {
                     }}
                     title="오류"
                   >
-                    {error.message}
+                    {retrieveResponse.message ||
+                      "서버와의 통신 중 오류가 발생했습니다."}
                   </Modal>
                 )
               })
             }
+
+            setFormData(retrieveResponse.data)
           }}
         />
       ) : mode === "preview" ? (
