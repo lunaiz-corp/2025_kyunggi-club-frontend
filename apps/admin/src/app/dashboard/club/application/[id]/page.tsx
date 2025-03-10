@@ -37,7 +37,7 @@ export default async function ClubApplicationList({
         title={currentClub.name.split(" ")[1]}
       />
 
-      <List />
+      <List club={id} />
     </div>
   )
 }

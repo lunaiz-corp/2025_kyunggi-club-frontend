@@ -54,7 +54,7 @@ export default function FormPreview({
       <div className="inline-flex flex-col gap-5">
         <span className="text-xl">학생 지망 동아리</span>
 
-        <div className="inline-flex gap-6 text-4xl font-bold">
+        <div className="inline-flex gap-10 text-4xl font-bold">
           {form.applingClubs
             .filter(club => club !== "")
             .map(club => (

@@ -74,6 +74,9 @@ importers:
       react-loading-skeleton:
         specifier: ^3.5.0
         version: 3.5.0(react@19.0.0)
+      react-to-print:
+        specifier: ^3.0.5
+        version: 3.0.5(react@19.0.0)
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.3.0
@@ -2988,6 +2991,11 @@ packages:
     resolution: {integrity: sha512-gxxSyLbrEAdXTKgfbpBEFZCO/P153DnqSCQau2+o6lNy1jgMRr2MmRmOzMmyrwSaSYLRB8g7b0waYPmUjz7IhQ==}
     peerDependencies:
       react: '>=16.8.0'
+
+  react-to-print@3.0.5:
+    resolution: {integrity: sha512-Z15MwMOzYCHWi26CZeFNwflAg7Nr8uWD6FTj+EkfIOjYyjr0MXGbI0c7rF4Fgrbj3XG9hFndb1ourxpPz2RAiA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ~19
 
   react@19.0.0:
     resolution: {integrity: sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==}
@@ -6371,6 +6379,10 @@ snapshots:
   react-is@16.13.1: {}
 
   react-loading-skeleton@3.5.0(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+
+  react-to-print@3.0.5(react@19.0.0):
     dependencies:
       react: 19.0.0
 

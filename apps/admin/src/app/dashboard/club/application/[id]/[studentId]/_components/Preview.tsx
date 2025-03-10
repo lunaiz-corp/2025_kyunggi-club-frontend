@@ -1,6 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import toast from "react-hot-toast"
+
+import { useRouter } from "next-nprogress-bar"
+
+import { useQuery } from "@tanstack/react-query"
+import { getApplication } from "@/api/club"
 
 import {
   ChatBubbleOvalLeftEllipsisIcon,
@@ -15,8 +21,6 @@ import {
 
 import { Button, NextLink } from "@packages/ui/components/krds/Action"
 import { cn } from "@packages/ui/utils/tailwindMerge"
-
-import { SubmittedForm } from "../../_components/types"
 
 import actionRowStyle from "./_styles/actionrow.module.css"
 
@@ -63,17 +67,33 @@ function ActionRows() {
 
 export default function Preview({
   club,
-  form,
+  studentId,
 }: Readonly<{
   club: {
     id: string
     name: string
   }
-  form: SubmittedForm
+  studentId: number
 }>) {
+  const router = useRouter()
+
   const [type, setType] = useState<"PERSONAL_INFO" | "FORM">(
     "PERSONAL_INFO",
   )
+
+  const { error, data: form } = useQuery({
+    queryKey: ["application", club.id, studentId],
+    queryFn: () => getApplication({ club: club.id, id: studentId }),
+  })
+
+  useEffect(() => {
+    if (error) {
+      toast.error(
+        error.message || "서버와의 통신 중 오류가 발생했습니다.",
+      )
+      router.push(`/dashboard/club/application/${club.id}`)
+    }
+  }, [club.id, error, router])
 
   return (
     <>
@@ -82,47 +102,49 @@ export default function Preview({
           동아리 관리 / 접수된 지원서 목록
         </span>
 
-        <div className="flex justify-between">
-          <div className="flex items-center gap-4">
-            <NextLink
-              href={`/dashboard/club/application/${club.id}`}
-              className="p-1.5"
-            >
-              <ChevronLeftIcon className="size-5" />
-            </NextLink>
+        {form && (
+          <div className="flex justify-between">
+            <div className="flex items-center gap-4">
+              <NextLink
+                href={`/dashboard/club/application/${club.id}`}
+                className="p-1.5"
+              >
+                <ChevronLeftIcon className="size-5" />
+              </NextLink>
 
-            <div className="text-gray-10 text-3xl font-bold">
-              {form.userInfo.name}
+              <div className="text-gray-10 text-3xl font-bold">
+                {form.userInfo.name}
+              </div>
+            </div>
+
+            <div className="flex shrink-0 gap-3 rounded-xl bg-gray-700 px-3 py-2">
+              <button
+                onClick={() => setType("PERSONAL_INFO")}
+                type="button"
+                className={cn(
+                  "inline-flex cursor-pointer items-center justify-center rounded-xl bg-gray-700 px-4 py-1.5 hover:bg-gray-600",
+                  type === "PERSONAL_INFO" && "bg-gray-600",
+                )}
+              >
+                <span className="font-bold">개인 정보</span>
+              </button>
+
+              <button
+                onClick={() => setType("FORM")}
+                type="button"
+                className={cn(
+                  "inline-flex cursor-pointer items-center justify-center rounded-xl bg-gray-700 px-4 py-1.5 hover:bg-gray-600",
+                  type === "FORM" && "bg-gray-600",
+                )}
+              >
+                <span className="font-bold">지원서</span>
+              </button>
             </div>
           </div>
-
-          <div className="flex shrink-0 gap-3 rounded-xl bg-gray-700 px-3 py-2">
-            <button
-              onClick={() => setType("PERSONAL_INFO")}
-              type="button"
-              className={cn(
-                "inline-flex cursor-pointer items-center justify-center rounded-xl bg-gray-700 px-4 py-1.5 hover:bg-gray-600",
-                type === "PERSONAL_INFO" && "bg-gray-600",
-              )}
-            >
-              <span className="font-bold">개인 정보</span>
-            </button>
-
-            <button
-              onClick={() => setType("FORM")}
-              type="button"
-              className={cn(
-                "inline-flex cursor-pointer items-center justify-center rounded-xl bg-gray-700 px-4 py-1.5 hover:bg-gray-600",
-                type === "FORM" && "bg-gray-600",
-              )}
-            >
-              <span className="font-bold">지원서</span>
-            </button>
-          </div>
-        </div>
+        )}
       </div>
 
-      {type === "PERSONAL_INFO" && (
+      {form && type === "PERSONAL_INFO" && (
         <PersonalInfoPreview
           form={{
             userInfo: form.userInfo,
@@ -131,9 +153,11 @@ export default function Preview({
         />
       )}
 
-      {type === "FORM" && <FormPreview club={club.id} form={form} />}
+      {form && type === "FORM" && (
+        <FormPreview club={club.id} form={form} />
+      )}
 
-      <ActionRows />
+      {form && <ActionRows />}
     </>
   )
 }

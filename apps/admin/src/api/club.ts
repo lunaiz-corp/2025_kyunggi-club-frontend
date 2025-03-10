@@ -1,5 +1,9 @@
 import { Member } from "./types/member"
 import { Question } from "./types/form"
+import type {
+  SubmittedForm,
+  SubmittedFormForList,
+} from "./types/application"
 
 export async function getMemberList({ club }: { club: string }) {
   const accessToken = localStorage.getItem("accessToken")
@@ -73,7 +77,12 @@ export async function getApplicationList({ club }: { club: string }) {
     throw new Error((await response.json()).message)
   }
 
-  return (await response.json()).data
+  return (await response.json()).data as {
+    [key: string]: Pick<
+      SubmittedFormForList,
+      "userInfo" | "applingClubs"
+    >[]
+  }
 }
 
 export async function getApplication({
@@ -81,7 +90,7 @@ export async function getApplication({
   id,
 }: {
   club: string
-  id: string
+  id: number
 }) {
   const accessToken = localStorage.getItem("accessToken")
 
@@ -104,5 +113,5 @@ export async function getApplication({
     throw new Error((await response.json()).message)
   }
 
-  return (await response.json()).data
+  return (await response.json()).data as SubmittedForm
 }

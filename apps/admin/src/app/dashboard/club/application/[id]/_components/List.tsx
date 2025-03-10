@@ -1,7 +1,13 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import toast from "react-hot-toast"
+
+import { useRouter } from "next-nprogress-bar"
 import Link from "next/link"
+
+import { useQuery } from "@tanstack/react-query"
+import { getApplicationList } from "@/api/club"
 
 import {
   CheckIcon,
@@ -23,85 +29,13 @@ import * as clubsJson from "@/data/clubs.json"
 
 import {
   CurrentStatus,
-  statusInText,
-  SubmittedFormForList,
-} from "./types"
+  type SubmittedFormForList,
+} from "@/api/types/application"
+import { statusInText } from "./types"
 
 import actionRowStyle from "./_styles/actionrow.module.css"
 
 const { clubs } = clubsJson
-
-const MOCK_LIST: {
-  [key: string]: Pick<
-    SubmittedFormForList,
-    "userInfo" | "applingClubs"
-  >[]
-} = {
-  [CurrentStatus.PASSED]: [
-    {
-      userInfo: {
-        id: 12345,
-        name: "홍길동",
-      },
-      applingClubs: ["list", "cel", "kec"],
-    },
-    {
-      userInfo: {
-        id: 23456,
-        name: "홍길동",
-      },
-      applingClubs: ["list", "cel", "kec"],
-    },
-  ],
-  [CurrentStatus.WAITING]: [
-    {
-      userInfo: {
-        id: 34567,
-        name: "홍길동",
-      },
-      applingClubs: ["list", "cel", "kec"],
-    },
-    {
-      userInfo: {
-        id: 45678,
-        name: "홍길동",
-      },
-      applingClubs: ["list", "cel", "kec"],
-    },
-  ],
-  [CurrentStatus.REJECTED]: [
-    {
-      userInfo: {
-        id: 56789,
-        name: "홍길동",
-      },
-      applingClubs: ["list", "cel", "kec"],
-    },
-    {
-      userInfo: {
-        id: 67890,
-        name: "홍길동",
-      },
-      applingClubs: ["list", "cel", "kec"],
-    },
-  ],
-  [CurrentStatus.FINAL_SUBMISSION]: [
-    {
-      userInfo: {
-        id: 78901,
-        name: "홍길동",
-      },
-      applingClubs: ["list", "cel", "kec"],
-    },
-    {
-      userInfo: {
-        id: 89012,
-        name: "홍길동",
-      },
-      applingClubs: ["list", "cel", "kec"],
-    },
-  ],
-}
 
 function ActionRows({
   checkedItems,
@@ -180,7 +114,7 @@ function ActionRows({
   )
 }
 
-export default function List() {
+export default function List({ club }: Readonly<{ club: string }>) {
   const [searchInput, setSearchInput] = useState("")
   const [filteredList, setFilteredList] = useState<{
     [key: string]: Pick<
@@ -192,24 +126,41 @@ export default function List() {
     Pick<SubmittedFormForList, "userInfo" | "applingClubs">[]
   >([])
 
+  const router = useRouter()
+
+  const { error, data: applications } = useQuery({
+    queryKey: ["applications"],
+    queryFn: () => getApplicationList({ club }),
+  })
+
   useEffect(() => {
-    setFilteredList(MOCK_LIST)
-  }, [])
+    if (error) {
+      toast.error(
+        error.message || "서버와의 통신 중 오류가 발생했습니다.",
+      )
+      router.push("/dashboard/home")
+    }
+
+    if (applications) {
+      setFilteredList(applications)
+    }
+  }, [error, applications, router])
 
   const handleSearch = () => {
-    if (searchInput) {
+    if (searchInput && applications) {
       const result = Object.fromEntries(
-        Object.entries(MOCK_LIST).map(([status, list]) => [
+        Object.entries(applications).map(([status, list]) => [
           status,
           list.filter(
-            student => student.userInfo.id === Number(searchInput),
+            application =>
+              application.userInfo.id === Number(searchInput),
           ),
         ]),
       )
 
       setFilteredList(result)
     } else {
-      setFilteredList(MOCK_LIST)
+      setFilteredList(applications)
     }
   }
 
@@ -219,6 +170,8 @@ export default function List() {
         className="flex items-center gap-4"
         onSubmit={e => {
           e.preventDefault()
+
+          setSelectedList([])
           handleSearch()
         }}
       >
@@ -245,9 +198,49 @@ export default function List() {
 
       {Object.entries(filteredList || {}).map(([status, list]) => (
         <div key={status} className="flex flex-col gap-6">
-          <h3 className="text-2xl font-bold">
-            {statusInText[status as CurrentStatus]}
-          </h3>
+          <div className="flex items-center gap-4">
+            <Checkbox
+              id={`checkbox-${status}`}
+              checked={
+                // when all items in this status are selected
+                list.every(x =>
+                  selectedList.some(
+                    y => y.userInfo.id === x.userInfo.id,
+                  ),
+                )
+              }
+              onChange={
+                // toggle all items in this status
+                e => {
+                  const { checked } = e.target
+
+                  if (checked) {
+                    setSelectedList(selected => [
+                      ...selected,
+                      ...list.filter(
+                        x =>
+                          !selected.some(
+                            y => y.userInfo.id === x.userInfo.id,
+                          ),
+                      ),
+                    ])
+                  } else {
+                    setSelectedList(selected =>
+                      selected.filter(
+                        x =>
+                          !list.some(
+                            y => y.userInfo.id === x.userInfo.id,
+                          ),
+                      ),
+                    )
+                  }
+                }
+              }
+            />
+            <h3 className="text-2xl font-bold">
+              {statusInText[status as CurrentStatus]}
+            </h3>
+          </div>
 
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
             {list.map(student => (
@@ -258,6 +251,9 @@ export default function List() {
                 <div className="flex size-6 items-center justify-center p-1">
                   <Checkbox
                     id={student.userInfo.id.toString()}
+                    checked={selectedList.some(
+                      x => x.userInfo.id === student.userInfo.id,
+                    )}
                     onChange={e => {
                       if (e.target.checked) {
                         setSelectedList(selected => [
@@ -308,7 +304,7 @@ export default function List() {
                   </div>
 
                   <Link
-                    href={`/dashboard/club/application/list/${student.userInfo.id}`}
+                    href={`/dashboard/club/application/${club}/${student.userInfo.id}`}
                   >
                     <span className="text-2xl font-bold">
                       {student.userInfo.name}
@@ -316,15 +312,15 @@ export default function List() {
                   </Link>
 
                   <div className="inline-flex gap-2">
-                    {student.applingClubs.map(club => (
+                    {student.applingClubs.map(applingClub => (
                       <div
-                        key={`${student.userInfo.id}-${club}`}
+                        key={`${student.userInfo.id}-${applingClub}`}
                         className="rounded-md bg-gray-700 px-2.5 py-0.5"
                       >
                         <span className="text-xs">
                           {
                             clubs
-                              .find(x => x.id === club)!
+                              .find(x => x.id === applingClub)!
                               .name.split(" ")[1]
                           }
                         </span>

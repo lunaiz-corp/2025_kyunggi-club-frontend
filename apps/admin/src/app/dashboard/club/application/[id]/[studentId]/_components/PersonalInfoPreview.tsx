@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { TextInput } from "@packages/ui/components/krds/Input"
 
-import type { SubmittedForm } from "../../_components/types"
+import type { SubmittedForm } from "@/api/types/application"
 
 export default function PersonalInfoPreview({
   form,
@@ -9,7 +9,7 @@ export default function PersonalInfoPreview({
   form: Pick<SubmittedForm, "userInfo" | "parentInfo">
 }>) {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="mb-24 flex flex-col gap-6">
       <div className="h-0.5 bg-gray-800" />
 
       <div className="flex flex-col gap-8">

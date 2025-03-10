@@ -1,52 +1,25 @@
-import {
-  TextInput,
-  Textarea,
-} from "@packages/ui/components/krds/Input"
+"use client"
+
+import { useEffect } from "react"
+import toast from "react-hot-toast"
+
+import { useQuery } from "@tanstack/react-query"
+import { getForm } from "@/api/club"
+
+import { TextInput } from "@packages/ui/components/krds/Input"
+import { baseClass as textareaBaseClass } from "@packages/ui/components/krds/Input/Textarea"
+
 import Checkbox from "@packages/ui/components/Checkbox"
 import Select from "@packages/ui/components/krds/Select"
+
 import {
   ReadOnlyFileList,
   type UploadedFile,
 } from "@packages/ui/components/krds/Input/FileUpload"
 
 import { QuestionType } from "@/api/types/form"
-import type { SubmittedForm } from "../../_components/types"
-
-const MOCK_QUESTION = [
-  {
-    id: 1,
-    question: "무임승차를 하실건가요?1",
-    type: QuestionType.SHORT_INPUT,
-    required: false,
-  },
-  {
-    id: 2,
-    question: "무임승차를 하실건가요?2",
-    type: QuestionType.LONG_INPUT,
-    required: false,
-  },
-  {
-    id: 3,
-    question: "무임승차를 하실건가요?3",
-    type: QuestionType.MULTIPLE_CHOICE,
-    options: ["옵션 1", "옵션 2"],
-    required: false,
-  },
-  {
-    id: 4,
-    question: "무임승차를 하실건가요?4",
-    type: QuestionType.DROPDOWN,
-    options: ["옵션 1", "옵션 2"],
-    required: false,
-  },
-  {
-    id: 5,
-    question: "무임승차를 하실건가요?5",
-    type: QuestionType.FILE_UPLOAD,
-    maxFiles: 10,
-    required: false,
-  },
-]
+import type { SubmittedForm } from "@/api/types/application"
+import { cn } from "@packages/ui/utils/tailwindMerge"
 
 export default function FormPreview({
   club,
@@ -55,16 +28,27 @@ export default function FormPreview({
   club: string
   form: Pick<SubmittedForm, "applingClubs" | "formAnswers">
 }>) {
-  const { answers } = form.formAnswers.find(
-    answer => answer.club === club,
-  )!
+  const { error, data: questions } = useQuery({
+    queryKey: ["questions", club],
+    queryFn: () => getForm({ club }),
+  })
+
+  useEffect(() => {
+    if (error) {
+      toast.error(
+        error.message || "서버와의 통신 중 오류가 발생했습니다.",
+      )
+    }
+  }, [error])
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="mb-24 flex flex-col gap-10">
       <div className="h-0.5 bg-gray-800" />
 
-      {MOCK_QUESTION.map(question => {
-        const answer = answers.find(a => a.id === question.id)!
+      {questions?.map(question => {
+        const answer = form.formAnswers.find(
+          a => a.id === question.id,
+        )!
 
         return (
           <div key={question.id} className="flex flex-col gap-5">
@@ -88,14 +72,13 @@ export default function FormPreview({
             )}
 
             {question.type === QuestionType.LONG_INPUT && (
-              <Textarea
+              <div
                 key={question.id}
                 id={`q-${question.id}`}
-                placeholder=""
-                className="h-40 bg-gray-800"
-                value={(answer?.answer as string) || ""}
-                disabled
-              />
+                className={cn(textareaBaseClass, "bg-gray-800")}
+              >
+                {(answer?.answer as string) || ""}
+              </div>
             )}
 
             {question.type === QuestionType.MULTIPLE_CHOICE && (
