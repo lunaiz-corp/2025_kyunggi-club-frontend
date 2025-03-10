@@ -81,7 +81,7 @@ export default function SelectChances() {
               key={club.clubId}
               tabIndex={0}
               maxChance={Math.max(...Object.values(data), 0)}
-              selectChance={(data[club.clubId] ?? 0) / 15}
+              selectChance={data[club.clubId] ?? 0}
               {...club}
             />
           ))}
