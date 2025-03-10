@@ -311,7 +311,7 @@ export default function ApplyNewFunnelStep2({
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 rounded-lg bg-gray-900 px-4 py-5 text-gray-200">
+        {/* <div className="flex flex-col gap-6 rounded-lg bg-gray-900 px-4 py-5 text-gray-200">
           <span className="inline-flex items-center gap-3 font-bold">
             <ExclamationCircleIcon className="size-5" />
             잠깐! 본인 명의 휴대폰이 없거나 실명 인증에 어려움이
@@ -346,7 +346,7 @@ export default function ApplyNewFunnelStep2({
               않습니다.
             </span>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="h-0.5 bg-gray-900" />
