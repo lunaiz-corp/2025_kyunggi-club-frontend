@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import Script from "next/script"
 
+import { GoogleTagManager } from "@next/third-parties/google"
+
 import ProgressBarProvider from "@packages/ui/components/ProgressBar"
 import { A11ySkipLink } from "@packages/ui/components/krds/Explore"
 
@@ -42,7 +44,8 @@ export const metadata: Metadata = {
       template: "%s - 경기고등학교 이공계동아리연합",
       default: "경기고등학교 이공계동아리연합",
     },
-    description: "",
+    description:
+      "경기고등학교 이공계동아리연합 - 동아리 모집/선발 시스템",
     url: "https://kyunggi.club",
     siteName: "경기고등학교 이공계동아리연합",
     images: [
@@ -60,7 +63,8 @@ export const metadata: Metadata = {
       template: "%s - 경기고등학교 이공계동아리연합",
       default: "경기고등학교 이공계동아리연합",
     },
-    description: "",
+    description:
+      "경기고등학교 이공계동아리연합 - 동아리 모집/선발 시스템",
     images: ["https://kg-cdn-toast.schooler.kr/assets/og-image.png"],
   },
 
@@ -80,7 +84,9 @@ export const metadata: Metadata = {
 
   verification: {
     other: {
-      "naver-site-verification": "",
+      monetag: "89f32e814a74861e68ca66c5c2c1ac92",
+      "naver-site-verification":
+        "95b75837c7d57d83723f91228e09c1e26d97621a",
     },
   },
 }
@@ -124,7 +130,9 @@ export default function RootLayout({
             </OverlayProvider>
           </QueryClientProvider>
         </ProgressBarProvider>
+
         <ChannelIO />
+        <GoogleTagManager gtmId="GTM-5P32C3PP" />
       </body>
     </html>
   )

@@ -18,7 +18,8 @@ export const metadata: Metadata = {
     default: "경기고등학교 이공계동아리연합",
   },
 
-  description: "",
+  description:
+    "경기고등학교 이공계동아리연합 - 동아리 모집/선발 시스템",
   keywords: [],
 
   metadataBase: new URL("https://admin.kyunggi.club"),
@@ -31,7 +32,8 @@ export const metadata: Metadata = {
       template: "%s - 경기고등학교 이공계동아리연합",
       default: "경기고등학교 이공계동아리연합",
     },
-    description: "",
+    description:
+      "경기고등학교 이공계동아리연합 - 동아리 모집/선발 시스템",
     url: "https://admin.kyunggi.club",
     siteName: "경기고등학교 이공계동아리연합",
     images: [
@@ -49,7 +51,8 @@ export const metadata: Metadata = {
       template: "%s - 경기고등학교 이공계동아리연합",
       default: "경기고등학교 이공계동아리연합",
     },
-    description: "",
+    description:
+      "경기고등학교 이공계동아리연합 - 동아리 모집/선발 시스템",
     images: ["https://kg-cdn-toast.schooler.kr/assets/og-image.png"],
   },
 
@@ -65,12 +68,6 @@ export const metadata: Metadata = {
       "https://kg-cdn-toast.schooler.kr/assets/icon/logo_margin.svg",
     apple:
       "https://kg-cdn-toast.schooler.kr/assets/icon/logo_margin@2x.png",
-  },
-
-  verification: {
-    other: {
-      "naver-site-verification": "",
-    },
   },
 }
 
