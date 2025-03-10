@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useEffect, useRef, useState } from "react"
 
-import { overlay } from "overlay-kit"
-import { customAlphabet } from "nanoid"
+// import { overlay } from "overlay-kit"
+// import { customAlphabet } from "nanoid"
 
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline"
 import {
@@ -13,7 +13,7 @@ import {
 import { TextInput } from "@packages/ui/components/krds/Input"
 import Select from "@packages/ui/components/krds/Select"
 import { Button } from "@packages/ui/components/krds/Action"
-import { Modal } from "@packages/ui/components/krds/Layout"
+// import { Modal } from "@packages/ui/components/krds/Layout"
 
 import * as clubsJson from "@/data/clubs.json"
 
@@ -52,14 +52,14 @@ export default function ApplyNewFunnelStep2({
   } & ApplyBaseContext
 >) {
   const havePrefilled = useRef<boolean>(false)
-  const kcpAuthPop = useRef<WindowProxy | null>(null)
+  // const kcpAuthPop = useRef<WindowProxy | null>(null)
 
   const [studentId, setStudentId] = useState<string>("")
   const [studentName, setStudentName] = useState<string>("")
   const [studentPhone, setStudentPhone] = useState<string>("")
-  const [verifiedRefId, setVerifiedRefId] = useState<string>("")
-  const [isVerifiedPhoneIsParent, setIsVerifiedPhoneIsParent] =
-    useState<boolean>(false)
+  // const [verifiedRefId, setVerifiedRefId] = useState<string>("")
+  // const [isVerifiedPhoneIsParent, setIsVerifiedPhoneIsParent] =
+  //   useState<boolean>(false)
 
   const [parentName, setParentName] = useState<string>("")
   const [parentRelationship, setParentRelationship] =
@@ -79,10 +79,10 @@ export default function ApplyNewFunnelStep2({
         setStudentId(context.userInfo.id.toString())
         setStudentName(context.userInfo.name)
         setStudentPhone(context.userInfo.phone)
-        setVerifiedRefId(context.userInfo.verifiedRefId)
-        setIsVerifiedPhoneIsParent(
-          context.userInfo.isVerifiedPhoneIsParent,
-        )
+        // setVerifiedRefId(context.userInfo.verifiedRefId)
+        // setIsVerifiedPhoneIsParent(
+        //   context.userInfo.isVerifiedPhoneIsParent,
+        // )
       }
 
       if (context.parentInfo) {
@@ -99,95 +99,95 @@ export default function ApplyNewFunnelStep2({
     }
   }, [context])
 
-  const requestVerifyPhone = async () => {
-    const nanoid = customAlphabet(
-      "0123456789abcdefghijklmnopqrstuvwxyz",
-      10,
-    )
+  // const requestVerifyPhone = async () => {
+  //   const nanoid = customAlphabet(
+  //     "0123456789abcdefghijklmnopqrstuvwxyz",
+  //     10,
+  //   )
 
-    const orderId = `KGH${new Date().toISOString().substring(0, 19).replace(/[\D]/g, "")}@${nanoid()}`
+  //   const orderId = `KGH${new Date().toISOString().substring(0, 19).replace(/[\D]/g, "")}@${nanoid()}`
 
-    if (window.matchMedia("(max-width: 768px)").matches) {
-      kcpAuthPop.current = window.open(
-        `/apply/pass/request?orderId=${orderId}`,
-        "auth_popup",
-      )
-    } else {
-      const width = 410
-      // const height = 500
-      const height = 724
+  //   if (window.matchMedia("(max-width: 768px)").matches) {
+  //     kcpAuthPop.current = window.open(
+  //       `/apply/pass/request?orderId=${orderId}`,
+  //       "auth_popup",
+  //     )
+  //   } else {
+  //     const width = 410
+  //     // const height = 500
+  //     const height = 724
 
-      const leftpos = window.screen.width / 2 - width / 2
-      const toppos = window.screen.height / 2 - height / 2
+  //     const leftpos = window.screen.width / 2 - width / 2
+  //     const toppos = window.screen.height / 2 - height / 2
 
-      kcpAuthPop.current = window.open(
-        `/apply/pass/request?orderId=${orderId}`,
-        "auth_popup",
-        `width=${width}, height=${height}, left=${leftpos}, top=${toppos}, toolbar=no, status=no, statusbar=no, menubar=no, scrollbars=no, resizable=no, fullscreen=no, titlebar=no, location=no`,
-      )
-    }
+  //     kcpAuthPop.current = window.open(
+  //       `/apply/pass/request?orderId=${orderId}`,
+  //       "auth_popup",
+  //       `width=${width}, height=${height}, left=${leftpos}, top=${toppos}, toolbar=no, status=no, statusbar=no, menubar=no, scrollbars=no, resizable=no, fullscreen=no, titlebar=no, location=no`,
+  //     )
+  //   }
 
-    if (kcpAuthPop.current) {
-      kcpAuthPop.current.focus()
-    } else {
-      overlay.open(({ isOpen, close, unmount }) => {
-        return (
-          <Modal
-            isOpen={isOpen}
-            close={() => {
-              close()
-              setTimeout(unmount, 200)
-            }}
-            title="오류"
-          >
-            팝업 차단을 해제해주세요.
-          </Modal>
-        )
-      })
-    }
-  }
+  //   if (kcpAuthPop.current) {
+  //     kcpAuthPop.current.focus()
+  //   } else {
+  //     overlay.open(({ isOpen, close, unmount }) => {
+  //       return (
+  //         <Modal
+  //           isOpen={isOpen}
+  //           close={() => {
+  //             close()
+  //             setTimeout(unmount, 200)
+  //           }}
+  //           title="오류"
+  //         >
+  //           팝업 차단을 해제해주세요.
+  //         </Modal>
+  //       )
+  //     })
+  //   }
+  // }
 
-  useEffect(() => {
-    // checkplus message 이벤트를 팝업으로 부터 받아서 처리
-    const receiveMessage = (event: MessageEvent<string>) => {
-      try {
-        const data = JSON.parse(event.data) as {
-          type: "kcpcert:done"
+  // useEffect(() => {
+  //   // checkplus message 이벤트를 팝업으로 부터 받아서 처리
+  //   const receiveMessage = (event: MessageEvent<string>) => {
+  //     try {
+  //       const data = JSON.parse(event.data) as {
+  //         type: "kcpcert:done"
 
-          orderId?: string
+  //         orderId?: string
 
-          user_name?: string
-          phone_no?: string
+  //         user_name?: string
+  //         phone_no?: string
 
-          is_parent?: boolean
-        }
+  //         is_parent?: boolean
+  //       }
 
-        if (data.type === "kcpcert:done") {
-          // eslint-disable-next-line no-console
-          console.log("KCP Cert result =>", data)
+  //       if (data.type === "kcpcert:done") {
+  //         // eslint-disable-next-line no-console
+  //         console.log("KCP Cert result =>", data)
 
-          setVerifiedRefId(data.orderId!)
-          if (data.is_parent === true) {
-            setParentName(data.user_name!)
-            setParentPhone(data.phone_no!)
-            setIsVerifiedPhoneIsParent(true)
-          } else {
-            setStudentName(data.user_name!)
-            setStudentPhone(data.phone_no!)
-            setIsVerifiedPhoneIsParent(false)
-          }
+  //         setVerifiedRefId(data.orderId!)
+  //         if (data.is_parent === true) {
+  //           setParentName(data.user_name!)
+  //           setParentPhone(data.phone_no!)
+  //           setIsVerifiedPhoneIsParent(true)
+  //         } else {
+  //           setStudentName(data.user_name!)
+  //           setStudentPhone(data.phone_no!)
+  //           setIsVerifiedPhoneIsParent(false)
+  //         }
 
-          kcpAuthPop.current!.close()
-        }
-      } catch {} // eslint-disable-line no-empty
-    }
+  //         kcpAuthPop.current!.close()
+  //       }
+  //     } catch {} // eslint-disable-line no-empty
+  //   }
 
-    window.addEventListener("message", receiveMessage)
+  //   window.addEventListener("message", receiveMessage)
 
-    return () => {
-      window.removeEventListener("message", receiveMessage)
-    }
-  }, [])
+  //   return () => {
+  //     window.removeEventListener("message", receiveMessage)
+  //   }
+  // }, [])
 
   return (
     <form
@@ -205,8 +205,8 @@ export default function ApplyNewFunnelStep2({
             id: parseInt(studentId, 10),
             name: studentName,
             phone: studentPhone,
-            verifiedRefId,
-            isVerifiedPhoneIsParent,
+            verifiedRefId: "",
+            isVerifiedPhoneIsParent: false,
           },
           parentInfo: {
             name: parentName,
@@ -255,14 +255,15 @@ export default function ApplyNewFunnelStep2({
             <TextInput
               id="student-name"
               type="text"
-              placeholder={
-                !isVerifiedPhoneIsParent
-                  ? "실명 인증 후 자동 입력됩니다."
-                  : "예) 홍길동"
-              }
+              // placeholder={
+              //   !isVerifiedPhoneIsParent
+              //     ? "실명 인증 후 자동 입력됩니다."
+              //     : "예) 홍길동"
+              // }
+              placeholder="예) 홍길동"
               value={studentName}
               onChange={e => setStudentName(e.target.value)}
-              readOnly={!isVerifiedPhoneIsParent}
+              // readOnly={!isVerifiedPhoneIsParent}
               required
             />
           </div>
@@ -280,11 +281,12 @@ export default function ApplyNewFunnelStep2({
               id="student-phone"
               type="tel"
               className="w-full flex-1 md:w-auto"
-              placeholder={
-                !isVerifiedPhoneIsParent
-                  ? "실명 인증 후 자동 입력됩니다."
-                  : "예) 01000000000"
-              }
+              // placeholder={
+              //   !isVerifiedPhoneIsParent
+              //     ? "실명 인증 후 자동 입력됩니다."
+              //     : "예) 01000000000"
+              // }
+              placeholder="예) 01000000000"
               maxLength={11}
               pattern="01[0-9][0-9]{7,8}"
               value={studentPhone}
@@ -294,18 +296,18 @@ export default function ApplyNewFunnelStep2({
 
                 setStudentPhone(e.target.value)
               }}
-              readOnly={!isVerifiedPhoneIsParent}
+              // readOnly={!isVerifiedPhoneIsParent}
               required
             />
 
-            <Button
+            {/* <Button
               type="button"
               className="w-full px-6 py-4 md:w-fit"
               onClick={() => requestVerifyPhone()}
               disabled={!!verifiedRefId}
             >
               {verifiedRefId ? "인증 완료" : "실명 인증"}
-            </Button>
+            </Button> */}
           </div>
         </div>
 
@@ -364,7 +366,7 @@ export default function ApplyNewFunnelStep2({
               placeholder="예) 홍길동"
               value={parentName}
               onChange={e => setParentName(e.target.value)}
-              readOnly={isVerifiedPhoneIsParent}
+              // readOnly={isVerifiedPhoneIsParent}
               required
             />
           </div>
@@ -408,7 +410,7 @@ export default function ApplyNewFunnelStep2({
 
               setParentPhone(e.target.value)
             }}
-            readOnly={isVerifiedPhoneIsParent}
+            // readOnly={isVerifiedPhoneIsParent}
             required
           />
         </div>
