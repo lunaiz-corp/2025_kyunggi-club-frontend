@@ -1,3 +1,11 @@
 @page {
     size: A4 portrait;
+    margin: 48px 0;
+}
+
+@media print {
+    .py-12 {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
 }

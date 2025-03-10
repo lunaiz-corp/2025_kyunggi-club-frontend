@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 
 import * as clubsJson from "@/data/clubs.json"
 
-import Preview from "./_components/Preview"
+import Printer from "./_components/Printer"
 
 const { clubs } = clubsJson
 
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function ClubApplicationDetail({
+export default async function PrintApplication({
   params,
 }: Readonly<{
   params: Promise<{ id: string; studentId: number }>
@@ -30,8 +30,8 @@ export default async function ClubApplicationDetail({
   }
 
   return (
-    <div className="flex flex-col gap-10">
-      <Preview club={currentClub} studentId={studentId} />
+    <div>
+      <Printer club={currentClub} studentId={studentId} />
     </div>
   )
 }
