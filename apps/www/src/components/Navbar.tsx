@@ -12,11 +12,8 @@ import {
   Bars3Icon,
 } from "@heroicons/react/24/outline"
 
-import { NextLink } from "@packages/ui/components/krds/Action"
-import {
-  // ALink,
-  baseClass as baseLinkClass,
-} from "@packages/ui/components/krds/Action/Link"
+import { NextLink, ALink } from "@packages/ui/components/krds/Action"
+import { baseClass as baseLinkClass } from "@packages/ui/components/krds/Action/Link"
 
 import UnionLogo from "@packages/assets/images/union-logo.svg"
 
@@ -84,7 +81,7 @@ export default function Navbar() {
 
           {/* PC Navbar Menu */}
           <nav className="hidden gap-3 md:inline-flex">
-            <NextLink
+            {/* <NextLink
               href="/apply/new"
               className={cn(
                 "justify-between px-4 py-2 font-bold",
@@ -102,9 +99,9 @@ export default function Navbar() {
             >
               <InboxIcon className="size-5" />
               지원하기
-            </NextLink>
+            </NextLink> */}
 
-            {/* <ALink
+            <ALink
               href="#"
               className="justify-between px-4 py-2 font-bold"
               onClick={e => {
@@ -117,7 +114,7 @@ export default function Navbar() {
             >
               <InboxIcon className="size-5" />
               지원하기
-            </ALink> */}
+            </ALink>
 
             <NextLink
               href="/club"
@@ -181,7 +178,7 @@ export default function Navbar() {
           )}
         >
           <nav className="flex flex-col gap-4 px-8 pt-8 pb-4">
-            <NextLink
+            {/* <NextLink
               href="/apply/new"
               className="inline-flex items-center justify-between gap-2 px-4 py-2 font-bold"
               onClick={e => {
@@ -197,9 +194,9 @@ export default function Navbar() {
             >
               지원하기
               <InboxIcon className="size-5" />
-            </NextLink>
+            </NextLink> */}
 
-            {/* <ALink
+            <ALink
               href="#"
               className="inline-flex items-center justify-between gap-2 px-4 py-2 font-bold"
               onClick={e => {
@@ -212,7 +209,7 @@ export default function Navbar() {
             >
               <InboxIcon className="size-5" />
               지원하기
-            </ALink> */}
+            </ALink>
 
             <NextLink
               href="/club"
