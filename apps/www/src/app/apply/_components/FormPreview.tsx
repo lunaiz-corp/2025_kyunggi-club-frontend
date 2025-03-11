@@ -41,6 +41,7 @@ export default function FormPreview({
   } = useQuery({
     queryKey: ["questions", step],
     queryFn: () => getForm({ club: step }),
+    retry: false,
   })
 
   const { answers } = form.formAnswers.find(

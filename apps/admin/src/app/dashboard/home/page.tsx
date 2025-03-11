@@ -1,11 +1,6 @@
-import { Suspense } from "react"
 import type { Metadata } from "next"
 
-import Skeleton from "react-loading-skeleton"
-
 import SelectChances from "@packages/ui/components/select-chances"
-import NoticesSummary from "@packages/ui/components/notices/summary"
-import { NextLink } from "@packages/ui/components/krds/Action"
 
 import ScheduleList from "./_components/Schedule"
 import NoticeList from "./_components/NoticeList"

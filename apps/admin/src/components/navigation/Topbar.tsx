@@ -25,6 +25,7 @@ export default function Topbar() {
   } = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
+    retry: false,
   })
 
   useEffect(() => {

@@ -28,6 +28,7 @@ export default function Status() {
   } = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
+    retry: false,
   })
 
   useEffect(() => {
@@ -57,6 +58,7 @@ export default function Status() {
     queryKey: ["status"],
     queryFn: getCurrentStatus,
     enabled: profile?.role === "OWNER",
+    retry: false,
   })
 
   useEffect(() => {

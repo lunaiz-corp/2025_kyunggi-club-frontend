@@ -40,6 +40,7 @@ export default function Template({
   } = useQuery({
     queryKey: ["templates", club.id],
     queryFn: () => getForm({ club: club.id }),
+    retry: false,
   })
 
   const [questions, setQuestions] = useState<Question[]>([])

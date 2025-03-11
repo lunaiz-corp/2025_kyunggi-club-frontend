@@ -27,6 +27,7 @@ export default function AccountListTable({
   } = useQuery({
     queryKey: ["members", id],
     queryFn: () => getMemberList({ club: id }),
+    retry: false,
   })
 
   const [checkedAccounts, setCheckedAccounts] = useState<string[]>([])

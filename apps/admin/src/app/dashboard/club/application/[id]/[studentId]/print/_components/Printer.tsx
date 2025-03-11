@@ -37,11 +37,13 @@ export default function Printer({
   const { error: questionsError, data: questions } = useQuery({
     queryKey: ["questions", club.id],
     queryFn: () => getForm({ club: club.id }),
+    retry: false,
   })
 
   const { error: formError, data: form } = useQuery({
     queryKey: ["application", club.id, studentId],
     queryFn: () => getApplication({ club: club.id, id: studentId }),
+    retry: false,
   })
 
   useEffect(() => {

@@ -13,6 +13,7 @@ export default function NoticeLinks() {
   } = useQuery({
     queryKey: ["noticeList"],
     queryFn: getNoticeList,
+    retry: false,
   })
 
   return (

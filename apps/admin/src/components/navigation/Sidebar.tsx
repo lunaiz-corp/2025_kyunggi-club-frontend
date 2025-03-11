@@ -82,6 +82,7 @@ export default function Sidebar() {
   } = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
+    retry: false,
   })
 
   const {
@@ -91,6 +92,7 @@ export default function Sidebar() {
   } = useQuery({
     queryKey: ["ip"],
     queryFn: getIp,
+    retry: false,
   })
 
   useEffect(() => {

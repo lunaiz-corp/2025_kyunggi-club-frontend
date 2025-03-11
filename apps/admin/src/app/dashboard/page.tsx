@@ -18,6 +18,7 @@ export default function Home() {
   } = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
+    retry: false,
   })
 
   useEffect(() => {

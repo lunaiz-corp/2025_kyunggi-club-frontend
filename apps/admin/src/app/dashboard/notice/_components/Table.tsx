@@ -23,6 +23,7 @@ export default function NoticeListTable({
   } = useQuery({
     queryKey: ["notice", board],
     queryFn: () => getNoticeList({ board }),
+    retry: false,
   })
 
   useEffect(() => {

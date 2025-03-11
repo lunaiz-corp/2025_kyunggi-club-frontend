@@ -27,6 +27,7 @@ export default function ScheduleList() {
   } = useQuery({
     queryKey: ["schedule"],
     queryFn: () => getSchedules({}),
+    retry: false,
   })
 
   return (
@@ -38,37 +39,54 @@ export default function ScheduleList() {
           highlightColor="var(--color-gray-700)"
         />
       ) : (
-        scheduleList.slice(0, 2).map(schedule => (
-          <div
-            key={schedule.id}
-            className="flex rounded-xl bg-gray-100/10"
-          >
-            <div className="inline-flex w-36 items-center justify-center gap-2.5 overflow-hidden rounded-l-xl bg-ceruleanBlue-700 py-7">
-              <div className="text-lg font-bold text-blue-50">
-                {
-                  PresetTitle[
-                    schedule.category as keyof typeof PresetTitle
-                  ]
-                }
+        scheduleList
+          .filter(schedule => {
+            const today = new Date()
+            const scheduleDate = new Date(schedule.start_at)
+
+            return (
+              today.getFullYear() === scheduleDate.getFullYear() &&
+              today.getMonth() === scheduleDate.getMonth() &&
+              today.getDate() === scheduleDate.getDate()
+            )
+          })
+          .slice(0, 2)
+          .map(schedule => (
+            <div
+              key={schedule.id}
+              className="flex rounded-xl bg-gray-100/10"
+            >
+              <div className="inline-flex w-36 items-center justify-center gap-2.5 overflow-hidden rounded-l-xl bg-ceruleanBlue-700 py-7">
+                <div className="text-lg font-bold text-blue-50">
+                  {
+                    PresetTitle[
+                      schedule.category as keyof typeof PresetTitle
+                    ]
+                  }
+                </div>
+              </div>
+              <div className="inline-flex w-full items-center justify-between rounded-r-xl px-10">
+                <span className="font-semibold">
+                  {schedule.title}
+                </span>
+                <span className="flex-1 text-right text-sm">
+                  일정 :{" "}
+                  {new Date(schedule.start_at).toLocaleString(
+                    "ko-KR",
+                    {
+                      timeZone: "Asia/Seoul",
+
+                      month: "long",
+                      day: "numeric",
+
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    },
+                  )}
+                </span>
               </div>
             </div>
-            <div className="inline-flex w-full items-center justify-between rounded-r-xl px-10">
-              <span className="font-semibold">{schedule.title}</span>
-              <span className="flex-1 text-right text-sm">
-                일정 :{" "}
-                {new Date(schedule.start_at).toLocaleString("ko-KR", {
-                  timeZone: "Asia/Seoul",
-
-                  month: "long",
-                  day: "numeric",
-
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </span>
-            </div>
-          </div>
-        ))
+          ))
       )}
     </div>
   )

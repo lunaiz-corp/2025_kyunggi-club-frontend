@@ -1,5 +1,6 @@
 "use client"
 
+/*
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay } from "swiper/modules"
 
@@ -39,5 +40,57 @@ export default function Advertisements({
         </SwiperSlide>
       ))}
     </Swiper>
+  )
+}
+*/
+
+import Image from "next/image"
+import { NextLink } from "@packages/ui/components/krds/Action"
+
+import * as clubsJson from "@/data/clubs.json"
+
+const { clubs } = clubsJson
+
+function ClubsSummary({
+  id,
+  name,
+}: Readonly<{ id: string; name: string }>) {
+  return (
+    <NextLink href={`/club/${id}`} className="flex justify-between">
+      <div className="inline-flex items-center gap-2.5">
+        <Image
+          src={`https://kg-cdn-toast.schooler.kr/assets/badge/${id}.webp`}
+          alt={`${name} 동아리 배지`}
+          width={32}
+          height={18}
+        />
+
+        <span className="w-56 truncate text-lg md:w-96">{name}</span>
+      </div>
+    </NextLink>
+  )
+}
+
+export default function Advertisements({
+  page,
+}: Readonly<{ page: string }>) {
+  return (
+    page === "main" && (
+      <div className="flex w-full flex-1 flex-col gap-5">
+        <div className="inline-flex items-center justify-between">
+          <h2 className="text-lg font-bold">동아리 목록</h2>
+
+          <NextLink href="/club">
+            <span className="text-sm">더보기</span>
+          </NextLink>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          {clubs.map(x => {
+            return <ClubsSummary key={x.id} id={x.id} name={x.name} />
+          })}
+        </div>
+      </div>
+    )
   )
 }

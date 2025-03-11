@@ -27,6 +27,7 @@ export default function ClubSelect({
     queryKey: ["profile"],
     queryFn: () =>
       getProfile() as Promise<Member & { club: string[] }>,
+    retry: false,
   })
 
   useEffect(() => {

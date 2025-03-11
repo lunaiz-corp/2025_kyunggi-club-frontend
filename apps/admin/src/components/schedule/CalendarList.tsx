@@ -52,6 +52,7 @@ export default function CalendarList({
   } = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
+    retry: false,
   })
 
   useEffect(() => {
@@ -81,6 +82,7 @@ export default function CalendarList({
     queryKey: ["schedule", category],
     queryFn: () => getSchedules({ category }),
     enabled: profile?.role === "OWNER",
+    retry: false,
   })
 
   useEffect(() => {

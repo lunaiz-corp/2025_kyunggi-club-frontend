@@ -184,6 +184,7 @@ export default function Preview({
   const { error, data: form } = useQuery({
     queryKey: ["application", club.id, studentId],
     queryFn: () => getApplication({ club: club.id, id: studentId }),
+    retry: false,
   })
 
   useEffect(() => {

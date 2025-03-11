@@ -31,6 +31,7 @@ export default function FormPreview({
   const { error, data: questions } = useQuery({
     queryKey: ["questions", club],
     queryFn: () => getForm({ club }),
+    retry: false,
   })
 
   useEffect(() => {

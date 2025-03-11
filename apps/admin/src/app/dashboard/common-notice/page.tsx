@@ -22,6 +22,7 @@ export default function Notice() {
   } = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
+    retry: false,
   })
 
   useEffect(() => {

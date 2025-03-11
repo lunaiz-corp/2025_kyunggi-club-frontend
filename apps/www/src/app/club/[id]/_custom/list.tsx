@@ -13,6 +13,11 @@ import { ArrowRightIcon } from "@heroicons/react/20/solid"
 import { SpeakerXMarkIcon } from "@heroicons/react/24/solid"
 import Image from "next/image"
 
+import "swiper/css"
+import "swiper/css/autoplay"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
+
 export default function ListCustom() {
   const [firstVideoMuted, setFirstVideoMuted] =
     useState<boolean>(true)

@@ -135,6 +135,7 @@ export default function List({ club }: Readonly<{ club: string }>) {
   const { error, data: applications } = useQuery({
     queryKey: ["applications"],
     queryFn: () => getApplicationList({ club }),
+    retry: false,
   })
 
   useEffect(() => {

@@ -21,6 +21,7 @@ export default function NoticeEdit() {
   } = useQuery({
     queryKey: ["notice", "admin", id],
     queryFn: () => getNotice({ id, board: "admin" }),
+    retry: false,
   })
 
   useEffect(() => {

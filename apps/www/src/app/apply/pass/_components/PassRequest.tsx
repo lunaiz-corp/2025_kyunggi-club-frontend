@@ -22,6 +22,7 @@ export default function PassRequest({
     queryKey: ["pass", orderId],
     queryFn: () => encryptPassRequest(orderId, device!),
     enabled: !!orderId && !!device,
+    retry: false,
   })
 
   const formRef = useRef<HTMLFormElement>(null)

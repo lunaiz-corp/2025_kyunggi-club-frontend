@@ -58,6 +58,7 @@ function Questions({
   } = useQuery({
     queryKey: ["questions", club],
     queryFn: () => getForm({ club }),
+    retry: false,
   })
 
   return (

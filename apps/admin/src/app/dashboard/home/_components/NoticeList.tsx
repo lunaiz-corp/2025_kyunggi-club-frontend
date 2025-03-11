@@ -16,6 +16,7 @@ export default function SummaryList() {
   } = useQuery({
     queryKey: ["noticeList"],
     queryFn: () => getNoticeList({ board: "admin" }),
+    retry: false,
   })
 
   return (

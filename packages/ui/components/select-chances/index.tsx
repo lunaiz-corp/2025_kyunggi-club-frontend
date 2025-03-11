@@ -24,6 +24,7 @@ export default function SelectChances() {
   const { isLoading, error, data } = useQuery({
     queryKey: ["chances"],
     queryFn: getChances,
+    retry: false,
   })
 
   const list = [

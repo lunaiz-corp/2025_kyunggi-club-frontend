@@ -52,6 +52,7 @@ export default function Notice() {
   const { error, data: notice } = useQuery({
     queryKey: ["notice", "admin", id],
     queryFn: () => getNotice({ id, board: "admin" }),
+    retry: false,
   })
 
   useEffect(() => {

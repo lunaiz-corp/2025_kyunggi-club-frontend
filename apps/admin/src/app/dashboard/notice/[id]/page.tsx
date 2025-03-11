@@ -31,6 +31,7 @@ export default function Notice() {
   } = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
+    retry: false,
   })
 
   useEffect(() => {
@@ -59,6 +60,7 @@ export default function Notice() {
     queryKey: ["notice", "www", id],
     queryFn: () => getNotice({ id, board: "www" }),
     enabled: profile?.role === "OWNER",
+    retry: false,
   })
 
   useEffect(() => {

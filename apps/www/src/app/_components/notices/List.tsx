@@ -16,6 +16,7 @@ export default function SummaryList() {
   } = useQuery({
     queryKey: ["noticeList"],
     queryFn: getNoticeList,
+    retry: false,
   })
 
   return (
@@ -38,7 +39,7 @@ export default function SummaryList() {
         ) : (
           noticeList
             .sort((a, b) => b.id - a.id)
-            .slice(0, 6)
+            .slice(0, 9)
             .map(x => {
               return (
                 <NoticesSummary
