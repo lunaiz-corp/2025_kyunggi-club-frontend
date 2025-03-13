@@ -36,7 +36,7 @@ export default function NoticeLinks() {
             </div>
 
             <span className="text-gray-300">
-              {new Date(x.created_at).toLocaleString("ko-KR", {
+              {new Date(x.createdAt).toLocaleString("ko-KR", {
                 timeZone: "Asia/Seoul",
 
                 year: "numeric",

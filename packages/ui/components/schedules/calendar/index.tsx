@@ -143,7 +143,7 @@ export default function SchedulesCalendar({
           if (
             schedules.some(
               schedule =>
-                new Date(schedule.start_at).toDateString() ===
+                new Date(schedule.startAt).toDateString() ===
                 date.toDateString(),
             )
           ) {

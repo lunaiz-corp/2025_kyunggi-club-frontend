@@ -62,7 +62,7 @@ export default function NoticeDetail() {
 
           <div className="text-gray-300">
             {new Date(
-              notice?.created_at ?? "1970-01-01T00:00:00Z",
+              notice?.createdAt ?? "1970-01-01T00:00:00Z",
             ).toLocaleString("ko-KR", {
               timeZone: "Asia/Seoul",
 

@@ -42,7 +42,7 @@ export default function ScheduleList() {
         scheduleList
           .filter(schedule => {
             const today = new Date()
-            const scheduleDate = new Date(schedule.start_at)
+            const scheduleDate = new Date(schedule.startAt)
 
             return (
               today.getFullYear() === scheduleDate.getFullYear() &&
@@ -71,7 +71,7 @@ export default function ScheduleList() {
                 </span>
                 <span className="flex-1 text-right text-sm">
                   일정 :{" "}
-                  {new Date(schedule.start_at).toLocaleString(
+                  {new Date(schedule.startAt).toLocaleString(
                     "ko-KR",
                     {
                       timeZone: "Asia/Seoul",

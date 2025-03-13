@@ -114,7 +114,7 @@ export default function NoticeListTable({
                   </td>
 
                   <td className="w-64 py-6 text-right text-sm text-gray-300">
-                    {new Date(x.created_at).toLocaleString("ko-KR", {
+                    {new Date(x.createdAt).toLocaleString("ko-KR", {
                       timeZone: "Asia/Seoul",
 
                       year: "numeric",

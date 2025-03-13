@@ -47,7 +47,7 @@ export default function SummaryList() {
                   id={x.id}
                   title={x.title}
                   baseUrl="/dashboard/common-notice"
-                  date={new Date(x.created_at)}
+                  date={new Date(x.createdAt)}
                 />
               )
             })

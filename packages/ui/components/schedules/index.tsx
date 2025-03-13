@@ -53,7 +53,7 @@ function SchedulesList({
       }}
     >
       <span className="text-sm text-gray-200">
-        {new Date(schedule.start_at).toLocaleString("ko-KR", {
+        {new Date(schedule.startAt).toLocaleString("ko-KR", {
           timeZone: "Asia/Seoul",
 
           month: "long",
@@ -74,7 +74,7 @@ function SchedulesList({
   ) : (
     <div className="inline-flex flex-col gap-1.5">
       <span className="text-sm text-gray-200">
-        {new Date(schedule.start_at).toLocaleString("ko-KR", {
+        {new Date(schedule.startAt).toLocaleString("ko-KR", {
           timeZone: "Asia/Seoul",
 
           month: "long",
@@ -123,7 +123,7 @@ export default function Schedules({
             const selectedDateEnd = new Date(selectedDate)
             selectedDateEnd.setHours(23, 59, 59, 999)
 
-            const scheduleStart = new Date(schedule.start_at)
+            const scheduleStart = new Date(schedule.startAt)
 
             return (
               scheduleStart >= selectedDateStart &&

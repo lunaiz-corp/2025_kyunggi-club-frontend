@@ -22,5 +22,5 @@ export type Schedule = {
   id: string
   title: string
   category: Preset
-  start_at: string
+  startAt: string
 }

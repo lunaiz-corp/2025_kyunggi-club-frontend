@@ -37,6 +37,8 @@ function ActionRows({
   studentId: number
   currentStatus: CurrentStatus
 }>) {
+  const router = useRouter()
+
   return (
     <div className={actionRowStyle.staticActionRow}>
       <Button
@@ -151,7 +153,7 @@ function ActionRows({
             toast.success("이번 단계 불합격 처리되었습니다.")
 
             setTimeout(() => {
-              window.location.reload()
+              router.push(`/dashboard/club/application/${club}`)
             }, 100)
           } else {
             toast.error("불합격 처리 중 오류가 발생했습니다.")

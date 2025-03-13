@@ -111,7 +111,7 @@ export default function ModifyModal({
                   close({
                     title,
                     category,
-                    start_at: startAt.toISOString(),
+                    startAt: startAt.toISOString(),
                   })
                 }
               }}
