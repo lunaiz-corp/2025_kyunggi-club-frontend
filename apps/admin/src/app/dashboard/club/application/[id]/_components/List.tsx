@@ -14,6 +14,7 @@ import {
   ClockIcon,
   XMarkIcon,
   MagnifyingGlassIcon,
+  BanknotesIcon,
   // NewspaperIcon,
 } from "@heroicons/react/24/outline"
 
@@ -122,6 +123,45 @@ function ActionRows({
         <ChatBubbleOvalLeftEllipsisIcon className="size-5 fill-gray-100" />
         <span className="text-gray-100">알림톡 발송</span>
       </Button> */}
+
+      <Button
+        type="button"
+        className="border-success-400 bg-success-400 hover:bg-success-500 focus:bg-success-500 focus:outline-success-500 active:bg-success-500 disabled:cursor-not-allowed disabled:border-success-500 disabled:bg-success-600"
+        onClick={async () => {
+          const excelRequest = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/apply/${club}/excel`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+              },
+              body: JSON.stringify({
+                ids: Array.from(checkedItems).map(x => x.userInfo.id),
+              }),
+            },
+          )
+
+          if (excelRequest.ok) {
+            toast.success("엑셀 파일 생성이 완료되었습니다.")
+
+            // Get blob and download
+            const blob = await excelRequest.blob()
+            const url = window.URL.createObjectURL(blob)
+
+            const a = document.createElement("a")
+            a.href = url
+            a.download = `${clubs.find(x => x.id === club)?.name}_purplebook.csv`
+
+            a.click()
+          } else {
+            toast.error("엑셀 파일 생성 중 오류가 발생했습니다.")
+          }
+        }}
+      >
+        <BanknotesIcon className="size-5 stroke-gray-100" />
+        <span className="text-gray-100">엑셀 다운로드</span>
+      </Button>
 
       <Button
         type="button"
