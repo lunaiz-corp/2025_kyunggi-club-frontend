@@ -113,6 +113,11 @@ export default function Schedules({
 
       <div className="flex flex-col gap-5 py-4 md:w-1/2">
         {schedules
+          .sort(
+            (a, b) =>
+              new Date(a.startAt).getTime() -
+              new Date(b.startAt).getTime(),
+          )
           .filter(schedule => {
             // selectedDate 중에 있는 일정만 보여줌
             if (!selectedDate) return true

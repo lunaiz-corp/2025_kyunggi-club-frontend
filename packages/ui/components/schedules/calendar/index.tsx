@@ -48,7 +48,7 @@ function formatDate(
 }
 
 function getDaysInMonth(date: Date) {
-  const month = date.getMonth()
+  const month = date.getMonth() + 1
   const isLeapYear = date.getFullYear() % 4 === 0
 
   // February
